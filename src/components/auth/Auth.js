@@ -17,6 +17,7 @@ const AuthComponent = () => {
 
      const [login, setLogin] = useState('');
      const [password, setPassword] = useState('');
+
      const dispatch = useDispatch();
 
 
@@ -32,8 +33,6 @@ const AuthComponent = () => {
 
 
      }
-
-
 
      return (
           <Form onSubmit={handleSubmit}>

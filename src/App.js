@@ -5,13 +5,14 @@ import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import {Router} from 'react-router-dom';
 import AuthComponent from './components/auth/Auth';
+import RegisterComponent from "./components/auth/Register";
 
 function App() {
 
   return (
       <Provider store = { store }>
         <PersistGate persistor = { persistor }>
-          <AuthComponent/>
+          <RegisterComponent/>
         </PersistGate>
       </Provider>
   );
