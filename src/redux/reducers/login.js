@@ -1,13 +1,13 @@
-import { authActions } from "../actions/auth";
+import { loginActions } from "../actions/login";
 
 
 const initialState = {
      userData : { }
 };
 
-export const auth = (state = initialState, action) => {
+export const login = (state = initialState, action) => {
      switch(action.type) {
-          case authActions.RECEIVE_USER_AUTH:
+          case loginActions.RECEIVE_USER_AUTH:
                return {
                     ...state,
                     userData : action.payload
