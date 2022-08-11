@@ -8,7 +8,9 @@ export class HttpService {
         try {
             return await request(url, "POST", requestParams);
         } catch (error) {
-            console.log("Error on POST request : ", error);
+
+            console.log("Error on GET request : ", error);
+
             throw error;
         }
     }
@@ -16,18 +18,13 @@ export class HttpService {
         try {
             return await request(url, "GET", requestParams);
         } catch (error) {
-            console.log("Error on GET request : ", error);
+
+            console.log("Error on POST request : ", error);
             throw error;
         }
     }
-    static async delete(url, requestParams) {
-        try {
-            return await request(url, "DELETE", requestParams);
-        } catch (error) {
-            console.log("Error on DELETE request : ", error);
-            throw error;
-        }
-    }
+
+
 }
 
 async function request(url, method, requestParams) {
