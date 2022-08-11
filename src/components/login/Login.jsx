@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { authUser } from '../../redux/actions/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getUserData } from "../../redux/selectors/auth";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from '../../redux/actions/login';
+import { getUserData } from "../../redux/selectors/login";
 
 
-const AuthComponent = () => {
+const LoginComponent = () => {
 
      const userInfo = useSelector(getUserData);
 
@@ -28,7 +28,7 @@ const AuthComponent = () => {
                'password' : password
           };
 
-          dispatch(authUser(userData));
+          dispatch(loginUser(userData));
 
 
      }
@@ -65,4 +65,4 @@ const AuthComponent = () => {
      );
 }
 
-export default AuthComponent;
+export default LoginComponent;
