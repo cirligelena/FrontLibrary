@@ -1,3 +1,4 @@
+
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
@@ -9,8 +10,10 @@ import LoaderComponent from "../loader/Loader";
 
 
 
+
 const CategoriesComponent = () => {
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(fetchCategoryList());
     }, []);
