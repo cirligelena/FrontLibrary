@@ -12,18 +12,9 @@ const AuthorsComponent = () => {
 
     const authors = useSelector(getAuthorList);
     return (
-        <div>
-            <ul>
-                {authors?.map((result) =>
-                    <Card style={{ width: '18rem' }} key={result.id}>
-                        <Card.Body>
-                            <Card.Title>{result.firstName} {result.lastName}</Card.Title>
-                            <Card.Text>{result.biography}</Card.Text>
-                        </Card.Body>
-                        <Button variant="primary">Show author's books</Button>
-                    </Card>)}
-            </ul>
-        </div>);
+        <>
+        </>
+    );
 };
 
 export default AuthorsComponent;
