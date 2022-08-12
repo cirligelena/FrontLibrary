@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import NavigationComponent from "./components/navigation/Navigation";
 import LoginComponent from "./components/login/Login";
 import RegistrationComponent from "./components/registration/Registration";
 import HomeComponent from "./components/home/Home";
@@ -15,6 +16,7 @@ function App() {
             <Provider store={store}>
                 <PersistGate persistor={persistor}>
                     <Router>
+                        <NavigationComponent/>
                         <Routes>
                             <Route exact path="/" element={<HomeComponent/>}/>
                             <Route path="/categories" element={<CategoriesComponent/>}/>
