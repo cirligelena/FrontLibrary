@@ -11,7 +11,7 @@ const LoaderComponent = ({divToLoad}) => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 1500)
+        }, 800)
     }, []);
 
     const executeLoader = (loader, divLoaded) => {
