@@ -25,28 +25,30 @@ const BooksComponent = () => {
         dispatch(bookTheBook(bookId, userId));
     }
 
-    return (
-        <>
-            <LoaderComponent divToLoad={
-                <div>
-                    <ul>
-                        {books?.map((result) =>
-                            <Card style={{width: '18rem'}} key={result.id}>
-                                <Card.Body>
-                                    <Card.Title>{result.title}</Card.Title>
-                                    <Card.Text>{result.description}</Card.Text>
-                                </Card.Body>
-                                <ListGroup className="list-group-flush">
-                                    <ListGroup.Item>shelfNumber: {result.shelfNumber}</ListGroup.Item>
-                                    <ListGroup.Item>status: {result.status}</ListGroup.Item>
-                                </ListGroup>
-                                <Button onClick={() => bookBook(result.id)} variant="primary">Book the book< /Button>
-                            </Card>)}
-                    </ul>
-                </div>
-            }/>
-        </>
-    );
+
+        return (
+            <>
+                <LoaderComponent divToLoad={
+            <div>
+            <ul>
+                {books?.map((result) =>
+                    <Card style={{ width: '18rem' }} key={result.id} >
+                        <Card.Body>
+                            <Card.Title>{result.title}</Card.Title>
+                            <Card.Text>{result.description}</Card.Text>
+                        </Card.Body>
+                        <ListGroup className="list-group-flush">
+                            <ListGroup.Item>shelfNumber: {result.shelfNumber}</ListGroup.Item>
+                            <ListGroup.Item>status: {result.status}</ListGroup.Item>
+                        </ListGroup>
+                        <Button onClick={() => bookBook(result.id)} variant="primary">Book the book< /Button>
+                    </Card>)}
+            </ul>
+        </div>
+                }/>
+            </>
+        );
+
 };
 
 export default BooksComponent;
