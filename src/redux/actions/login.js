@@ -19,13 +19,3 @@ export const loginUser = (userData) => (dispatch) => {
      });
 };
 
-export const registerUser = (userData) => (dispatch) => {
-     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REGISTRATION_URL;
-
-     return HttpService.post(url, userData).then(response => {
-          return dispatch({
-               type : authActions.RECEIVE_USER_REGISTER,
-               payload : response
-          });
-     });
-};
