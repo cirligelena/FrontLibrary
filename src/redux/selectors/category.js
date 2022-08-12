@@ -1,0 +1,1 @@
+export const getCategoryList = (state) => state.allCategories.categoryList;
