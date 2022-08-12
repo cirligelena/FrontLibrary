@@ -16,7 +16,7 @@ export class HttpService {
         try {
             return await request(url, "GET", requestParams);
         } catch (error) {
-            console.log("Error on POST request : ", error);
+            console.log("Error on GET request : ", error);
             throw error;
         }
     }
