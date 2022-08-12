@@ -6,5 +6,6 @@ export const routes = {
      ALL_USERS: "user/users",
      ALL_BOOKS: "book/books",
      ALL_AUTHORS: "author/authors",
-     ALL_CATEGORIES : "category/categories"
+     ALL_CATEGORIES : "category/categories",
+     BOOK_THE_BOOK : "book/bookTheBook"
 }

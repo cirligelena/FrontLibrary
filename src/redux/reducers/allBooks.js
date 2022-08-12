@@ -1,4 +1,5 @@
-import {getBooksActions} from "../actions/getAllBooks";
+
+import {bookActions} from "../actions/book";
 
 const initialState = {
     bookList : { }
@@ -6,7 +7,7 @@ const initialState = {
 
 export const allBooks = (state = initialState, action) => {
     switch(action.type) {
-        case getBooksActions.BOOK_LIST:
+        case bookActions.BOOK_LIST:
             return {
                 ...state,
                 bookList : action.payload
