@@ -1,5 +1,5 @@
 import React from "react";
-import AllUsersComponent from "../users/Users";
+import AllUsersComponent from "../user/Users";
 
 
 const HomeComponent = () => {
