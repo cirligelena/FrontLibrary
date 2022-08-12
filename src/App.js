@@ -11,6 +11,7 @@ import HomeComponent from "./components/home/Home";
 import AuthorsComponent from "./components/authors/Authors";
 import CategoriesComponent from "./components/categories/Categories";
 import UsersComponent from "./components/user/Users";
+import BooksComponent from "./components/books/Books";
 
 function App() {
     return (
@@ -19,10 +20,10 @@ function App() {
                     <Router>
                         <NavigationComponent/>
                         <Routes>
-                            <Route exact path="/" element={<HomeComponent/>}/>
+                            <Route exact path="/" element={<UsersComponent/>}/>
                             <Route path="/categories" element={<CategoriesComponent/>}/>
                             <Route path="/authors" element={<AuthorsComponent/>}/>
-                            <Route path="/books" element={<UsersComponent/>}/>
+                            <Route path="/books" element={<BooksComponent/>}/>
                             <Route path="/login" element={<LoginComponent/>}/>
                             <Route path="/registration" element={<RegistrationComponent/>}/>
 
