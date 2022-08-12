@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -9,7 +9,11 @@ import {getCategoryList} from "../../redux/selectors/category";
 
 const CategoriesComponent = () => {
     const dispatch = useDispatch();
-    dispatch(fetchCategoryList());
+
+    useEffect(() => {
+        dispatch(fetchCategoryList());
+    }, []);
+
 
     const categories = useSelector(getCategoryList);
     return (

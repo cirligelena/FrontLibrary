@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getBookList} from "../../redux/selectors/allBooks";
 import {fetchBookList} from "../../redux/actions/getAllBooks";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import {userList} from "../../redux/actions/user";
 
 const BooksComponent = () => {
     const dispatch = useDispatch();
-    dispatch(fetchBookList());
+
+
+    useEffect(() => {
+        dispatch(fetchBookList());
+    }, []);
 
     const books = useSelector(getBookList);
         return (

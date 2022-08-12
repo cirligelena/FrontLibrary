@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -8,7 +8,10 @@ import {getAuthorList} from "../../redux/selectors/author";
 
 const AuthorsComponent = () => {
     const dispatch = useDispatch();
-    dispatch(fetchAuthorList());
+
+    useEffect(() => {
+        dispatch(fetchAuthorList());
+    }, []);
 
     const authors = useSelector(getAuthorList);
     return (
