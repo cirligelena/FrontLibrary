@@ -1,5 +1,5 @@
 .login-page {
-    padding-top: 75px;
+    padding-top: 150px;
     margin-left: 11%;
     margin-right: 16.3%;
     display: flex;
@@ -34,7 +34,7 @@
 
 .login-container {
     width: 100%;
-    height: auto;
+    height: 600px;
     border: black 3px solid;
     border-radius: 15px;
 }
@@ -143,3 +143,4 @@
     background: #444444;
     border: #444444 3px solid;
 }
+

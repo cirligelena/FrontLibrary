@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from '../../redux/actions/login';
 import { getUserData } from "../../redux/selectors/login";
 import {Link} from "react-router-dom";
-import AllUsersComponent from "../user/Users";
 
 
 const LoginComponent = () => {
@@ -93,6 +92,12 @@ const LoginComponent = () => {
                 <div className="registration-btn">
                     <button type="submit">
                         Create account
+                    </button>
+                </div>
+
+                <div className="registration-btn">
+                    <button type="submit">
+                        Continue as a guest
                     </button>
                 </div>
             </div>
