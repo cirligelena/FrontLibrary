@@ -1,17 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import {fetchAuthorList} from "../../redux/actions/author";
 import {getAuthorList} from "../../redux/selectors/author";
+import LoaderComponent from "../loader/Loader";
 
 
 const AuthorsComponent = () => {
     const dispatch = useDispatch();
-    dispatch(fetchAuthorList());
+    useEffect(() => {
+        dispatch(fetchAuthorList());
+    }, []);
+
 
     const authors = useSelector(getAuthorList);
     return (
+        <>
+            <LoaderComponent divToLoad={
         <div>
             <ul>
                 {authors?.map((result) =>
@@ -23,7 +29,10 @@ const AuthorsComponent = () => {
                         <Button variant="primary">Show author's books</Button>
                     </Card>)}
             </ul>
-        </div>);
+        </div>
+            }/>
+        </>
+    );
 };
 
 export default AuthorsComponent;
