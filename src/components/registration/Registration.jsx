@@ -1,84 +1,117 @@
 import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import '../../assets/styles/registration.css';
+import {useDispatch} from "react-redux";
 import {registerUser} from '../../redux/actions/registration';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {getUserData} from "../../redux/selectors/registration";
+import 'react-phone-input-2/lib/style.css';
 
 const RegistrationComponent = () => {
 
-    const userInfo = useSelector(getUserData);
-
-    const accessToken = userInfo.access_token;
-    const refreshToken = userInfo.refresh_token;
-
-
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmedPassword, setConfirmedPassword] = useState('');
+
+    const [errors, setErrors] = useState({})
 
     const dispatch = useDispatch();
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const userData = {
-            'email': login,
+            'email': email,
             'password': password,
             'firstName': firstName,
             'lastName': lastName,
             'phoneNumber': phoneNumber
-
         };
 
         dispatch(registerUser(userData));
-
-
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter new email" onChange={e => setLogin(e.target.value)}/>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicFirstName">
-                <Form.Label>FirstName</Form.Label>
-                <Form.Control type="text" placeholder="firstName" onChange={e => setFirstName(e.target.value)}/>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicLastName">
-                <Form.Label>LastName</Form.Label>
-                <Form.Control type="text" placeholder="lastName" onChange={e => setLastName(e.target.value)}/>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                <Form.Label>PhoneNumber</Form.Label>
-                <Form.Control type="text" placeholder="phoneNumber" onChange={e => setPhoneNumber(e.target.value)}/>
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-
-            <Form.Text className="text-muted">
-                {accessToken}
-            </Form.Text>
-
-            <Form.Text className="text-muted">
-                {refreshToken}
-            </Form.Text>
-        </Form>
+        <>
+            <div className="registration-page">
+                <div className="registration-page__form-container">
+                    <div className="form-container__container">
+                        <div className="form-container__title">
+                            <h1>Registration</h1>
+                            <div className="line-horizontal-small"></div>
+                        </div>
+                        <div className="form-container__form">
+                            <form onSubmit={handleSubmit}>
+                                <div className="form__fullName">
+                                    <section className="form__firstName">
+                                        <input id="firstName"
+                                               name="firstName"
+                                               type="text"
+                                               placeholder="First name"
+                                               onChange={event => setFirstName(event.target.value)}
+                                               required
+                                        />
+                                    </section>
+                                    <section className="form__lastName">
+                                        <input id="lastName"
+                                               name="lastName"
+                                               type="text"
+                                               placeholder="Last name"
+                                               onChange={event => setLastName(event.target.value)}
+                                               required
+                                        />
+                                    </section>
+                                </div>
+                                <section className="form__phone-number">
+                                    <input id="phone-number"
+                                           name="phoneNumber"
+                                           placeholder="Phone number"
+                                           onChange={event => setPhoneNumber(event.target.value)}
+                                           required
+                                    />
+                                </section>
+                                <section className="form__email">
+                                    <input id="email"
+                                           name="email"
+                                           type="email"
+                                           onChange={event => setEmail(event.target.value)}
+                                           required
+                                    />
+                                </section>
+                                <section className="form__password">
+                                    <input id="password"
+                                           name="password"
+                                           type="password"
+                                           placeholder="Password"
+                                           aria-describedby="password-constraints"
+                                           onChange={event => setPassword(event.target.value)}
+                                           required
+                                    />
+                                </section>
+                                <section className="form__repeat-password">
+                                    <input id="confirmed-password"
+                                           name="confirmedPassword"
+                                           type="password"
+                                           onChange={event => setConfirmedPassword(event.target.value)}
+                                           required
+                                    />
+                                </section>
+                                <div className="sign-up-btn">
+                                    <button type="submit">
+                                        Register me
+                                    </button>
+                                </div>
+                            </form>
+                            <div className="already-have-account">
+                                <p>
+                                    Already have an account? Login <a href="/login">here</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
 
