@@ -17,7 +17,6 @@ function App() {
             <Provider store={store}>
                 <PersistGate persistor={persistor}>
                     <Router>
-                        <NavigationComponent/>
                         <Routes>
                             <Route exact path="/" element={<HomeComponent/>}/>
                             <Route path="/categories" element={<CategoriesComponent/>}/>

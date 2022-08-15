@@ -20,7 +20,14 @@ export class HttpService {
             throw error;
         }
     }
-
+    static async put(url, requestParams) {
+        try {
+            return await request(url, "PUT", requestParams);
+        } catch (error) {
+            console.log("Error on PUT request : ", error);
+            throw error;
+        }
+    }
 }
 
 async function request(url, method, requestParams) {

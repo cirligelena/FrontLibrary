@@ -3,5 +3,9 @@ export const routes = {
      BASIC_PATH: "api/",
      LOGIN_URL: "login",
      REGISTRATION_URL: "sign-up",
-     ALL_USERS: "user/users"
+     ALL_USERS: "user/users",
+     ALL_BOOKS: "book/books",
+     ALL_AUTHORS: "author/authors",
+     ALL_CATEGORIES : "category/categories",
+     BOOK_THE_BOOK : "book/bookTheBook"
 }

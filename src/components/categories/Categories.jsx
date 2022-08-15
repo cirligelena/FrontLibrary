@@ -1,18 +1,28 @@
-import React from "react";
+
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import {fetchCategoryList} from "../../redux/actions/category";
 import {getCategoryList} from "../../redux/selectors/category";
+import LoaderComponent from "../loader/Loader";
+
+
 
 
 
 const CategoriesComponent = () => {
     const dispatch = useDispatch();
-    dispatch(fetchCategoryList());
+
+    useEffect(() => {
+        dispatch(fetchCategoryList());
+    }, []);
+
 
     const categories = useSelector(getCategoryList);
     return (
+        <>
+            <LoaderComponent divToLoad={
         <div>
             <ul>
                 {categories?.map((result) =>
@@ -23,7 +33,10 @@ const CategoriesComponent = () => {
                         <Button variant="primary">Show books of this category</Button>
                     </Card>)}
             </ul>
-        </div>);
+        </div>
+            }/>
+        </>
+    );
 };
 
 export default CategoriesComponent;
