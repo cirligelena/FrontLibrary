@@ -4,21 +4,18 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from '../../redux/actions/login';
 import { getUserData } from "../../redux/selectors/login";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 
 const LoginComponent = () => {
 
      const userInfo = useSelector(getUserData);
 
-     const accessToken = userInfo.access_token;
-     const refreshToken = userInfo.refresh_token;
-
 
      const [login, setLogin] = useState('');
      const [password, setPassword] = useState('');
      const dispatch = useDispatch();
-
+     const navigate = useNavigate();
 
      const handleSubmit = (event) => {
           event.preventDefault();
@@ -90,13 +87,13 @@ const LoginComponent = () => {
                     <div className="line-horizontal-after-password"></div>
                 </div>
                 <div className="registration-btn">
-                    <button type="submit">
+                    <button type="button" onClick={() => navigate("/registration")}>
                         Create account
                     </button>
                 </div>
 
                 <div className="registration-btn">
-                    <button type="submit">
+                    <button type="button" onClick={() => navigate("/")}>
                         Continue as a guest
                     </button>
                 </div>

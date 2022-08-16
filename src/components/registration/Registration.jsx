@@ -3,6 +3,8 @@ import '../../assets/styles/registration.css';
 import {useDispatch} from "react-redux";
 import {registerUser} from '../../redux/actions/registration';
 import 'react-phone-input-2/lib/style.css';
+import validateInfo from "../../util/validateInfo";
+import {Link} from "react-router-dom";
 
 const RegistrationComponent = () => {
 
@@ -16,6 +18,10 @@ const RegistrationComponent = () => {
     const [errors, setErrors] = useState({})
 
     const dispatch = useDispatch();
+
+    const handleOnChangeValidating = () => {
+        setErrors(validateInfo({firstName, lastName, email, phoneNumber, password, confirmedPassword}));
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -48,35 +54,52 @@ const RegistrationComponent = () => {
                                                name="firstName"
                                                type="text"
                                                placeholder="First name"
-                                               onChange={event => setFirstName(event.target.value)}
-                                               required
+                                               onChange={event => {
+                                                   setFirstName(event.target.value);
+                                                   handleOnChangeValidating();
+                                               }}
+                                               onFocus={handleOnChangeValidating}
                                         />
+                                        {errors.firstName && <p className="error-message">{errors.firstName}<i>*</i></p>}
                                     </section>
                                     <section className="form__lastName">
                                         <input id="lastName"
                                                name="lastName"
                                                type="text"
                                                placeholder="Last name"
-                                               onChange={event => setLastName(event.target.value)}
-                                               required
+                                               onChange={event => {
+                                                   setLastName(event.target.value);
+                                                   handleOnChangeValidating();
+                                               }}
+                                               onFocus={handleOnChangeValidating}
                                         />
+                                        {errors.lastName && <p className="error-message">{errors.lastName}<i>*</i></p>}
                                     </section>
                                 </div>
                                 <section className="form__phone-number">
                                     <input id="phone-number"
                                            name="phoneNumber"
                                            placeholder="Phone number"
-                                           onChange={event => setPhoneNumber(event.target.value)}
-                                           required
+                                           onChange={event => {
+                                               setPhoneNumber(event.target.value);
+                                               handleOnChangeValidating();
+                                           }}
+                                           onFocus={handleOnChangeValidating}
                                     />
+                                    {errors.phoneNumber && <p className="error-message">{errors.phoneNumber}<i>*</i></p>}
                                 </section>
                                 <section className="form__email">
                                     <input id="email"
                                            name="email"
                                            type="email"
-                                           onChange={event => setEmail(event.target.value)}
-                                           required
+                                           placeholder="Email address"
+                                           onChange={event => {
+                                               setEmail(event.target.value);
+                                               handleOnChangeValidating();
+                                           }}
+                                           onFocus={handleOnChangeValidating}
                                     />
+                                    {errors.email && <p className="error-message">{errors.email}<i>*</i></p>}
                                 </section>
                                 <section className="form__password">
                                     <input id="password"
@@ -84,17 +107,27 @@ const RegistrationComponent = () => {
                                            type="password"
                                            placeholder="Password"
                                            aria-describedby="password-constraints"
-                                           onChange={event => setPassword(event.target.value)}
-                                           required
+                                           onChange={event => {
+                                               setPassword(event.target.value);
+                                               handleOnChangeValidating();
+                                           }}
+                                           onFocus={handleOnChangeValidating}
                                     />
+                                    {errors.password && <p className="error-message">{errors.password}<i>*</i></p>}
                                 </section>
                                 <section className="form__repeat-password">
                                     <input id="confirmed-password"
                                            name="confirmedPassword"
                                            type="password"
-                                           onChange={event => setConfirmedPassword(event.target.value)}
-                                           required
+                                           placeholder="Confirm your password"
+                                           onChange={event => {
+                                               setConfirmedPassword(event.target.value);
+                                               handleOnChangeValidating();
+                                           }}
+                                           onFocus={handleOnChangeValidating}
                                     />
+                                    {errors.confirmedPassword &&
+                                        <p className="error-message">{errors.confirmedPassword}<i>*</i></p>}
                                 </section>
                                 <div className="sign-up-btn">
                                     <button type="submit">
@@ -104,7 +137,7 @@ const RegistrationComponent = () => {
                             </form>
                             <div className="already-have-account">
                                 <p>
-                                    Already have an account? Login <a href="/login">here</a>
+                                    Already have an account? Login <Link to={"/login"}>here</Link>
                                 </p>
                             </div>
                         </div>

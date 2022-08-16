@@ -6,8 +6,18 @@ form section input {
     border-radius: 10px;
 }
 
+.error-message {
+    color: #444444;
+    font-size: 15px;
+
+}
+
+.error-message i {
+    color: red;
+}
+
 .registration-page {
-    padding-top: 150px;
+    padding-top: 100px;
     margin-left: 25%;
     margin-right: 25%;
     display: flex;
@@ -15,7 +25,8 @@ form section input {
 
 .registration-page__form-container {
     width: 100%;
-    height: 600px;
+    min-height: 600px;
+    max-height: 800px;
     border: black 3px solid;
     border-radius: 15px;
 }
