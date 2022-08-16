@@ -20,12 +20,11 @@ const NavigationComponent = () => {
                     <NavLink to={"/books"}>Books</NavLink>
                 </div>
                 <div className="nav-link auth-link">
-                    <NavLink to={"/login"}>Login</NavLink>
-                    /
+                    <NavLink to={"/login"}>Login /</NavLink>
                     <NavLink to={"/registration"}>Sign-Up</NavLink>
                 </div>
             </div>
-            <div className="line-horizontal"></div>
+            <div className="line-horizontal-xxxl"></div>
         </header>
     );
 };
