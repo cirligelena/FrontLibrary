@@ -21,14 +21,18 @@ const AuthorsComponent = () => {
             <LoaderComponent divToLoad={
         <div>
             <ul>
-                {authors?.map((result) =>
-                    <Card style={{ width: '18rem' }} key={result.id}>
-                        <Card.Body>
-                            <Card.Title>{result.firstName} {result.lastName}</Card.Title>
-                            <Card.Text>{result.biography}</Card.Text>
-                        </Card.Body>
-                        <Button variant="primary">Show author's books</Button>
-                    </Card>)}
+                {Array.isArray(authors)
+                    ? authors.map(result => {
+                        return (
+                            <Card style={{width: '18rem'}} key={result.id}>
+                                <Card.Body>
+                                    <Card.Title>{result.firstName} {result.lastName}</Card.Title>
+                                    <Card.Text>{result.biography}</Card.Text>
+                                </Card.Body>
+                                <Button variant="primary">Show author's books</Button>
+                            </Card>)
+                    }) : null
+                }
             </ul>
         </div>
             }/>

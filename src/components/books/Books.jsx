@@ -30,7 +30,9 @@ const BooksComponent = () => {
                 <LoaderComponent divToLoad={
             <div>
             <ul>
-                {books?.map((result) =>
+                {Array.isArray(books)
+                    ? books.map(result => {
+                        return (
                     <Card style={{ width: '18rem' }} key={result.id} >
                         <Card.Body>
                             <Card.Title>{result.title}</Card.Title>
@@ -40,8 +42,10 @@ const BooksComponent = () => {
                             <ListGroup.Item>shelfNumber: {result.shelfNumber}</ListGroup.Item>
                             <ListGroup.Item>status: {result.status}</ListGroup.Item>
                         </ListGroup>
-                        <Button onClick={() => bookBook(result.id)} variant="primary">Book the book< /Button>
-                    </Card>)}
+                        <Button disabled={result.status === "BOOKED" || result.status === "TAKEN"}
+                                onClick={() => bookBook(result.id)} variant="primary" type="submit">Book the book< /Button>
+                    </Card>)
+                    }):null}
             </ul>
         </div>
                 }/>

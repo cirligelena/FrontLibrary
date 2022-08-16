@@ -23,17 +23,22 @@ const CategoriesComponent = () => {
     return (
         <>
             <LoaderComponent divToLoad={
-        <div>
-            <ul>
-                {categories?.map((result) =>
-                    <Card style={{ width: '18rem' }} key={result.id}>
-                        <Card.Body>
-                            <Card.Title>{result.title}</Card.Title>
-                        </Card.Body>
-                        <Button variant="primary">Show books of this category</Button>
-                    </Card>)}
-            </ul>
-        </div>
+                <div>
+                    <ul>
+                        {Array.isArray(categories)
+                            ? categories.map(result => {
+                                return (
+                                    <Card style={{ width: '18rem' }} key={result.id}>
+                                        <Card.Body>
+                                            <Card.Title>{result.title}</Card.Title>
+                                        </Card.Body>
+                                        <Button variant="primary">Show books of this category</Button>
+                                    </Card>)
+                            })
+                            : null
+                        }
+                    </ul>
+                </div>
             }/>
         </>
     );
