@@ -25,6 +25,7 @@ const BooksComponent = () => {
         dispatch(bookTheBook(bookId, userId));
     }
 
+
         return (
             <>
                 <LoaderComponent divToLoad={
@@ -47,6 +48,7 @@ const BooksComponent = () => {
                 }/>
             </>
         );
+
 };
 
 export default BooksComponent;

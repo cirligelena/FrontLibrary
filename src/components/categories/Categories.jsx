@@ -11,6 +11,8 @@ import LoaderComponent from "../loader/Loader";
 
 
 
+
+
 const CategoriesComponent = () => {
     const dispatch = useDispatch();
 
@@ -20,9 +22,12 @@ const CategoriesComponent = () => {
 
 
     const categories = useSelector(getCategoryList);
+
+
     return (
         <>
             <LoaderComponent divToLoad={
+
         <div>
             <ul>
                 {categories?.map((result) =>
@@ -34,6 +39,7 @@ const CategoriesComponent = () => {
                     </Card>)}
             </ul>
         </div>
+
             }/>
         </>
     );
