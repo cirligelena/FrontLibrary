@@ -1,7 +1,7 @@
 import './App.css';
-import { Provider } from 'react-redux';
-import { store, persistor } from './store';
-import { PersistGate } from 'redux-persist/integration/react';
+import {Provider} from 'react-redux';
+import {store, persistor} from './store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import NavigationComponent from "./components/navigation/Navigation";
@@ -12,25 +12,27 @@ import AuthorsComponent from "./components/authors/Authors";
 import CategoriesComponent from "./components/categories/Categories";
 import UsersComponent from "./components/user/Users";
 import BooksComponent from "./components/books/Books";
+import {useAuth} from "./config/auth-context";
 
 function App() {
+    const {loggedIn} = useAuth();
     return (
-            <Provider store={store}>
-                <PersistGate persistor={persistor}>
-                    <Router>
-                        <NavigationComponent/>
-                        <Routes>
-                            <Route exact path="/" element={<UsersComponent/>}/>
-                            <Route path="/categories" element={<CategoriesComponent/>}/>
-                            <Route path="/authors" element={<AuthorsComponent/>}/>
-                            <Route path="/books" element={<BooksComponent/>}/>
-                            <Route path="/login" element={<LoginComponent/>}/>
-                            <Route path="/registration" element={<RegistrationComponent/>}/>
+        <Provider store={store}>
+            <PersistGate persistor={persistor}>
+                <Router>
+                    <NavigationComponent/>
+                    <Routes>
+                        <Route exact path="/" element={<HomeComponent/>}/>
+                        <Route path="/categories" element={<CategoriesComponent/>}/>
+                        <Route path="/authors" element={<AuthorsComponent/>}/>
+                        <Route path="/books" element={<BooksComponent/>}/>
+                        <Route path="/login" element={<LoginComponent/>}/>
+                        <Route path="/registration" element={<RegistrationComponent/>}/>
 
-                        </Routes>
-                    </Router>
-                </PersistGate>
-            </Provider>
+                    </Routes>
+                </Router>
+            </PersistGate>
+        </Provider>
     );
 
 }

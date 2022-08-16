@@ -10,7 +10,6 @@ import Form from "react-bootstrap/Form";
 
 
 const UsersComponent = () => {
-
     const users = useSelector(getUserList);
     const dispatch = useDispatch();
 

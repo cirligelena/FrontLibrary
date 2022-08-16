@@ -1,11 +1,18 @@
 import { routes } from "../../config/routes";
 import { HttpService } from "../../services/httpService";
+import {storeToken} from "../../services/Auth";
 
+export const SET_TOKEN ='SET_TOKEN';
 
 export const loginActions = {
      RECEIVE_USER_AUTH : "RECEIVE_USER_AUTH",
 
 };
+
+export function setToken(payload){
+     storeToken(payload);
+     return {SET_TOKEN, payload}
+}
 
 export const loginUser = (userData) => (dispatch) => {
 

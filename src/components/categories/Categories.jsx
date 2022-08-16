@@ -6,28 +6,35 @@ import {fetchCategoryList} from "../../redux/actions/category";
 import {getCategoryList} from "../../redux/selectors/category";
 
 
-
 const CategoriesComponent = () => {
     const dispatch = useDispatch();
+    const categories = useSelector(getCategoryList);
+
 
     useEffect(() => {
         dispatch(fetchCategoryList());
     }, []);
 
 
-    const categories = useSelector(getCategoryList);
     return (
         <div>
             <ul>
-                {categories?.map((result) =>
-                    <Card style={{ width: '18rem' }} key={result.id}>
-                        <Card.Body>
-                            <Card.Title>{result.title}</Card.Title>
-                        </Card.Body>
-                        <Button variant="primary">Show books of this category</Button>
-                    </Card>)}
+            {Array.isArray(categories)
+                ? categories.map(result => {
+                    return (
+                        <Card style={{ width: '18rem' }} key={result.id}>
+                            <Card.Body>
+                                <Card.Title>{result.title}</Card.Title>
+                            </Card.Body>
+                            <Button variant="primary">Show books of this category</Button>
+                        </Card>)
+                })
+                : null
+            }
             </ul>
         </div>);
+
+
 };
 
 export default CategoriesComponent;

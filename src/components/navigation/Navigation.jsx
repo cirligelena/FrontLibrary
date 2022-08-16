@@ -24,6 +24,7 @@ const NavigationComponent = () => {
                     /
                     <NavLink to={"/registration"}>Sign-Up</NavLink>
                 </div>
+                
             </div>
             <div className="line-horizontal"></div>
         </header>

@@ -46,6 +46,7 @@ export class HttpService {
 }
 
 async function request(url, method, requestParams) {
+
     const config = {
         body: undefined,
         headers: {},
