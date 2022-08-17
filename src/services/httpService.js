@@ -28,6 +28,15 @@ export class HttpService {
             throw error;
         }
     }
+    static async delete(url, requestParams) {
+        try {
+            return await request(url, "DELETE", requestParams);
+        } catch (error) {
+
+            console.log("Error on DELETE request : ", error);
+            throw error;
+        }
+    }
 }
 
 async function request(url, method, requestParams) {

@@ -7,12 +7,6 @@ import {fetchCategoryList} from "../../redux/actions/category";
 import {getCategoryList} from "../../redux/selectors/category";
 import LoaderComponent from "../loader/Loader";
 
-
-
-
-
-
-
 const CategoriesComponent = () => {
     const dispatch = useDispatch();
 

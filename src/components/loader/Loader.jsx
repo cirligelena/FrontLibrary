@@ -1,6 +1,5 @@
 import {PulseLoader} from "react-spinners";
 import React, {useEffect, useState } from "react";
-import NavigationComponent from "../navigation/Navigation";
 
 
 
@@ -11,7 +10,7 @@ const LoaderComponent = ({divToLoad}) => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 1500)
+        }, 1000)
     }, []);
 
     const executeLoader = (loader, divLoaded) => {
@@ -25,7 +24,6 @@ const LoaderComponent = ({divToLoad}) => {
                         }}
                                      size={25} />
                         : <>
-                            <NavigationComponent />
                             {divLoaded}
                         </>
 

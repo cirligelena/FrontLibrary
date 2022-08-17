@@ -35,7 +35,7 @@ export default function validateInfo(values) {
     } else if (!PASSWORD_VALIDATOR_REGEX_CODE.test(values.password)) {
 
         if (!PASSWORD_MUST_CONTAIN_AT_LEAST_EIGHT_CHARACTERS_REGEX.test(values.password)) {
-            errors.password = "Password bust be eight characters or longer";
+            errors.password = "Password must be eight characters or longer";
         } else if (!PASSWORD_MUST_CONTAIN_AT_LEAST_ONE_LOWERCASE_CHARACTER_REGEX.test(values.password)) {
             errors.password = "Password must contain at least 1 lowercase alphabetical character";
         } else if (!PASSWORD_MUST_CONTAIN_AT_LEAST_ONE_UPPERCASE_CHARACTER_REGEX.test(values.password)) {
@@ -49,7 +49,7 @@ export default function validateInfo(values) {
 
     let isPasswordMatch = values.password === values.confirmedPassword;
     if (!isPasswordMatch) {
-        errors.confirmedPassword = "Password do not match";
+        errors.confirmedPassword = "Password does not match";
     }
 
     return errors;
