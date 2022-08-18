@@ -18,6 +18,7 @@ import AdminComponent from "./components/user/Admin";
 import UnauthorizedComponent from "./components/missing/Unauthorized";
 import RequireAuth from "./components/auth/RequireAuth";
 import UsersComponent from "./components/user/Users";
+import LogoutComponent from "./components/logout/Logout";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
 
                         <Route element={<RequireAuth allowedRoles={['USER']}/>}>
                             <Route path="/profile" element={<ProfileComponent/>}/>
+                            <Route path="/logout" element={<LogoutComponent/>}/>
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>

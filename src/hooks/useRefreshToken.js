@@ -1,7 +1,5 @@
 import useAuth from "./useAuth";
-import {refreshToken} from "../redux/actions/token";
 import {useDispatch} from "react-redux";
-import axios from "axios";
 
 
 const useRefreshToken = () => {

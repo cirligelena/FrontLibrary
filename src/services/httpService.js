@@ -1,3 +1,6 @@
+import {store} from "../store";
+import {getToken, isTokenPresent, removeToken} from "./token";
+
 const CREDENTIALS = {
     credentials: "same-origin"
 };
@@ -8,18 +11,20 @@ export class HttpService {
         try {
             return await request(url, "POST", requestParams);
         } catch (error) {
-            console.log("Error on GET request : ", error);
-            throw error;
-        }
-    }
-    static async get(url, requestParams) {
-        try {
-            return await request(url, "GET", requestParams);
-        } catch (error) {
             console.log("Error on POST request : ", error);
             throw error;
         }
     }
+
+    static async get(url, requestParams) {
+        try {
+            return await request(url, "GET", requestParams);
+        } catch (error) {
+            console.log("Error on GET request : ", error);
+            throw error;
+        }
+    }
+
     static async put(url, requestParams) {
         try {
             return await request(url, "PUT", requestParams);
@@ -28,6 +33,7 @@ export class HttpService {
             throw error;
         }
     }
+
     static async delete(url, requestParams) {
         try {
             return await request(url, "DELETE", requestParams);
@@ -39,24 +45,33 @@ export class HttpService {
     }
 }
 
+
 async function request(url, method, requestParams) {
+
+
     const config = {
         body: undefined,
-        headers: {},
+        headers: undefined,
         method,
         CREDENTIALS
     }
 
     let HEADERS = {
         "Content-Type": "application/json",
-        "Accept": "application/json",
+        "Accept": "application/json"
     };
+
+    if (isTokenPresent() === true) {
+        console.log('Bearer '+ getToken())
+        HEADERS[`Authorization`] = 'Bearer '+ getToken();
+    }
 
     config.headers = HEADERS;
 
     if (method === "POST" || method === "PUT") {
         config.body = JSON.stringify(requestParams);
     }
+
 
     const response = await fetch(url, config);
 

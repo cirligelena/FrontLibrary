@@ -10,22 +10,26 @@ import Form from "react-bootstrap/Form";
 import useAuth from "../../hooks/useAuth";
 import LoaderComponent from "../loader/Loader";
 import useRefreshToken from "../../hooks/useRefreshToken";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import {getToken, setToken} from "../../services/token";
 
 
 const UsersComponent = () => {
     const users = useSelector(getUserList);
     const dispatch = useDispatch();
 
-    const refreshToken = useRefreshToken();
-
     const {auth} = useAuth();
+
+    const [loaded, setLoaded] = useState(false)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
     const deleteUserById = (id) => {
-        dispatch(deleteUser(id));
+        dispatch(deleteUser(id)).then(() => {
+            setLoaded(false)
+        });
     }
 
     const updateUserFields = (id) => {
@@ -39,28 +43,29 @@ const UsersComponent = () => {
             }
         };
 
-        dispatch(updateUser(id, userDetails));
+        dispatch(updateUser(id, userDetails)).then(() => {
+            setLoaded(false)
+        });
     }
 
-    useEffect(() => {
 
-        try{
-            dispatch(userList());
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
+    useEffect(() => {
+        console.log(getToken());
+        dispatch(userList()).then(() => {
+            setLoaded(true)
+        })
+    }, [loaded]);
 
 
     return (
         <>
-            <LoaderComponent divToLoad={
+            {loaded ? <LoaderComponent divToLoad={
                 <div>
 
                     {Array.isArray(users)
                         ? users.map(result => {
                             return (
-                                <div>
+                                <div key={result.id}>
                                     <h5>{result.email}</h5>
                                     <h5>{result.profile.firstName}</h5>
                                     <h5>{result.profile.lastName}</h5>
@@ -111,15 +116,16 @@ const UsersComponent = () => {
                                         </button>
 
                                     </OverlayTrigger>
-                                    <button onClick={()=> refreshToken()}>RefreshT</button>
+
                                 </div>
                             )
                         })
                         : null
                     }
-
                 </div>
-            }/>
+            }/> : <div>
+
+            </div>}
         </>
     );
 

@@ -7,6 +7,7 @@ import {getUserData} from "../../redux/selectors/login";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import {userList} from "../../redux/actions/user";
+import {setToken} from "../../services/token";
 
 
 const LoginComponent = () => {
@@ -38,6 +39,9 @@ const LoginComponent = () => {
         };
         setAuth({email, password, roles, accessToken});
         dispatch(loginUser(userData));
+
+
+        setToken(accessToken);
         //replaces the success page that we wanted to access
        navigate(from, { replace: true });
        // navigate("/");
