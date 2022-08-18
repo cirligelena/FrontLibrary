@@ -1,5 +1,5 @@
 
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -14,19 +14,21 @@ import LoaderComponent from "../loader/Loader";
 
 
 const CategoriesComponent = () => {
+    const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchCategoryList());
+        dispatch(fetchCategoryList()).then(() => {
+            setLoaded(true)
+        })
     }, []);
-
 
     const categories = useSelector(getCategoryList);
 
 
     return (
         <>
-            <LoaderComponent divToLoad={
+            {loaded?<LoaderComponent divToLoad={
                 <div>
                     <ul>
                         {Array.isArray(categories)
@@ -39,12 +41,13 @@ const CategoriesComponent = () => {
                                         <Button variant="primary">Show books of this category</Button>
                                     </Card>)
                             })
-                            : null
+                             : <div> No items found </div>
                         }
                     </ul>
                 </div>
-
-            }/>
+            }/> : <div className="spinner-border" role="status">
+                <span className="sr-only">Loading...</span>
+            </div>}
         </>
     );
 };

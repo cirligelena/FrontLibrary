@@ -2,7 +2,7 @@
 import {bookActions} from "../actions/book";
 
 const initialState = {
-    bookList : { }
+    bookList : []
 };
 
 export const allBooks = (state = initialState, action) => {
@@ -12,7 +12,11 @@ export const allBooks = (state = initialState, action) => {
                 ...state,
                 bookList : action.payload
             };
-
+        case bookActions.RESERVED_BOOK:
+            return {
+                ...state,
+            }
+                ;
         default:
             return state;
     }
