@@ -2,6 +2,9 @@ import React from "react";
 import "../../assets/styles/navigation.css";
 import {NavLink} from "react-router-dom";
 
+
+
+
 const NavigationComponent = () => {
 
     return (
@@ -17,7 +20,7 @@ const NavigationComponent = () => {
                     <NavLink to={"/authors"}>Authors</NavLink>
                 </div>
                 <div className="nav-link">
-                    <NavLink to={"/books"}>Books</NavLink>
+                    {<NavLink to={"/books"}>Books</NavLink>}
                 </div>
                 <div className="nav-link auth-link">
                     <NavLink to={"/login"}>Login /</NavLink>

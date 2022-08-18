@@ -11,7 +11,7 @@ import {allCategories} from "./category";
 const persistConfig = {
      key: "root",
      storage,
-     whitelist: [ "login", "registration", "user", "allBooks", "allAuthors", "allCategories" ]
+     whitelist: [ "login", "registration", "user" ]
  };
 
  const rootReducer = combineReducers({ login, registration, user, allBooks, allAuthors, allCategories});
