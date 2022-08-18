@@ -3,6 +3,7 @@ export const routes = {
      BASIC_PATH: "api/",
      LOGIN_URL: "login",
      REGISTRATION_URL: "sign-up",
+     REFRESH_TOKEN:"token/refresh",
      DELETE_USER: "user/delete/",
      UPDATE_USER: "user/update/",
      ALL_USERS: "user/users",

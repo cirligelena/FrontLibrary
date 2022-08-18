@@ -9,11 +9,14 @@ import Popover from 'react-bootstrap/Popover';
 import Form from "react-bootstrap/Form";
 import useAuth from "../../hooks/useAuth";
 import LoaderComponent from "../loader/Loader";
+import useRefreshToken from "../../hooks/useRefreshToken";
 
 
 const UsersComponent = () => {
     const users = useSelector(getUserList);
     const dispatch = useDispatch();
+
+    const refreshToken = useRefreshToken();
 
     const {auth} = useAuth();
     const [email, setEmail] = useState('');
@@ -106,8 +109,9 @@ const UsersComponent = () => {
                                         <button>
                                             update
                                         </button>
-                                    </OverlayTrigger>
 
+                                    </OverlayTrigger>
+                                    <button onClick={()=> refreshToken()}>RefreshT</button>
                                 </div>
                             )
                         })
