@@ -37,10 +37,9 @@ const LoginComponent = () => {
             'email': email,
             'password': password
         };
-        setAuth({email, password, roles, accessToken});
+
         dispatch(loginUser(userData));
-
-
+        setAuth({email, password, roles, accessToken});
         setToken(accessToken);
 
         //replaces the success page that we wanted to access

@@ -11,15 +11,6 @@ import useAuth from "../../hooks/useAuth";
 
 
 const NavigationComponent = () => {
-    const {auth} = useAuth();
-    const [logged, setLogged] = useState(false);
-
-   useEffect(() => {
-        if (auth !== null) {
-            setLogged(true);
-        }
-    }, []);
-
     return (
         <header>
             <div className="nav">
@@ -36,13 +27,10 @@ const NavigationComponent = () => {
                     {<NavLink to={"/books"}>Books</NavLink>}
                 </div>
 
-
-                {logged ? <div className="nav-link">
-                    <NavLink to={"/profile"}>profile</NavLink>
-                </div> : <div className="nav-link auth-link">
+                 <div className="nav-link auth-link">
                     <NavLink to={"/login"}>Login /</NavLink>
                     <NavLink to={"/registration"}>Sign-Up</NavLink>
-                </div>}
+                </div>
 
 
             </div>

@@ -1,7 +1,10 @@
 import useAuth from "./useAuth";
+import {useEffect} from "react";
+import {checkIfTokenValid, setToken} from "../services/token";
 
 
 const useRefreshToken = () => {
+    const tokenValidation = checkIfTokenValid();
     const {auth,setAuth} = useAuth();
     const refresh = async () => {
         const axios = require('axios');
@@ -10,13 +13,17 @@ const useRefreshToken = () => {
             headers: {
                 'Authorization': `Bearer ${auth?.accessToken}`
             }});
-        setAuth(prev => {
+        setToken((prev => {
             console.log(JSON.stringify(prev));
             console.log("New token: "+ response.data.access_token);
             return {...prev, accessToken: response.data.access_token}
-        });
+        }));
         return response.data.accessToken;
     }
+
+    useEffect(() => {
+      setAuth(refresh());
+    }, [tokenValidation]);
     return refresh;
 };
 export default useRefreshToken;
