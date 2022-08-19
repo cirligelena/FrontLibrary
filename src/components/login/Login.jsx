@@ -1,35 +1,64 @@
 import '../../assets/styles/login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from '../../redux/actions/login';
-import { getUserData } from "../../redux/selectors/login";
-import {Link, useNavigate} from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {loginUser} from '../../redux/actions/login';
+import {getUserData} from "../../redux/selectors/login";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import {userList} from "../../redux/actions/user";
+import {checkIfValid, isTokenPresent, removeToken, setToken} from "../../services/token";
 
 
 const LoginComponent = () => {
 
-     const userInfo = useSelector(getUserData);
+    const userInfo = useSelector(getUserData);
+    const {setAuth} = useAuth();
 
 
-     const [login, setLogin] = useState('');
-     const [password, setPassword] = useState('');
-     const dispatch = useDispatch();
-     const navigate = useNavigate();
+    const accessToken = userInfo.access_token;
+    const roles = userInfo.roles;
 
-     const handleSubmit = (event) => {
-          event.preventDefault();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-          const userData = {
-               'email' : login,
-               'password' : password
-          };
 
-          dispatch(loginUser(userData));
-     }
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const userData = {
+            'email': email,
+            'password': password
+        };
+        setAuth({email, password, roles, accessToken});
+        dispatch(loginUser(userData));
+
+
+        setToken(accessToken);
+
+        //replaces the success page that we wanted to access
+        navigate(from, {replace: true});
+        // navigate("/");
+
+    }
+
+
+    useEffect(() => {
+         removeToken()
+
+    }, []);
 
 
     return (
+
+
         <div className="login-page">
             <div className="content">
                 <div className="content__title">
@@ -67,7 +96,7 @@ const LoginComponent = () => {
                     <form onSubmit={handleSubmit}>
                         <section className="login-form__email-section">
                             <input id="email" name="email" type="email" placeholder="Email address"
-                                   required onChange={event => setLogin(event.target.value)}/>
+                                   required onChange={event => setEmail(event.target.value)}/>
                         </section>
                         <section className="login-form__password-section">
                             <input id="current-password" name="current-password" type="password"
@@ -76,7 +105,7 @@ const LoginComponent = () => {
                                    onChange={event => setPassword(event.target.value)}/>
                         </section>
                         <div className="login-form__login-btn">
-                            <button type="submit">
+                            <button type="submit" /*onClick={login}*/>
                                 Login
                             </button>
                         </div>

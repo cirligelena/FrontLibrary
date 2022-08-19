@@ -35,21 +35,23 @@ const BooksComponent = () => {
             {loaded?  <LoaderComponent divToLoad={
                 <div>
                     <ul>
-                         {Array.isArray(books) ?
-                                books.map(result => {
-                                    return (
-                            <Card style={{ width: '18rem' }} key={result.id} >
-                                <Card.Body>
-                                    <Card.Title>{result.title}</Card.Title>
-                                    <Card.Text>{result.description}</Card.Text>
-                                </Card.Body>
-                                <ListGroup className="list-group-flush">
-                                    <ListGroup.Item>shelfNumber: {result.shelfNumber}</ListGroup.Item>
-                                    <ListGroup.Item>status: {result.status}</ListGroup.Item>
-                                </ListGroup>
-                                <Button disabled={result.status === "BOOKED" || result.status === "TAKEN"} onClick={() => reserveBook(result.id)} variant="primary">Reserve the book< /Button>
-                            </Card>)
-                        })
+
+                        {Array.isArray(books) ?
+                            books.map(result => {
+                                return (
+                                    <Card style={{ width: '18rem' }} key={result.id} >
+                                        <Card.Body>
+                                            <Card.Title>{result.title}</Card.Title>
+                                            <Card.Text>{result.description}</Card.Text>
+                                        </Card.Body>
+                                        <ListGroup className="list-group-flush">
+                                            <ListGroup.Item>shelfNumber: {result.shelfNumber}</ListGroup.Item>
+                                            <ListGroup.Item>status: {result.status}</ListGroup.Item>
+                                        </ListGroup>
+                                        <Button disabled={result.status === "BOOKED" || result.status === "TAKEN"} onClick={() => reserveBook(result.id)} variant="primary">Reserve the book< /Button>
+                                    </Card>)
+                            })
+
                             : <div> No items found </div>}
                     </ul>
                 </div>

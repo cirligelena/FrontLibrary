@@ -12,7 +12,17 @@ export const user = (state = initialState, action) => {
                 ...state,
                 userList : action.payload
             };
+        case userActions.DELETE_USER:
+            return {
+                ...state,
+                userList : action.payload
+            };
 
+        case userActions.UPDATE_USER:
+            return {
+                ...state,
+                userList : action.payload
+            };
         default:
             return state;
     }
