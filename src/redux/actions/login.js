@@ -10,7 +10,7 @@ export const loginActions = {
 export const loginUser = (userData) => (dispatch) => {
 
      const url = routes.BASIC_URL + routes.BASIC_PATH + routes.LOGIN_URL;
-//async method we wait the method to give us some result and THEN do smth with the response
+
      return HttpService.post(url, userData).then(response => {
           return dispatch({
                type : loginActions.RECEIVE_USER_AUTH,
