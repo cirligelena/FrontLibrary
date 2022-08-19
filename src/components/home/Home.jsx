@@ -1,12 +1,15 @@
 import React from "react";
-import NavigationComponent from "../navigation/Navigation";
+import {NavLink} from "react-router-dom";
+
 
 
 const HomeComponent = () => {
     return (
         <div>
-            <NavigationComponent/>
             <h2>Home Page</h2>
+            <NavLink to={"/profile"}>Profile</NavLink><br/>
+            <NavLink to={"/admin"}>Admin</NavLink>
+
         </div>
     );
 };

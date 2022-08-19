@@ -2,8 +2,10 @@
 import {bookActions} from "../actions/book";
 
 const initialState = {
+
     bookList : { },
     lastModified : null
+
 };
 
 export const allBooks = (state = initialState, action) => {

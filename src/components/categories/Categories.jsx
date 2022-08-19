@@ -8,11 +8,6 @@ import {getCategoryList} from "../../redux/selectors/category";
 import LoaderComponent from "../loader/Loader";
 
 
-
-
-
-
-
 const CategoriesComponent = () => {
     const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch();
@@ -41,6 +36,7 @@ const CategoriesComponent = () => {
                                         <Button variant="primary">Show books of this category</Button>
                                     </Card>)
                             })
+
                              : <div> No items found </div>
                         }
                     </ul>
