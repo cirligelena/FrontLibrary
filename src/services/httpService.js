@@ -1,5 +1,4 @@
 import {store} from "../store";
-import {checkIfTokenValid, checkIfValid, getToken, isTokenPresent, refreshToken, removeToken} from "./token";
 
 const CREDENTIALS = {
     credentials: "same-origin"
@@ -61,9 +60,12 @@ async function request(url, method, requestParams) {
         "Accept": "application/json"
     };
 
-    if (isTokenPresent() === true) {
-        console.log('Bearer '+ getToken())
-        HEADERS[`Authorization`] = 'Bearer '+ getToken();
+    const state = store.getState();
+    const { userData} = state.login ;
+    const token = userData?.access_token;
+
+    if (token) {
+        HEADERS[`Authorization`] = 'Bearer '+ token;
     }
 
     config.headers = HEADERS;
