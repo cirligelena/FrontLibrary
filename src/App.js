@@ -7,9 +7,8 @@ import LoginComponent from "./components/login/Login";
 import RegistrationComponent from "./components/registration/Registration";
 import HomeComponent from "./components/home/Home";
 import AuthorsComponent from "./components/authors/Authors";
-import BooksComponent from "./components/books/Books";
 import CategoriesComponent from "./components/categories/Categories";
-import {getBookList} from "./redux/selectors/allBooks";
+import AllBooksComponent from "./components/books/AllBooks";
 
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
                             <Route exact path="/" element={<HomeComponent/>}/>
                             <Route path="/categories" element={<CategoriesComponent/>}/>
                             <Route path="/authors" element={<AuthorsComponent/>}/>
-                            <Route path="/books" element={<BooksComponent/>}/>
+                            <Route path="/books" element={<AllBooksComponent/>}/>
                             <Route path="/login" element={<LoginComponent/>}/>
                             <Route path="/registration" element={<RegistrationComponent/>}/>
                         </Routes>

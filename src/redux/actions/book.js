@@ -2,8 +2,6 @@ import {routes} from "../../config/routes";
 import {HttpService} from "../../services/httpService";
 
 
-
-
 export const bookActions = {
     BOOK_LIST : "BOOK_LIST",
     RESERVED_BOOK : "RESERVED_BOOK"
