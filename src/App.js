@@ -4,6 +4,7 @@ import {Provider, useSelector} from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+
 import LoginComponent from "./components/login/Login";
 import RegistrationComponent from "./components/registration/Registration";
 import HomeComponent from "./components/home/Home";
@@ -30,8 +31,6 @@ function App() {
 
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-
-                <NavigationComponent/>
                 <Routes>
                     <Route path="/" element={<Layout/>}>
                         <Route exact path="/" element={<HomeComponent/>}/>

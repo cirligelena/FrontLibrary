@@ -20,6 +20,7 @@ const AuthorsComponent = () => {
     const authors = useSelector(getAuthorList);
     return (
         <>
+
             {loaded?  <LoaderComponent divToLoad={
         <div>
             <ul>
@@ -38,9 +39,9 @@ const AuthorsComponent = () => {
             </ul>
         </div>
 
-            }/>: <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-            </div>}
+
+            }/> : <div></div>
+            }
         </>
     );
 };

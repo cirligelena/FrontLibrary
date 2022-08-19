@@ -6,6 +6,7 @@
 }
 
 .content__title {
+    text-align: left;
     color: #05668d;
 }
 
@@ -16,6 +17,7 @@
 }
 
 .content__text {
+    text-align: left;
     padding-top: 15px;
     width: 65%;
     font-size: 18px;
