@@ -1,5 +1,6 @@
 import {PulseLoader} from "react-spinners";
 import React, {useEffect, useState } from "react";
+import NavigationComponent from "../navigation/Navigation";
 
 
 
@@ -25,6 +26,7 @@ const LoaderComponent = ({divToLoad}) => {
                         }}
                                      size={25} />
                         : <>
+                            <NavigationComponent/>
                             {divLoaded}
                         </>
 
