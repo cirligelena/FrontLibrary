@@ -1,13 +1,12 @@
 import '../../assets/styles/login.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {loginUser} from '../../redux/actions/login';
 import {getUserData} from "../../redux/selectors/login";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import {userList} from "../../redux/actions/user";
-import {checkIfValid, isTokenPresent, removeToken, setToken} from "../../services/token";
+import {removeToken, setToken} from "../../services/token";
+import {login} from "../../redux/reducers/login";
 
 
 const LoginComponent = () => {
@@ -43,9 +42,7 @@ const LoginComponent = () => {
 
         setToken(accessToken);
 
-        //replaces the success page that we wanted to access
-        navigate(from, {replace: true});
-        // navigate("/");
+        navigate("/");
 
     }
 
@@ -105,7 +102,7 @@ const LoginComponent = () => {
                                    onChange={event => setPassword(event.target.value)}/>
                         </section>
                         <div className="login-form__login-btn">
-                            <button type="submit" /*onClick={login}*/>
+                            <button type="submit" onClick={login}>
                                 Login
                             </button>
                         </div>
