@@ -7,18 +7,14 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from "react-bootstrap/Form";
-import useAuth from "../../hooks/useAuth";
 import LoaderComponent from "../loader/Loader";
-import useRefreshToken from "../../hooks/useRefreshToken";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import {getToken, setToken} from "../../services/token";
+import {checkIfTokenValid} from "../../services/token";
 
 
 const UsersComponent = () => {
     const users = useSelector(getUserList);
     const dispatch = useDispatch();
 
-    const {auth} = useAuth();
 
     const [loaded, setLoaded] = useState(false)
     const [email, setEmail] = useState('');
@@ -50,7 +46,7 @@ const UsersComponent = () => {
 
 
     useEffect(() => {
-        console.log(getToken());
+        console.log(checkIfTokenValid());
         dispatch(userList()).then(() => {
             setLoaded(true)
         })

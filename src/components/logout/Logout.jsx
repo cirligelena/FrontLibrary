@@ -8,7 +8,7 @@ const LogoutComponent = () => {
 
     const logout = (event) => {
         setAuth(null);
-        removeToken()
+        removeToken();
     }
    return <button type="submit" onClick={logout}>
         Logout

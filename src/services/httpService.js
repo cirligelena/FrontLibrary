@@ -1,5 +1,5 @@
 import {store} from "../store";
-import {getToken, isTokenPresent, removeToken} from "./token";
+import {checkIfTokenValid, checkIfValid, getToken, isTokenPresent, refreshToken, removeToken} from "./token";
 
 const CREDENTIALS = {
     credentials: "same-origin"
@@ -51,7 +51,7 @@ async function request(url, method, requestParams) {
 
     const config = {
         body: undefined,
-        headers: undefined,
+        headers: {},
         method,
         CREDENTIALS
     }

@@ -19,6 +19,9 @@ import UnauthorizedComponent from "./components/missing/Unauthorized";
 import RequireAuth from "./components/auth/RequireAuth";
 import UsersComponent from "./components/user/Users";
 import LogoutComponent from "./components/logout/Logout";
+import {checkIfTokenValid, getToken} from "./services/token";
+import {useEffect} from "react";
+import useRefreshToken from "./hooks/useRefreshToken";
 
 
 function App() {
@@ -33,7 +36,7 @@ function App() {
                         <Route path="/categories" element={<CategoriesComponent/>}/>
                         <Route path="/authors" element={<AuthorsComponent/>}/>
                         <Route path="/books" element={<BooksComponent/>}/>
-                       {/*<Route path="/logout" element={<LogoutComponent/>}/>*/}
+                        {/*<Route path="/logout" element={<LogoutComponent/>}/>*/}
 
                         <Route path="/unauthorized" element={<UnauthorizedComponent/>}/>
                         <Route path="/login" element={<LoginComponent/>}/>

@@ -6,7 +6,7 @@ import {HttpService} from "../../services/httpService";
 
 export const bookActions = {
     BOOK_LIST : "BOOK_LIST",
-    BOOKED_BOOK : "BOOKED_BOOK"
+    RESERVED_BOOK : "RESERVED_BOOK"
 };
 
 export const fetchBookList = () => (dispatch) => {
@@ -20,14 +20,14 @@ export const fetchBookList = () => (dispatch) => {
     });
 };
 
-export const bookTheBook = (bookId, userId) => (dispatch) => {
+export const reserveTheBook = (bookId, userId) => (dispatch) => {
 
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.BOOK_THE_BOOK + "/" + bookId
         + "/" + userId;
 
     return HttpService.put(url).then(response => {
         return dispatch({
-            type : bookActions.BOOKED_BOOK,
+            type : bookActions.RESERVED_BOOK,
             payload : response
         });
     });

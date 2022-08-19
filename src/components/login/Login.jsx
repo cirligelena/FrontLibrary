@@ -7,7 +7,7 @@ import {getUserData} from "../../redux/selectors/login";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import {userList} from "../../redux/actions/user";
-import {setToken} from "../../services/token";
+import {checkIfValid, isTokenPresent, removeToken, setToken} from "../../services/token";
 
 
 const LoginComponent = () => {
@@ -42,32 +42,19 @@ const LoginComponent = () => {
 
 
         setToken(accessToken);
+
         //replaces the success page that we wanted to access
-       navigate(from, { replace: true });
-       // navigate("/");
+        navigate(from, {replace: true});
+        // navigate("/");
 
     }
-    const parseJwt = (token) => {
-        try {
-            return JSON.parse(atob(token.split('.')[1]));
-        } catch (e) {
-            return null;
-        }
-    };
+
 
     useEffect(() => {
-        // console.log(`LoggedIn ${loggedIn}`);
-        console.log(parseJwt(accessToken));
-        console.log(roles);
-        //  console.log("Token is" + getToken());
-      //  dispatch(userList);
+         removeToken()
+
     }, []);
 
-    // useEffect(() => {
-    //     if (loggedIn){
-    //         return navigate("/");
-    //     }
-    // },[loggedIn]);
 
     return (
 

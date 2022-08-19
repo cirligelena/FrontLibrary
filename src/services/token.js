@@ -1,3 +1,4 @@
+
 const SESSION_TOKEN = "session_token";
 
 export function setToken(token) {
@@ -15,3 +16,20 @@ export function isTokenPresent() {
 export function removeToken() {
     localStorage.removeItem(SESSION_TOKEN)
 }
+
+export function checkIfTokenValid() {
+    if (getToken()!== null){
+        let token = parseJwt(getToken());
+        console.log(token.roles);
+        return token.exp * 1000 < new Date().getTime();
+    }
+
+}
+
+const parseJwt = (token) => {
+    try {
+        return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+        return null;
+    }
+};
