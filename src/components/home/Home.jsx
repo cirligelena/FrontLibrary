@@ -1,30 +1,48 @@
 import React from "react";
 import NavigationComponent from "../navigation/Navigation";
+import '../../assets/styles/home.css';
+import libraryPhoto from '../../assets/images/thumb-1920-573647.jpg';
+import {useNavigate} from "react-router-dom";
 
 
 
 const HomeComponent = () => {
+    const navigate = useNavigate();
+
     return (
         <div>
             <NavigationComponent/>
-            <div className="photo-container">
-                <div className="photo-container__library-cartoon"></div>
-            </div>
-            <div className="content-container">
-                <div className="content-container__title">
-                    <h1>Stefanini Library</h1>
+            <div className="home-page">
+                <div className="photo-container">
+                    <img src={libraryPhoto}/>
                 </div>
-                <div className="content-container__description">
-                    <p>
-                        The <strong>Stefanini Library</strong> is situated in the center of Chisinau, established in
-                        2022. It was founded on the initiative of 3 interns : Daria, Denis and Elena, who believed that
-                        reading books is the best way to spend time. Membership is open to all, without any payment.
-                    </p>
-                </div>
-                <div className="content-container__button">
-                    <button className="open-library__btn">
-                        Open Library
-                    </button>
+                <div className="content-container">
+                    <div className="content-container__title">
+                        <h1>Stefanini Library</h1>
+                    </div>
+                    <div className="content-container__description">
+                        <p>
+                            The <strong>Stefanini Library</strong> is situated in the center of Chisinau, established in
+                            2022. It was founded on the initiative of 3 interns : Daria, Denis and Elena, who believed
+                            that
+                            reading books is the best way to spend time. Membership is open to all, without any payment.
+                            No running.
+                            No food or drinks.
+                            Return library books on time.
+                            Pay late fees on time.
+                            Keep hands clean while reading.
+                            Use a bookmark.
+                            Report all book damage to librarian.
+                            Be quiet.
+                            Be respectful of others.
+                            Put books back where they belong.
+                        </p>
+                    </div>
+                    <div className="content-container__button">
+                        <button className="open-library__btn" onClick={() => navigate("/library")}>
+                            Open Library
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
