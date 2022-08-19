@@ -38,8 +38,7 @@ const CategoriesComponent = () => {
                             })
 
                              : <div> No items found </div>
-
-                       }
+                        }
                     </ul>
                 </div>
             }/> : <div className="spinner-border" role="status">
