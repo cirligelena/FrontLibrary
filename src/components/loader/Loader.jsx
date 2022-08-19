@@ -12,6 +12,7 @@ const LoaderComponent = ({divToLoad}) => {
             setLoading(false);
 
         }, 800)
+
     }, []);
 
     const executeLoader = (loader, divLoaded) => {
