@@ -5,8 +5,6 @@ import { fetchBookList} from "../../redux/actions/book";
 import BookList from "./BookList";
 
 
-
-
 const AllBooksComponent = () => {
     const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch();
@@ -26,6 +24,7 @@ const AllBooksComponent = () => {
              : <div></div>}
         </>
     );
+
 };
 
 export default AllBooksComponent;
