@@ -2,24 +2,32 @@ import React, {useEffect, useState} from "react";
 import "../../assets/styles/navigation.css";
 import {NavLink} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-
-
-
-
-
-
+import {checkIfTokenValid} from "../../services/token";
+import useRefreshToken from "../../hooks/useRefreshToken";
 
 
 const NavigationComponent = () => {
     const {auth} = useAuth();
     const [logged, setLogged] = useState(false);
+    const refresh = useRefreshToken();
+    let validation = null;
 
-   useEffect(() => {
+    useEffect(() => {
         if (auth !== null) {
             setLogged(true);
         }
     }, []);
 
+    useEffect(() => {
+        console.log(checkIfTokenValid());
+        validation = checkIfTokenValid();
+
+        if (validation === true) {
+            refresh().then(() => console.log("new token generated!"));
+        }
+
+
+    }, [])
     return (
         <header>
             <div className="nav">
