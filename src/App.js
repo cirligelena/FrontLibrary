@@ -4,12 +4,12 @@ import {store, persistor} from './store';
 import {PersistGate} from 'redux-persist/integration/react';
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import NavigationComponent from "./components/navigation/Navigation";
 import LoginComponent from "./components/login/Login";
 import RegistrationComponent from "./components/registration/Registration";
 import HomeComponent from "./components/home/Home";
 import AuthorsComponent from "./components/authors/Authors";
 import CategoriesComponent from "./components/categories/Categories";
+
 import BooksComponent from "./components/books/Books";
 import Layout from "./components/layout/Layout";
 import MissingComponent from "./components/missing/Missing";
@@ -24,7 +24,9 @@ import {useEffect} from "react";
 import useRefreshToken from "./hooks/useRefreshToken";
 
 
+
 function App() {
+
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>

@@ -35,6 +35,7 @@ const BooksComponent = () => {
             {loaded?  <LoaderComponent divToLoad={
                 <div>
                     <ul>
+
                         {Array.isArray(books) ?
                             books.map(result => {
                                 return (
@@ -50,6 +51,7 @@ const BooksComponent = () => {
                                         <Button disabled={result.status === "BOOKED" || result.status === "TAKEN"} onClick={() => reserveBook(result.id)} variant="primary">Reserve the book< /Button>
                                     </Card>)
                             })
+
                             : <div> No items found </div>}
                     </ul>
                 </div>

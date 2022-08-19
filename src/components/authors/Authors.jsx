@@ -21,6 +21,7 @@ const AuthorsComponent = () => {
     return (
         <>
             {loaded?  <LoaderComponent divToLoad={
+
                 <div>
                     <ul>
                         {Array.isArray(authors)
@@ -37,6 +38,7 @@ const AuthorsComponent = () => {
                         }
                     </ul>
                 </div>
+
             }/>: <div className="spinner-border" role="status">
                 <span className="sr-only">Loading...</span>
             </div>}

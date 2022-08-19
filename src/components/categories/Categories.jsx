@@ -1,3 +1,4 @@
+
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
@@ -35,8 +36,10 @@ const CategoriesComponent = () => {
                                         <Button variant="primary">Show books of this category</Button>
                                     </Card>)
                             })
-                            : <div> No items found </div>
-                        }
+
+                             : <div> No items found </div>
+
+                       }
                     </ul>
                 </div>
             }/> : <div className="spinner-border" role="status">

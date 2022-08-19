@@ -4,6 +4,9 @@ import {NavLink} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 
+
+
+
 const NavigationComponent = () => {
     const {auth} = useAuth();
     const [logged, setLogged] = useState(false);
@@ -27,7 +30,7 @@ const NavigationComponent = () => {
                     <NavLink to={"/authors"}>Authors</NavLink>
                 </div>
                 <div className="nav-link">
-                    <NavLink to={"/books"}>Books</NavLink>
+                    {<NavLink to={"/books"}>Books</NavLink>}
                 </div>
 
 
