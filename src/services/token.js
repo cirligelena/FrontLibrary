@@ -1,20 +1,20 @@
 import {store} from "../store";
 
-export function checkIfAccessTokenValid() {
-    const state = store.getState();
-    const {userData} = state.login;
-    const accessToken = userData?.access_token;
-    if (accessToken !== null) {
-        let parsedToken = parseJwt(accessToken);
+export function checkIfAccessTokenValid(userData) {
+    // const state = store.getState();
+    // const {userData} = state.login.userData;
+    // const accessToken = userData?.access_token;
+    if (userData.access_token) {
+        let parsedToken = parseJwt(userData.access_token);
         return parsedToken.exp * 1000 > new Date().getTime() + 1000 * 10;
     }
 }
-export function checkIfRefreshTokenValid() {
-    const state = store.getState();
-    const {userData} = state.login;
-    const refreshToken = userData?.refresh_token;
-    if (refreshToken !== null) {
-        let parsedToken = parseJwt(refreshToken);
+export function checkIfRefreshTokenValid(userData) {
+    // const state = store.getState();
+    // const {userData} = state.login.userData;
+    // const refreshToken = userData?.refresh_token;
+    if (userData.refresh_token ) {
+        let parsedToken = parseJwt(userData.refresh_token);
         return parsedToken.exp * 1000 > new Date().getTime() + 1000 * 10;
     }
 }

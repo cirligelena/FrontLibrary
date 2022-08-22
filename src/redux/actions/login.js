@@ -1,5 +1,8 @@
 import { routes } from "../../config/routes";
 import { HttpService } from "../../services/httpService";
+import axios from "axios";
+import {useSelector} from "react-redux";
+import {getUserData} from "../selectors/login";
 
 
 export const loginActions = {
@@ -19,11 +22,13 @@ export const loginUser = (userData) => (dispatch) => {
           });
      });
 };
-export const receiveRefreshToken = (refreshToken) => (dispatch) => {
-
+export const receiveRefreshToken = (userInfo) => (dispatch) => {
      const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REFRESH_TOKEN;
 
-     return HttpService.post(url, refreshToken).then(response => {
+     return HttpService.post(url, {
+          headers: {
+               'Authorization': `Bearer ${userInfo?.refresh_token}`
+          }}).then(response => {
           return dispatch({
                type : loginActions.RECEIVE_REFRESH_TOKEN,
                payload : response

@@ -19,9 +19,8 @@ import UsersComponent from "./components/user/Users";
 import LogoutComponent from "./components/logout/Logout";
 import NavigationComponent from "./components/navigation/Navigation";
 import {Route, Routes} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {checkIfTokenValid} from "./services/token";
-import useRefreshToken from "./hooks/useRefreshToken";
+import RefreshToken from "./components/auth/RefreshToken";
+
 
 
 function App() {
@@ -29,8 +28,8 @@ function App() {
 
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-
                 <NavigationComponent/>
+                <RefreshToken>
                 <Routes>
                     <Route path="/" element={<Layout/>}>
                         <Route exact path="/" element={<HomeComponent/>}/>
@@ -58,7 +57,7 @@ function App() {
                         <Route path="*" element={<MissingComponent/>}/>
                     </Route>
                 </Routes>
-
+                </RefreshToken>
             </PersistGate>
         </Provider>
 

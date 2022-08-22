@@ -3,25 +3,22 @@ import {checkIfAccessTokenValid, checkIfRefreshTokenValid} from "../../services/
 import {useDispatch, useSelector} from "react-redux";
 import {getNewTokens, getUserData} from "../../redux/selectors/login";
 import {receiveRefreshToken} from "../../redux/actions/login";
-import AuthContext from "../../context/AuthContext";
+import HomeComponent from "../home/Home";
 
 
-const RefreshToken = createContext({});
-
-export const RefreshTokenProvider = ({children}) => {
+export const RefreshToken = () => {
     const newToken = useSelector(getNewTokens);
     const userInfo = useSelector(getUserData);
     const dispatch = useDispatch();
     useEffect(() => {
-        if (!checkIfAccessTokenValid() && checkIfRefreshTokenValid()) {
-            userInfo.access_token = userInfo.refresh_token.then(() => dispatch(receiveRefreshToken));
+        console.log(checkIfAccessTokenValid(userInfo));
+        if (!checkIfAccessTokenValid(userInfo) && checkIfRefreshTokenValid(userInfo)) {
+            dispatch(receiveRefreshToken(userInfo));
             console.log(newToken);
         }
     }, [])
 
-    return <RefreshToken.Provider>
-        {children}
-    </RefreshToken.Provider>;
+    return <HomeComponent/>
 }
 
 export default RefreshToken;
