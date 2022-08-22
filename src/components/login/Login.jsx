@@ -1,22 +1,17 @@
 import '../../assets/styles/login.css';
-import React, {useEffect, useState} from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {loginUser} from '../../redux/actions/login';
 import {getUserData} from "../../redux/selectors/login";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import {removeToken, setToken} from "../../services/token";
-import {login} from "../../redux/reducers/login";
+import {userList} from "../../redux/actions/user";
 
 
 const LoginComponent = () => {
 
     const userInfo = useSelector(getUserData);
-    const {setAuth} = useAuth();
-
-
-    const accessToken = userInfo.access_token;
-    const roles = userInfo.roles;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,25 +31,13 @@ const LoginComponent = () => {
             'email': email,
             'password': password
         };
-
         dispatch(loginUser(userData));
-        setAuth({email, password, roles, accessToken});
-        setToken(accessToken);
-
-        navigate("/");
-
+        //replaces the success page that we wanted to access
+        navigate(from, {replace: true});
+        // navigate("/");
     }
 
-
-    useEffect(() => {
-         removeToken()
-
-    }, []);
-
-
     return (
-
-
         <div className="login-page">
             <div className="content">
                 <div className="content__title">
@@ -101,7 +84,7 @@ const LoginComponent = () => {
                                    onChange={event => setPassword(event.target.value)}/>
                         </section>
                         <div className="login-form__login-btn">
-                            <button type="submit" onClick={login}>
+                            <button type="submit" /*onClick={login}*/>
                                 Login
                             </button>
                         </div>

@@ -8,13 +8,12 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from "react-bootstrap/Form";
 import LoaderComponent from "../loader/Loader";
-import {checkIfTokenValid} from "../../services/token";
+import useRefreshToken from "../../hooks/useRefreshToken";
 
 
 const UsersComponent = () => {
     const users = useSelector(getUserList);
     const dispatch = useDispatch();
-
 
     const [loaded, setLoaded] = useState(false)
     const [email, setEmail] = useState('');
@@ -44,9 +43,20 @@ const UsersComponent = () => {
         });
     }
 
+    const refresh = useRefreshToken();
+
+    // let validation= null;
+    // useEffect(() => {
+    //     console.log(checkIfTokenValid());
+    //     validation = checkIfTokenValid();
+    //
+    //     if (validation === true){
+    //         refresh().then(()=> console.log("new token generated!"));
+    //     }
+    //
+    // }, []);
 
     useEffect(() => {
-        console.log(checkIfTokenValid());
         dispatch(userList()).then(() => {
             setLoaded(true)
         })
@@ -112,7 +122,7 @@ const UsersComponent = () => {
                                         </button>
 
                                     </OverlayTrigger>
-
+                                    <button onClick={()=> refresh()}>newToken</button>
                                 </div>
                             )
                         })

@@ -1,5 +1,4 @@
 import {store} from "../store";
-import {checkIfTokenValid, checkIfValid, getToken, isTokenPresent, refreshToken, removeToken} from "./token";
 
 const CREDENTIALS = {
     credentials: "same-origin"
@@ -20,7 +19,7 @@ export class HttpService {
         try {
             return await request(url, "GET", requestParams);
         } catch (error) {
-            console.log("Error on GET request : ", error);
+            console.log("Error on POST request : ", error);
             throw error;
         }
     }
@@ -61,9 +60,12 @@ async function request(url, method, requestParams) {
         "Accept": "application/json"
     };
 
-    if (isTokenPresent() === true) {
-        console.log('Bearer '+ getToken())
-        HEADERS[`Authorization`] = 'Bearer '+ getToken();
+    const state = store.getState();
+    const {userData} = state.login;
+    const token = userData?.access_token;
+
+    if (token) {
+        HEADERS[`Authorization`] = 'Bearer ' + token;
     }
 
     config.headers = HEADERS;
@@ -76,6 +78,8 @@ async function request(url, method, requestParams) {
     const response = await fetch(url, config);
 
     if (!response.ok) {
+        // const message = await response.text();
+        // console.log(message)
         return response.status;
     }
 
