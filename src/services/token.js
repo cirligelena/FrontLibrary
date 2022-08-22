@@ -1,4 +1,3 @@
-
 const SESSION_TOKEN = "session_token";
 
 export function setToken(token) {
@@ -18,10 +17,10 @@ export function removeToken() {
 }
 
 export function checkIfTokenValid() {
-    if (getToken()!== null){
+    if (getToken() !== null) {
         let token = parseJwt(getToken());
         console.log(token.roles);
-        return token.exp * 1000 < new Date().getTime();
+        return token.exp * 1000 < new Date().getTime() + 1000 * 10;
     }
 
 }

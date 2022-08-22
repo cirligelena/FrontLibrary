@@ -1,15 +1,16 @@
 import './App.css';
 
-import {Provider} from 'react-redux';
-import { store, persistor } from './store';
-import { PersistGate } from 'redux-persist/integration/react';
-import {Route, Routes} from 'react-router-dom';
+
+import {Provider, useSelector} from 'react-redux';
+import {store, persistor} from './store';
+import {PersistGate} from 'redux-persist/integration/react';
 import LoginComponent from "./components/login/Login";
 import RegistrationComponent from "./components/registration/Registration";
 import HomeComponent from "./components/home/Home";
 import AuthorsComponent from "./components/authors/Authors";
 import CategoriesComponent from "./components/categories/Categories";
 import AllBooksComponent from "./components/books/AllBooks";
+
 
 
 import Layout from "./components/layout/Layout";
@@ -22,9 +23,13 @@ import UsersComponent from "./components/user/Users";
 import LogoutComponent from "./components/logout/Logout";
 import NavigationComponent from "./components/navigation/Navigation";
 
+import {Route, Routes} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {checkIfTokenValid} from "./services/token";
+import useRefreshToken from "./hooks/useRefreshToken";
+
 
 function App() {
-
     return (
 
         <Provider store={store}>

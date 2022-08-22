@@ -36,9 +36,8 @@ const CategoriesComponent = () => {
                                         <Button variant="primary">Show books of this category</Button>
                                     </Card>)
                             })
-
-                            : <div> No items found </div>
-                        }
+                             : <div> No items found </div>
+                       }
                     </ul>
                 </div>
             }/> : <div></div>

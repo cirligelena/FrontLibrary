@@ -12,11 +12,6 @@ import {login} from "../../redux/reducers/login";
 const LoginComponent = () => {
 
     const userInfo = useSelector(getUserData);
-    const {setAuth} = useAuth();
-
-
-    const accessToken = userInfo.access_token;
-    const roles = userInfo.roles;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,26 +31,15 @@ const LoginComponent = () => {
             'email': email,
             'password': password
         };
-        setAuth({email, password, roles, accessToken});
         dispatch(loginUser(userData));
 
 
-        setToken(accessToken);
-
-        navigate("/");
-
+        //replaces the success page that we wanted to access
+        navigate(from, {replace: true});
+        // navigate("/");
     }
 
-
-    useEffect(() => {
-         removeToken()
-
-    }, []);
-
-
     return (
-
-
         <div className="login-page">
             <div className="content">
                 <div className="content__title">
