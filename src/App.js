@@ -22,43 +22,44 @@ import {Route, Routes} from "react-router-dom";
 import RefreshToken from "./components/auth/RefreshToken";
 
 
-
 function App() {
     return (
 
         <Provider store={store}>
-            <PersistGate persistor={persistor}>
-                <NavigationComponent/>
-                <RefreshToken>
-                <Routes>
-                    <Route path="/" element={<Layout/>}>
-                        <Route exact path="/" element={<HomeComponent/>}/>
-                        <Route path="/categories" element={<CategoriesComponent/>}/>
-                        <Route path="/authors" element={<AuthorsComponent/>}/>
-                        <Route path="/books" element={<AllBooksComponent/>}/>
-                        {/*<Route path="/logout" element={<LogoutComponent/>}/>*/}
+            <RefreshToken>
+                <PersistGate persistor={persistor}>
 
-                        <Route path="/unauthorized" element={<UnauthorizedComponent/>}/>
-                        <Route path="/login" element={<LoginComponent/>}/>
-                        <Route path="/registration" element={<RegistrationComponent/>}/>
+                    <NavigationComponent/>
+                    <Routes>
+                        <Route path="/" element={<Layout/>}>
+                            <Route exact path="/" element={<HomeComponent/>}/>
+                            <Route path="/categories" element={<CategoriesComponent/>}/>
+                            <Route path="/authors" element={<AuthorsComponent/>}/>
+                            <Route path="/books" element={<AllBooksComponent/>}/>
+                            {/*<Route path="/logout" element={<LogoutComponent/>}/>*/}
+
+                            <Route path="/unauthorized" element={<UnauthorizedComponent/>}/>
+                            <Route path="/login" element={<LoginComponent/>}/>
+                            <Route path="/registration" element={<RegistrationComponent/>}/>
 
 
-                        <Route element={<RequireAuth allowedRoles={['USER']}/>}>
-                            <Route path="/profile" element={<ProfileComponent/>}/>
-                            <Route path="/logout" element={<LogoutComponent/>}/>
+                            <Route element={<RequireAuth allowedRoles={['USER']}/>}>
+                                <Route path="/profile" element={<ProfileComponent/>}/>
+                                <Route path="/logout" element={<LogoutComponent/>}/>
+                            </Route>
+
+                            <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
+                                <Route path="/admin" element={<AdminComponent/>}/>
+                                <Route path="/users" element={<UsersComponent/>}/>
+                            </Route>
+
+                            {/* catch all */}
+                            <Route path="*" element={<MissingComponent/>}/>
                         </Route>
+                    </Routes>
 
-                        <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
-                            <Route path="/admin" element={<AdminComponent/>}/>
-                            <Route path="/users" element={<UsersComponent/>}/>
-                        </Route>
-
-                        {/* catch all */}
-                        <Route path="*" element={<MissingComponent/>}/>
-                    </Route>
-                </Routes>
-                </RefreshToken>
-            </PersistGate>
+                </PersistGate>
+            </RefreshToken>
         </Provider>
 
     );
