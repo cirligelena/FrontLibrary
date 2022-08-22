@@ -2,7 +2,8 @@ import { loginActions } from "../actions/login";
 
 
 const initialState = {
-     userData : { }
+     userData : { },
+     newToken : { },
 };
 
 export const login = (state = initialState, action) => {
@@ -11,6 +12,11 @@ export const login = (state = initialState, action) => {
                return {
                     ...state,
                     userData : action.payload
+               };
+          case loginActions.RECEIVE_REFRESH_TOKEN:
+               return {
+                    ...state,
+                    newToken : action.payload
                };
           default:
                return state;     

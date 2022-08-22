@@ -7,7 +7,6 @@ import {getUserData} from "../../redux/selectors/login";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import {userList} from "../../redux/actions/user";
-import {checkIfValid, isTokenPresent, removeToken, setToken} from "../../services/token";
 
 
 const LoginComponent = () => {

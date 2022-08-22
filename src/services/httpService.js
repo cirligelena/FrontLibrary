@@ -61,11 +61,11 @@ async function request(url, method, requestParams) {
     };
 
     const state = store.getState();
-    const { userData} = state.login ;
+    const {userData} = state.login;
     const token = userData?.access_token;
 
     if (token) {
-        HEADERS[`Authorization`] = 'Bearer '+ token;
+        HEADERS[`Authorization`] = 'Bearer ' + token;
     }
 
     config.headers = HEADERS;
@@ -78,6 +78,8 @@ async function request(url, method, requestParams) {
     const response = await fetch(url, config);
 
     if (!response.ok) {
+        // const message = await response.text();
+        // console.log(message)
         return response.status;
     }
 
