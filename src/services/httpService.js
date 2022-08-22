@@ -19,7 +19,7 @@ export class HttpService {
         try {
             return await request(url, "GET", requestParams);
         } catch (error) {
-            console.log("Error on POST request : ", error);
+            console.log("Error on GET request : ", error);
             throw error;
         }
     }
@@ -59,13 +59,17 @@ async function request(url, method, requestParams) {
         "Content-Type": "application/json",
         "Accept": "application/json"
     };
-
     const state = store.getState();
     const {userData} = state.login;
-    const token = userData?.access_token;
 
-    if (token) {
+    const token = userData?.access_token;
+    const refreshToken = userData?.refresh_token;
+
+    if (token ) {
         HEADERS[`Authorization`] = 'Bearer ' + token;
+    }
+    if (refreshToken){
+        HEADERS[`Authorization`] = 'Bearer ' + refreshToken;
     }
 
     config.headers = HEADERS;
@@ -78,8 +82,6 @@ async function request(url, method, requestParams) {
     const response = await fetch(url, config);
 
     if (!response.ok) {
-        // const message = await response.text();
-        // console.log(message)
         return response.status;
     }
 

@@ -23,7 +23,8 @@ export const receiveRefreshToken = (refreshToken) => (dispatch) => {
 
      const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REFRESH_TOKEN;
 
-     return HttpService.post(url, refreshToken).then(response => {
+     return HttpService.get(url, refreshToken).then(response => {
+
           return dispatch({
                type : loginActions.RECEIVE_REFRESH_TOKEN,
                payload : response
