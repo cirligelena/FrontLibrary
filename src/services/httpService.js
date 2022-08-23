@@ -1,5 +1,9 @@
 import {store} from "../store";
-import {checkIfAccessTokenValid, checkIfRefreshTokenValid} from "./token";
+import {checkAccesToken} from "../redux/actions/login";
+import {useDispatch} from "react-redux";
+
+
+
 
 const CREDENTIALS = {
     credentials: "same-origin"
@@ -7,6 +11,7 @@ const CREDENTIALS = {
 
 
 export class HttpService {
+
     static async post(url, requestParams) {
         try {
             return await request(url, "POST", requestParams);
@@ -59,9 +64,9 @@ async function request(url, method, requestParams) {
         "Content-Type": "application/json",
         "Accept": "application/json"
     };
+
     const state = store.getState();
     const {userData} = state.login;
-
     const token = userData?.access_token;
     const refresh_token = userData?.refresh_token;
 
@@ -82,6 +87,8 @@ async function request(url, method, requestParams) {
     const response = await fetch(url, config);
 
     if (!response.ok) {
+       checkAccesToken()
+
         return response.status;
     }
 

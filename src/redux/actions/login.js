@@ -1,10 +1,13 @@
 import { routes } from "../../config/routes";
 import { HttpService } from "../../services/httpService";
+import * as token from "../../services/token";
+import {store} from "../../store";
 
 
 export const loginActions = {
      RECEIVE_USER_AUTH : "RECEIVE_USER_AUTH",
      RECEIVE_REFRESH_TOKEN:"RECEIVE_REFRESH_TOKEN",
+     CHECK_ACCESS_TOKEN : "CHECK_ACCESS_TOKEN"
 
 };
 
@@ -32,3 +35,15 @@ export const receiveRefreshToken = () => (dispatch) => {
      });
 };
 
+export const checkAccesToken = () => () => {
+     const state = store.getState();
+     const {userData} = state.login;
+
+     return token.checkIfAccessTokenValid({userData}).then(response => {
+
+          return {
+               type : loginActions.CHECK_ACCESS_TOKEN,
+               payload : response
+          };
+     });
+};
