@@ -21,12 +21,7 @@ import UnauthorizedComponent from "./components/missing/Unauthorized";
 import RequireAuth from "./components/auth/RequireAuth";
 import UsersComponent from "./components/user/Users";
 import LogoutComponent from "./components/logout/Logout";
-import NavigationComponent from "./components/navigation/Navigation";
-
 import {Route, Routes} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {checkIfTokenValid} from "./services/token";
-import useRefreshToken from "./hooks/useRefreshToken";
 
 
 function App() {

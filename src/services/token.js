@@ -1,5 +1,4 @@
-import {store} from "../store";
-import HomeComponent from "../components/home/Home";
+
 
 export function checkIfAccessTokenValid(userInfo) {
     if (userInfo.access_token) {
