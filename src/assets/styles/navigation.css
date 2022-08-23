@@ -15,6 +15,11 @@
     text-decoration: none;
 }
 
+.nav a:hover {
+    color: black;
+    text-decoration: none;
+}
+
 .auth-link a {
     padding-left: 2px;
     padding-right: 2px;
