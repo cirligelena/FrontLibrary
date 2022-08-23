@@ -26,15 +26,19 @@ const RegistrationComponent = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const userData = {
-            'email': email,
-            'password': password,
-            'firstName': firstName,
-            'lastName': lastName,
-            'phoneNumber': phoneNumber
-        };
+        setErrors(validateInfo({firstName, lastName, email, phoneNumber, password, confirmedPassword}));
 
-        dispatch(registerUser(userData));
+        if (errors !== null) {
+            const userData = {
+                'email': email,
+                'password': password,
+                'firstName': firstName,
+                'lastName': lastName,
+                'phoneNumber': phoneNumber
+            };
+
+            dispatch(registerUser(userData));
+        }
     }
 
     return (

@@ -23,13 +23,13 @@ const CategoriesComponent = () => {
 
     return (
         <>
-            {loaded?<LoaderComponent divToLoad={
+            {loaded ? <LoaderComponent divToLoad={
                 <div>
                     <ul>
                         {Array.isArray(categories)
                             ? categories.map(result => {
                                 return (
-                                    <Card style={{ width: '18rem' }} key={result.id}>
+                                    <Card style={{width: '18rem'}} key={result.id}>
                                         <Card.Body>
                                             <Card.Title>{result.title}</Card.Title>
                                         </Card.Body>
@@ -37,14 +37,12 @@ const CategoriesComponent = () => {
                                     </Card>)
                             })
 
-                             : <div> No items found </div>
-
-                       }
+                            : <div> No items found </div>
+                        }
                     </ul>
                 </div>
-            }/> : <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-            </div>}
+            }/> : <div></div>
+            }
         </>
     );
 };

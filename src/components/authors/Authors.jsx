@@ -20,27 +20,26 @@ const AuthorsComponent = () => {
     const authors = useSelector(getAuthorList);
     return (
         <>
-            {loaded?  <LoaderComponent divToLoad={
-        <div>
-            <ul>
-                {Array.isArray(authors)
-                    ? authors.map(result => {
-                        return (
-                            <Card style={{width: '18rem'}} key={result.id}>
-                                <Card.Body>
-                                    <Card.Title>{result.firstName} {result.lastName}</Card.Title>
-                                    <Card.Text>{result.biography}</Card.Text>
-                                </Card.Body>
-                                <Button variant="primary">Show author's books</Button>
-                            </Card>)
-                    }) : <div> No items found </div>
-                }
-            </ul>
-        </div>
+            {loaded ? <LoaderComponent divToLoad={
+                <div>
+                    <ul>
+                        {Array.isArray(authors)
+                            ? authors.map(result => {
+                                return (
+                                    <Card style={{width: '18rem'}} key={result.id}>
+                                        <Card.Body>
+                                            <Card.Title>{result.firstName} {result.lastName}</Card.Title>
+                                            <Card.Text>{result.biography}</Card.Text>
+                                        </Card.Body>
+                                        <Button variant="primary">Show author's books</Button>
+                                    </Card>)
+                            }) : <div> No items found </div>
+                        }
+                    </ul>
+                </div>
 
-            }/>: <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-            </div>}
+            }/> : <div></div>
+            }
         </>
     );
 };

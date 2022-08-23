@@ -2,19 +2,19 @@ import React, {useEffect, useState} from "react";
 import "../../assets/styles/navigation.css";
 import {NavLink} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import useRefreshToken from "../../hooks/useRefreshToken";
 
 
 const NavigationComponent = () => {
     const {auth} = useAuth();
     const [logged, setLogged] = useState(false);
 
-    useEffect(() => {
+   useEffect(() => {
         if (auth !== null) {
             setLogged(true);
+        } else {
+            setLogged(false);
         }
     }, []);
-
 
     return (
         <header>
@@ -31,16 +31,17 @@ const NavigationComponent = () => {
                 <div className="nav-link">
                     {<NavLink to={"/books"}>Books</NavLink>}
                 </div>
-
-
-                {logged ? <div className="nav-link">
-                    <NavLink to={"/profile"}>profile</NavLink>
-                </div> : <div className="nav-link auth-link">
-                    <NavLink to={"/login"}>Login /</NavLink>
-                    <NavLink to={"/registration"}>Sign-Up</NavLink>
-                </div>}
-
-
+                {
+                    logged === false ?
+                        <div className="nav-link auth-link">
+                            <NavLink to={"/login"}>Login /</NavLink>
+                            <NavLink to={"/registration"}>Sign-Up</NavLink>
+                        </div>
+                        :
+                        <div className="nav-link auth-link">
+                            {<NavLink to={"/profile"}>Profile</NavLink>}
+                        </div>
+                }
             </div>
             <div className="line-horizontal-xxxl"></div>
         </header>
