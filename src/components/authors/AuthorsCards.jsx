@@ -14,23 +14,23 @@ function AuthorsCards(props) {
                 </div>
                 <div className="authors-page__horizontal-line"></div>
                 <div className="authors-page__cards">
-                        {Array.isArray(props.authors) ?
-                            props.authors.map((author) => {
-                                return (
-                                    <AuthorCard key={author.id}
-                                                id={author.id}
-                                                firstName={author.firstName}
-                                                lastName={author.lastName}
-                                                biography={author.biography}
-                                                birthDate = {author.birthDate}
-                                    />
-                                )
-                            })
-                            : <NoItemsFoundErrorComponent />
-                        }
+                    {Array.isArray(props.authors) ?
+                        props.authors.map((author) => {
+                            return (
+                                <AuthorCard key={author.id}
+                                            id={author.id}
+                                            firstName={author.firstName}
+                                            lastName={author.lastName}
+                                            biography={author.biography}
+                                            birthDate={author.birthDate}
+                                />
+                            )
+                        })
+                        : <NoItemsFoundErrorComponent/>
+                    }
                 </div>
             </div>
-        } />
+        }/>
     );
 }
 
