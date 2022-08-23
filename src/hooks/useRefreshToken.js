@@ -3,6 +3,7 @@ import useAuth from "./useAuth";
 
 const useRefreshToken = () => {
     const {auth,setAuth} = useAuth();
+
     const refresh = async () => {
         const axios = require('axios');
         axios.defaults.baseURL = window.location.protocol + "//" + window.location.hostname + ":8080";
