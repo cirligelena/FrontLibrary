@@ -26,9 +26,9 @@ function App() {
     return (
 
         <Provider store={store}>
-            <RefreshToken>
-                <PersistGate persistor={persistor}>
 
+                <PersistGate persistor={persistor}>
+                    <RefreshToken>
                     <NavigationComponent/>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
@@ -57,9 +57,9 @@ function App() {
                             <Route path="*" element={<MissingComponent/>}/>
                         </Route>
                     </Routes>
-
+                    </RefreshToken>
                 </PersistGate>
-            </RefreshToken>
+
         </Provider>
 
     );

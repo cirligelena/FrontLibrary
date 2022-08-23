@@ -1,4 +1,5 @@
 import {store} from "../store";
+import {checkIfAccessTokenValid, checkIfRefreshTokenValid} from "./token";
 
 const CREDENTIALS = {
     credentials: "same-origin"
@@ -47,10 +48,9 @@ export class HttpService {
 
 async function request(url, method, requestParams) {
 
-
     const config = {
         body: undefined,
-        headers: {},
+        headers: { },
         method,
         CREDENTIALS
     }
@@ -63,18 +63,18 @@ async function request(url, method, requestParams) {
     const {userData} = state.login;
 
     const token = userData?.access_token;
-    const refreshToken = userData?.refresh_token;
+    const refresh_token = userData?.refresh_token;
 
-    if (token ) {
-        HEADERS[`Authorization`] = 'Bearer ' + token;
-    }
-    if (refreshToken){
-        HEADERS[`Authorization`] = 'Bearer ' + refreshToken;
-    }
+    if (token && url !== "http://localhost:8080/api/token/refresh") {
+        HEADERS[`Authorization`] = 'Bearer ' + token}
+    else if (url === "http://localhost:8080/api/token/refresh"){
+             HEADERS[`Authorization`] = 'Bearer ' + refresh_token;
+         }
+
 
     config.headers = HEADERS;
 
-    if (method === "POST" || method === "PUT") {
+    if (method === "POST" || method === "PUT" ) {
         config.body = JSON.stringify(requestParams);
     }
 

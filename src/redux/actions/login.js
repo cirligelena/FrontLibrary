@@ -4,7 +4,7 @@ import { HttpService } from "../../services/httpService";
 
 export const loginActions = {
      RECEIVE_USER_AUTH : "RECEIVE_USER_AUTH",
-     RECEIVE_REFRESH_TOKEN:"RECEIVE_REFRESH_TOKEN"
+     RECEIVE_REFRESH_TOKEN:"RECEIVE_REFRESH_TOKEN",
 
 };
 
@@ -19,11 +19,11 @@ export const loginUser = (userData) => (dispatch) => {
           });
      });
 };
-export const receiveRefreshToken = (refreshToken) => (dispatch) => {
+export const receiveRefreshToken = () => (dispatch) => {
 
      const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REFRESH_TOKEN;
 
-     return HttpService.get(url, refreshToken).then(response => {
+     return HttpService.get(url).then(response => {
 
           return dispatch({
                type : loginActions.RECEIVE_REFRESH_TOKEN,
@@ -31,3 +31,4 @@ export const receiveRefreshToken = (refreshToken) => (dispatch) => {
           });
      });
 };
+

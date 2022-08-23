@@ -6,19 +6,14 @@ import {receiveRefreshToken} from "../../redux/actions/login";
 
 
 const RefreshToken = ({children}) => {
-    const newToken = useSelector(getNewTokens);
     const userInfo = useSelector(getUserData);
     const dispatch = useDispatch();
     useEffect(() => {
+        if (userInfo && !checkIfAccessTokenValid(userInfo) && checkIfRefreshTokenValid(userInfo)) {
+            dispatch(receiveRefreshToken()).then(() => {
+                console.log("Token was refreshed")
 
-        if (!checkIfAccessTokenValid() && checkIfRefreshTokenValid()) {
-
-            console.log(userInfo.refresh_token)
-            console.log("lalalal")
-            dispatch(receiveRefreshToken(userInfo.refresh_token));
-            console.log(newToken);
-            userInfo.access_token = newToken.access_token;
-            userInfo.refresh_token = newToken.refresh_token;
+            });
         }
     }, [])
 
