@@ -1,12 +1,15 @@
 import useAuth from "../../hooks/useAuth";
-import React from "react";
+import React, {useState} from "react";
+import {login} from "../../redux/reducers/login";
+
 
 
 const LogoutComponent = () => {
-    const {setAuth} = useAuth();
+    let [userInfo, setUserInfo] = useState(login.userData);
+  //  const {setAuth} = useAuth();
 
-    const logout = (event) => {
-        setAuth(null);
+    const logout = () => {
+     setUserInfo = null;
     }
    return <button type="submit" onClick={logout}>
         Logout

@@ -1,26 +1,17 @@
 import {store} from "../store";
 import HomeComponent from "../components/home/Home";
+import {useState} from "react";
 
-export function checkIfAccessTokenValid() {
-    const state = store.getState();
-    const {userData} = state.login;
-    const accessToken = userData?.access_token;
-    if (accessToken) {
-        let parsedToken = parseJwt(accessToken);
+export function checkIfAccessTokenValid(userInfo) {
+    if (userInfo.access_token) {
+        let parsedToken = parseJwt(userInfo.access_token);
         return parsedToken.exp * 1000 > new Date().getTime() + 1000 * 30;
-    }else{
-        return <HomeComponent />
     }
 }
-export function checkIfRefreshTokenValid() {
-    const state = store.getState();
-    const {userData} = state.login;
-    const refreshToken = userData?.refresh_token;
-    if (refreshToken) {
-        let parsedToken = parseJwt(refreshToken);
+export function checkIfRefreshTokenValid(userInfo) {
+    if (userInfo.refresh_token) {
+        let parsedToken = parseJwt(userInfo.refresh_token);
         return parsedToken.exp * 1000 > new Date().getTime() + 1000 * 10;
-    }else{
-        return <HomeComponent />
     }
 }
 
@@ -31,3 +22,12 @@ const parseJwt = (token) => {
         return null;
     }
 };
+
+export function checkIfAccessTokenValid1(userInfo) {
+    if (userInfo.access_token) {
+        let parsedToken = parseJwt(userInfo.access_token);
+        return new Promise((resolve, reject) => {
+            resolve(parsedToken.exp * 1000 > new Date().getTime() + 1000 * 30);
+        });
+    }
+}

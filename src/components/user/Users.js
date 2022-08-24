@@ -8,7 +8,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from "react-bootstrap/Form";
 import LoaderComponent from "../loader/Loader";
-import useRefreshToken from "../../hooks/useRefreshToken";
+
 
 
 const UsersComponent = () => {
@@ -43,7 +43,6 @@ const UsersComponent = () => {
         });
     }
 
-    const refresh = useRefreshToken();
 
     // let validation= null;
     // useEffect(() => {
@@ -122,7 +121,7 @@ const UsersComponent = () => {
                                         </button>
 
                                     </OverlayTrigger>
-                                    <button onClick={()=> refresh()}>newToken</button>
+                                    <button >newToken</button>
                                 </div>
                             )
                         })

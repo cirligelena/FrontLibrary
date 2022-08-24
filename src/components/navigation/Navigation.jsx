@@ -8,11 +8,10 @@ import useRefreshToken from "../../hooks/useRefreshToken";
 
 
 
+
 const NavigationComponent = () => {
     const {auth} = useAuth();
     const [logged, setLogged] = useState(false);
-    const refresh = useRefreshToken();
-    let validation = null;
 
     useEffect(() => {
         if (auth !== null) {
@@ -22,16 +21,7 @@ const NavigationComponent = () => {
         }
     }, []);
 
-    useEffect(() => {
-        console.log(checkIfTokenValid());
-        validation = checkIfTokenValid();
 
-        if (validation === true) {
-            refresh().then(() => console.log("new token generated!"));
-        }
-
-
-    }, [])
     return (
         <header>
             <div className="nav">
