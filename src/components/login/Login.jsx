@@ -5,9 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginUser} from '../../redux/actions/login';
 import {getUserData} from "../../redux/selectors/login";
 import {Link, useLocation, useNavigate} from "react-router-dom";
+<<<<<<< HEAD
 import useLoggedIn from "../../hooks/useLoggedIn";
 
 
+=======
+>>>>>>> dc9c162218bfda63b080bdcab463785a0603b623
 
 const LoginComponent = () => {
 
