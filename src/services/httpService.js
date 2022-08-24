@@ -1,4 +1,6 @@
 import {store} from "../store";
+import {checkAccesToken} from "../redux/actions/login";
+
 
 const CREDENTIALS = {
     credentials: "same-origin"
@@ -6,6 +8,7 @@ const CREDENTIALS = {
 
 
 export class HttpService {
+
     static async post(url, requestParams) {
         try {
             return await request(url, "POST", requestParams);
@@ -19,7 +22,7 @@ export class HttpService {
         try {
             return await request(url, "GET", requestParams);
         } catch (error) {
-            console.log("Error on POST request : ", error);
+            console.log("Error on GET request : ", error);
             throw error;
         }
     }
@@ -47,10 +50,9 @@ export class HttpService {
 
 async function request(url, method, requestParams) {
 
-
     const config = {
         body: undefined,
-        headers: {},
+        headers: { },
         method,
         CREDENTIALS
     }
@@ -61,25 +63,34 @@ async function request(url, method, requestParams) {
     };
 
     const state = store.getState();
-    const { userData} = state.login ;
+    const {userData} = state.login;
     const token = userData?.access_token;
+    const refresh_token = userData?.refresh_token;
 
-    if (token) {
-        HEADERS[`Authorization`] = 'Bearer '+ token;
-    }
+
+
+    if (token && url !== "http://localhost:8080/api/token/refresh") {
+        store.dispatch(checkAccesToken(userData)).then(()=> HEADERS[`Authorization`] = 'Bearer ' + token)
+        }
+    else if (url === "http://localhost:8080/api/token/refresh"){
+             HEADERS[`Authorization`] = 'Bearer ' + refresh_token;
+         }
+
 
     config.headers = HEADERS;
 
-    if (method === "POST" || method === "PUT") {
+    if (method === "POST" || method === "PUT" ) {
         config.body = JSON.stringify(requestParams);
     }
 
 
     const response = await fetch(url, config);
 
+
     if (!response.ok) {
-        return response.status;
-    }
+
+        return response.status}
+
 
     return await response.json();
 }
