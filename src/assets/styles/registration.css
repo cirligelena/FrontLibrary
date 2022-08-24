@@ -7,6 +7,7 @@ form section input {
 }
 
 .error-message {
+    text-align: left;
     color: #444444;
     font-size: 15px;
 
@@ -24,6 +25,7 @@ form section input {
 }
 
 .registration-page__form-container {
+    text-align: left;
     width: 100%;
     min-height: 600px;
     max-height: 800px;
