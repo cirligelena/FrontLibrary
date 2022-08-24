@@ -1,46 +1,29 @@
-
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import {fetchAuthorList} from "../../redux/actions/author";
 import {getAuthorList} from "../../redux/selectors/author";
-import LoaderComponent from "../loader/Loader";
-
+import AuthorsCards from "./AuthorsCards";
+import ServerNotRespondingErrorComponent from "../errors/ServerNotRespondingError";
 
 const AuthorsComponent = () => {
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(fetchAuthorList()).then(() => {
-            setLoaded(true)})
-    }, []);
-
-
     const authors = useSelector(getAuthorList);
+
+    useEffect(() => {
+        setLoaded(false)
+
+        dispatch(fetchAuthorList()).then(() => {
+            setLoaded(true)
+        })
+    }, [dispatch]);
+
     return (
         <>
-
-            {loaded?  <LoaderComponent divToLoad={
-        <div>
-            <ul>
-                {Array.isArray(authors)
-                    ? authors.map(result => {
-                        return (
-                            <Card style={{width: '18rem'}} key={result.id}>
-                                <Card.Body>
-                                    <Card.Title>{result.firstName} {result.lastName}</Card.Title>
-                                    <Card.Text>{result.biography}</Card.Text>
-                                </Card.Body>
-                                <Button variant="primary">Show author's books</Button>
-                            </Card>)
-                    }) : <div> No items found </div>
-                }
-            </ul>
-        </div>
-
-
-            }/> : <div></div>
+            {loaded ?
+                <AuthorsCards authors={authors}/>
+                :
+                <ServerNotRespondingErrorComponent/>
             }
         </>
     );

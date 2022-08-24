@@ -11,7 +11,7 @@ const HomeComponent = () => {
 
     return (
         <div>
-
+            <NavigationComponent/>
             <div className="home-page">
                 <div className="photo-container">
                     <img src={libraryPhoto}/>
