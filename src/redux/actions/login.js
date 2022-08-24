@@ -37,10 +37,7 @@ export const receiveRefreshToken = () => (dispatch) => {
 };
 
 export const checkAccesToken = (userData) => (dispatch) => {
-    const state = store.getState();
-  //  const {userData} = state.login;
-    console.log({userData})
-     console.log("213646413" )
+
    return token.checkIfAccessTokenValid1(userData).then(response => {
          return dispatch({
                type : loginActions.CHECK_ACCESS_TOKEN,

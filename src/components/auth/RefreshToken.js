@@ -14,7 +14,6 @@ const RefreshToken = ({children}) => {
         if (userInfo && !checkIfAccessTokenValid(userInfo) && checkIfRefreshTokenValid(userInfo)) {
             dispatch(receiveRefreshToken()).then(() => {
                 console.log("Token was refreshed")
-
             });
         }
     }, [tokenValid])
