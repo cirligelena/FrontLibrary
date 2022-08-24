@@ -1,6 +1,8 @@
 import {store} from "../store";
 import {checkAccesToken} from "../redux/actions/login";
 import {useDispatch} from "react-redux";
+import {useState} from "react";
+
 
 
 
@@ -70,7 +72,10 @@ async function request(url, method, requestParams) {
     const token = userData?.access_token;
     const refresh_token = userData?.refresh_token;
 
+
+
     if (token && url !== "http://localhost:8080/api/token/refresh") {
+        store.dispatch(checkAccesToken(userData))
         HEADERS[`Authorization`] = 'Bearer ' + token}
     else if (url === "http://localhost:8080/api/token/refresh"){
              HEADERS[`Authorization`] = 'Bearer ' + refresh_token;
@@ -86,11 +91,11 @@ async function request(url, method, requestParams) {
 
     const response = await fetch(url, config);
 
-    if (!response.ok) {
-       checkAccesToken()
 
-        return response.status;
-    }
+    if (!response.ok) {
+
+        return response.status}
+
 
     return await response.json();
 }

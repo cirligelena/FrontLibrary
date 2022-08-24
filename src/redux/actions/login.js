@@ -2,6 +2,7 @@ import { routes } from "../../config/routes";
 import { HttpService } from "../../services/httpService";
 import * as token from "../../services/token";
 import {store} from "../../store";
+import {checkIfAccessTokenValid1} from "../../services/token";
 
 
 export const loginActions = {
@@ -35,15 +36,15 @@ export const receiveRefreshToken = () => (dispatch) => {
      });
 };
 
-export const checkAccesToken = () => () => {
-     const state = store.getState();
-     const {userData} = state.login;
-
-     return token.checkIfAccessTokenValid({userData}).then(response => {
-
-          return {
+export const checkAccesToken = (userData) => (dispatch) => {
+    const state = store.getState();
+  //  const {userData} = state.login;
+    console.log({userData})
+     console.log("213646413" )
+   return token.checkIfAccessTokenValid1(userData).then(response => {
+         return dispatch({
                type : loginActions.CHECK_ACCESS_TOKEN,
                payload : response
-          };
+          });
      });
 };
