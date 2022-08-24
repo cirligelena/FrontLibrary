@@ -30,6 +30,6 @@ export const login = (state = initialState, action) => {
                     tokenValid : action.payload
                };
           default:
-               return state;     
+               return state;
      }
 }

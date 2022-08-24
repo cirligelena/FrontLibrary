@@ -10,7 +10,7 @@ const NavigationComponent = () => {
     const [logged, setLogged] = useState(false);
 
     useEffect(() => {
-        if (auth !== null) {
+        if (userData) {
             setLogged(true);
         }
     }, []);
