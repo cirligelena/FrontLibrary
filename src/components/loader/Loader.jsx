@@ -27,7 +27,7 @@ const LoaderComponent = ({divToLoad}) => {
                         }}
                                      size={25} />
                         : <>
-
+                            <NavigationComponent />
                             {divLoaded}
                         </>
 
