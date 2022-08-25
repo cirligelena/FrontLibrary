@@ -1,8 +1,7 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 import {useSelector} from "react-redux";
 import {getUserData} from "../../redux/selectors/login";
-import {store} from "../../store";
+
 
 
 const RequireAuth = ({ allowedRoles }) => {

@@ -21,10 +21,11 @@ import UnauthorizedComponent from "./components/missing/Unauthorized";
 import RequireAuth from "./components/auth/RequireAuth";
 import UsersComponent from "./components/user/Users";
 import LogoutComponent from "./components/logout/Logout";
-import NavigationComponent from "./components/navigation/Navigation";
+
 
 import {Route, Routes} from "react-router-dom";
 import RefreshToken from "./components/auth/RefreshToken";
+import BooksByCriteriaComponent from "./components/books/BookListByCriteria";
 
 
 function App() {
@@ -34,7 +35,6 @@ function App() {
 
                 <PersistGate persistor={persistor}>
                     <RefreshToken>
-                    <NavigationComponent/>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
                             <Route exact path="/" element={<HomeComponent/>}/>
@@ -46,6 +46,8 @@ function App() {
                             <Route path="/unauthorized" element={<UnauthorizedComponent/>}/>
                             <Route path="/login" element={<LoginComponent/>}/>
                             <Route path="/registration" element={<RegistrationComponent/>}/>
+                            <Route path="/books/search_result" element={<BooksByCriteriaComponent/>}/>
+
 
 
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>

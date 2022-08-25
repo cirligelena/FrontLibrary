@@ -4,7 +4,8 @@ import {HttpService} from "../../services/httpService";
 
 export const bookActions = {
     BOOK_LIST : "BOOK_LIST",
-    RESERVED_BOOK : "RESERVED_BOOK"
+    RESERVED_BOOK : "RESERVED_BOOK",
+    BOOKS_BY_CRITERIA : "BOOKS_BY_CRITERIA",
 };
 
 export const fetchBookList = () => (dispatch) => {
@@ -14,6 +15,17 @@ export const fetchBookList = () => (dispatch) => {
         return dispatch({
             type : bookActions.BOOK_LIST,
             payload : response
+        });
+    });
+};
+export const searchBooks = (criteria) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.ALL_BOOKS + "/" + criteria;
+
+    return HttpService.get(url).then(response => {
+        return dispatch({
+            type : bookActions.BOOKS_BY_CRITERIA,
+            payload : response,
+            variable : criteria
         });
     });
 };

@@ -36,8 +36,7 @@ export const receiveRefreshToken = () => (dispatch) => {
      });
 };
 
-export const checkAccesToken = (userData) => (dispatch) => {
-
+export const  checkAccesToken = (userData) => (dispatch) => {
    return token.checkIfAccessTokenValid1(userData).then(response => {
          return dispatch({
                type : loginActions.CHECK_ACCESS_TOKEN,
