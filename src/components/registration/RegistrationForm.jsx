@@ -6,7 +6,7 @@ import 'react-phone-input-2/lib/style.css';
 import validateInfo from "../../util/validateInfo";
 import {Link} from "react-router-dom";
 
-const RegistrationComponent = () => {
+const RegistrationFormComponent = () => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -42,9 +42,7 @@ const RegistrationComponent = () => {
     }
 
     return (
-        <>
-            <div className="registration-page">
-                <div className="registration-page__form-container">
+        <div className="registration-page__form-container">
                     <div className="form-container__container">
                         <div className="form-container__title">
                             <h1>Registration</h1>
@@ -147,9 +145,7 @@ const RegistrationComponent = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
     );
 }
 
-export default RegistrationComponent;
+export default RegistrationFormComponent;

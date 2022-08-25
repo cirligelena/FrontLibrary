@@ -1,18 +1,11 @@
-import React from "react";
-import NavigationComponent from "../navigation/Navigation";
-import '../../assets/styles/home.css';
-import libraryPhoto from '../../assets/images/thumb-1920-573647.jpg';
-import {useNavigate} from "react-router-dom";
+import libraryPhoto from '../../assets/images/library-photo.jpg';
+import { useNavigate } from "react-router-dom";
 
-
-
-const HomeComponent = () => {
+const HomeContentComponent = () => {
     const navigate = useNavigate();
 
     return (
-        <div>
-            <NavigationComponent/>
-            <div className="home-page">
+        <div className="home-page">
                 <div className="photo-container">
                     <img src={libraryPhoto}/>
                 </div>
@@ -45,8 +38,7 @@ const HomeComponent = () => {
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
+    )
+}
 
-export default HomeComponent;
+export default HomeContentComponent;
