@@ -52,7 +52,7 @@ async function request(url, method, requestParams) {
 
     const config = {
         body: undefined,
-        headers: {},
+        headers: { },
         method,
         CREDENTIALS
     }
@@ -67,27 +67,30 @@ async function request(url, method, requestParams) {
     const token = userData?.access_token;
     const refresh_token = userData?.refresh_token;
 
+
+
     if (token && url !== "http://localhost:8080/api/token/refresh") {
-        HEADERS[`Authorization`] = 'Bearer ' + token
-    } else if (url === "http://localhost:8080/api/token/refresh") {
-        HEADERS[`Authorization`] = 'Bearer ' + refresh_token;
-    }
+        store.dispatch(checkAccesToken(userData)).then(()=> HEADERS[`Authorization`] = 'Bearer ' + token)
+        }
+    else if (url === "http://localhost:8080/api/token/refresh"){
+             HEADERS[`Authorization`] = 'Bearer ' + refresh_token;
+         }
 
 
     config.headers = HEADERS;
 
-    if (method === "POST" || method === "PUT") {
+    if (method === "POST" || method === "PUT" ) {
         config.body = JSON.stringify(requestParams);
     }
 
 
     const response = await fetch(url, config);
 
-    if (!response.ok) {
-        checkAccesToken()
 
-        return response.status;
-    }
+    if (!response.ok) {
+
+        return response.status}
+
 
     return await response.json();
 }

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { store } from "../../store";
 
 
+
 const NavigationComponent = () => {
     const state = store.getState();
     const {userData} = state.login;
@@ -14,6 +15,7 @@ const NavigationComponent = () => {
             setLogged(true);
         }
     }, []);
+
 
     return (
         <header>
