@@ -23,35 +23,35 @@ import PageNotFoundPage from './pages/PageNotFound';
 function App() {
     return (
         <Provider store={store}>
-            <RefreshToken />
             <PersistGate persistor={persistor}>
-                <Routes>
-                    <Route path="/" element={<Layout/>}>
-                        <Route exact path="/" element={<HomePage/>}/>
+                <RefreshToken>
+                    <Routes>
+                        <Route path="/" element={<Layout/>}>
+                            <Route exact path="/" element={<HomePage/>}/>
 
-                        <Route path="/categories" element={<CategoriesPage/>}/>
-                        <Route path="/authors" element={<AuthorPage/>}/>
-                        <Route path="/books" element={<BooksPage/>}/>
+                            <Route path="/categories" element={<CategoriesPage/>}/>
+                            <Route path="/authors" element={<AuthorPage/>}/>
+                            <Route path="/books" element={<BooksPage/>}/>
 
-                        <Route path="/login" element={<LoginPage/>}/>
-                        <Route path="/registration" element={<RegistrationPage/>}/>
-                        <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
+                            <Route path="/login" element={<LoginPage/>}/>
+                            <Route path="/registration" element={<RegistrationPage/>}/>
+                            <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
 
-                        <Route element={<RequireAuth allowedRoles={['USER']}/>}>
-                            <Route path="/profile" element={<ProfilePage/>}/>
-                            <Route path="/logout" element={<LogoutComponent/>}/>
+                            <Route element={<RequireAuth allowedRoles={['USER']}/>}>
+                                <Route path="/profile" element={<ProfilePage/>}/>
+                                <Route path="/logout" element={<LogoutComponent/>}/>
+                            </Route>
+
+                            <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
+                                <Route path="/admin" element={<AdminComponent/>}/>
+                                <Route path="/users" element={<UsersComponent/>}/>
+                            </Route>
+
+                            
+                            <Route path="*" element={<PageNotFoundPage/>}/>
                         </Route>
-
-                        <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
-                            <Route path="/admin" element={<AdminComponent/>}/>
-                            <Route path="/users" element={<UsersComponent/>}/>
-                        </Route>
-
-                        
-                        <Route path="*" element={<PageNotFoundPage/>}/>
-                    </Route>
-                </Routes>
-
+                    </Routes>
+                </RefreshToken>
             </PersistGate>
         </Provider>
 
