@@ -6,7 +6,7 @@ import ServerNotRespondingErrorComponent from "../errors/ServerNotRespondingErro
 import CategoriesList from "./CategoriesList";
 
 
-const AllCategories = () => {
+const AllCategoriesComponent = () => {
     const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch();
     const categories = useSelector(getCategoryList);
@@ -33,4 +33,4 @@ const AllCategories = () => {
     );
 };
 
-export default AllCategories;
+export default AllCategoriesComponent;

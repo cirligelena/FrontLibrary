@@ -1,10 +1,10 @@
-import AllCategories from "../components/categories/AllCategories"
+import AllCategoriesComponent from "../components/categories/AllCategories"
 
 
 const CategoriesPage = () => {
     return (
         <div className="categories-page">
-            <AllCategories />
+            <AllCategoriesComponent />
         </div>
     )
 }

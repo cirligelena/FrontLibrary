@@ -5,7 +5,7 @@ import {getAuthorList} from "../../redux/selectors/author";
 import AuthorsList from "./AuthorsList";
 import ServerNotRespondingErrorComponent from "../errors/ServerNotRespondingError";
 
-const AllAuthors = () => {
+const AllAuthorsComponent = () => {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
     const authors = useSelector(getAuthorList);
@@ -29,4 +29,4 @@ const AllAuthors = () => {
     );
 };
 
-export default AllAuthors;
+export default AllAuthorsComponent;
