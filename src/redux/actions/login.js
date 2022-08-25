@@ -1,8 +1,6 @@
 import { routes } from "../../config/routes";
 import { HttpService } from "../../services/httpService";
 import * as token from "../../services/token";
-import {store} from "../../store";
-import {checkIfAccessTokenValid1} from "../../services/token";
 
 
 export const loginActions = {
