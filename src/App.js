@@ -2,6 +2,7 @@ import {Provider} from 'react-redux';
 import {store, persistor} from './store';
 import { Routes, Route } from 'react-router-dom';
 import {PersistGate} from 'redux-persist/integration/react';
+import RefreshToken from './components/auth/RefreshToken';
 import RequireAuth from './components/auth/RequireAuth';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/Home';
@@ -22,6 +23,7 @@ import PageNotFoundPage from './pages/PageNotFound';
 function App() {
     return (
         <Provider store={store}>
+            <RefreshToken />
             <PersistGate persistor={persistor}>
                 <Routes>
                     <Route path="/" element={<Layout/>}>
