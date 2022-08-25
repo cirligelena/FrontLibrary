@@ -2,7 +2,12 @@ import React, {useEffect, useState} from "react";
 import "../../assets/styles/navigation.css";
 import {NavLink} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+<<<<<<< HEAD
 import {store} from "../../store";
+=======
+
+
+>>>>>>> 71cffdbf097d28dd78e935cf364c142c1dccac34
 
 const NavigationComponent = () => {
     const state = store.getState();
@@ -10,7 +15,11 @@ const NavigationComponent = () => {
     const [logged, setLogged] = useState(false);
 
     useEffect(() => {
+<<<<<<< HEAD
         if (JSON.stringify(userData) !== JSON.stringify({})) {
+=======
+        if (userData) {
+>>>>>>> 71cffdbf097d28dd78e935cf364c142c1dccac34
             setLogged(true);
         }
     }, []);
@@ -31,6 +40,7 @@ const NavigationComponent = () => {
                 <div className="nav-link">
                     <NavLink to={"/books"}>Books</NavLink>
                 </div>
+<<<<<<< HEAD
                 <>    {
                     logged ? <div className="nav-link auth-link">
                             <NavLink to={"/profile"}>Profile</NavLink>
@@ -42,6 +52,18 @@ const NavigationComponent = () => {
                         </div>
 
                 }</>
+=======
+
+
+                {logged ? <div className="nav-link">
+                    <NavLink to={"/profile"}>profile</NavLink>
+                </div> : <div className="nav-link auth-link">
+                    <NavLink to={"/login"}>Login /</NavLink>
+                    <NavLink to={"/registration"}>Sign-Up</NavLink>
+                </div>}
+
+
+>>>>>>> 71cffdbf097d28dd78e935cf364c142c1dccac34
             </div>
             <div className="line-horizontal-xxxl"></div>
         </header>

@@ -22,6 +22,7 @@ const CategoriesComponent = () => {
 
     return (
         <>
+<<<<<<< HEAD
             <>
                 {loaded ?
                     <CategoriesCards categories={categories}/>
@@ -29,6 +30,30 @@ const CategoriesComponent = () => {
                     <ServerNotRespondingErrorComponent/>
                 }
             </>
+=======
+            {loaded ? <LoaderComponent divToLoad={
+                <div>
+                    <ul>
+                        {Array.isArray(categories)
+                            ? categories.map(result => {
+                                return (
+                                    <Card style={{width: '18rem'}} key={result.id}>
+                                        <Card.Body>
+                                            <Card.Title>{result.title}</Card.Title>
+                                        </Card.Body>
+                                        <Button variant="primary">Show books of this category</Button>
+                                    </Card>)
+                            })
+
+
+                             : <div> No items found </div>
+
+                        }
+                    </ul>
+                </div>
+            }/> : <div></div>
+            }
+>>>>>>> 71cffdbf097d28dd78e935cf364c142c1dccac34
         </>
     );
 };

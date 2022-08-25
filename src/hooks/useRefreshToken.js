@@ -1,8 +1,8 @@
-import useAuth from "./useAuth";
+import useLoggedIn from "./useLoggedIn";
 
 
 const useRefreshToken = () => {
-    const {auth,setAuth} = useAuth();
+    const {auth,setAuth} = useLoggedIn();
 
     const refresh = async () => {
         const axios = require('axios');

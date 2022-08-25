@@ -3,6 +3,10 @@ import HomeComponent from "../components/home/Home";
 import {useState} from "react";
 
 export function checkIfAccessTokenValid(userInfo) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 71cffdbf097d28dd78e935cf364c142c1dccac34
     if (userInfo.access_token) {
         let parsedToken = parseJwt(userInfo.access_token);
         return parsedToken.exp * 1000 > new Date().getTime() + 1000 * 30;

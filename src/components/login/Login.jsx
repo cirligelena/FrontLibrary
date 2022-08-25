@@ -1,13 +1,22 @@
 import '../../assets/styles/login.css';
-import React, {useEffect, useState} from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {loginUser} from '../../redux/actions/login';
 import {getUserData} from "../../redux/selectors/login";
 import {Link, useLocation, useNavigate} from "react-router-dom";
+<<<<<<< HEAD
 import useAuth from "../../hooks/useAuth";
 import {removeToken, setToken} from "../../services/token";
 import {login} from "../../redux/reducers/login";
+=======
+<<<<<<< HEAD
+import useLoggedIn from "../../hooks/useLoggedIn";
+>>>>>>> 71cffdbf097d28dd78e935cf364c142c1dccac34
 
+
+=======
+>>>>>>> dc9c162218bfda63b080bdcab463785a0603b623
 
 const LoginComponent = () => {
 
@@ -18,6 +27,7 @@ const LoginComponent = () => {
 
 
     const dispatch = useDispatch();
+
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -32,8 +42,11 @@ const LoginComponent = () => {
             'password': password
         };
         dispatch(loginUser(userData));
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 71cffdbf097d28dd78e935cf364c142c1dccac34
         //replaces the success page that we wanted to access
         navigate(from, {replace: true});
         // navigate("/");
@@ -86,7 +99,7 @@ const LoginComponent = () => {
                                    onChange={event => setPassword(event.target.value)}/>
                         </section>
                         <div className="login-form__login-btn">
-                            <button type="submit" onClick={login}>
+                            <button type="submit" /*onClick={login}*/>
                                 Login
                             </button>
                         </div>
