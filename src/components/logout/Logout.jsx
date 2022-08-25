@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 
-import { getTokenStatus, getUserData } from "../../redux/selectors/login";
+import { getUserData } from "../../redux/selectors/login";
 
 import { useSelector } from "react-redux/es/exports";
 
