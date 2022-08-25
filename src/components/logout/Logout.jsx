@@ -12,29 +12,15 @@ const LogoutComponent = () => {
 
     let userData = useSelector(getUserData);
 
-
-
     const logout = () => {
-
-      userData = { };
-
-      localStorage.clear();
-
-      window.location.href = '/';
-
+        userData = {};
+        localStorage.clear();
+        window.location.href = '/';
     }
 
-
-
-
-   return <button type="submit" onClick={logout}>
-
+    return <button type="submit" onClick={logout}>
         Logout
-
     </button>
-
-
-
 }
 
 export default LogoutComponent;
