@@ -17,6 +17,7 @@ import LogoutComponent from './components/logout/Logout';
 import AdminComponent from './components/user/Admin';
 import UsersComponent from './components/user/Users';
 import PageNotFoundPage from './pages/PageNotFound';
+import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 
 
 
@@ -36,7 +37,7 @@ function App() {
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/registration" element={<RegistrationPage/>}/>
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
-
+                            <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
                                 <Route path="/profile" element={<ProfilePage/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>

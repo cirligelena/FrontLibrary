@@ -1,6 +1,7 @@
 
 import {bookActions} from "../actions/book";
 
+
 const initialState = {
 
     bookList : { },
@@ -19,8 +20,12 @@ export const allBooks = (state = initialState, action) => {
             return {
                 ...state,
                 lastModified: action.payload
-            }
-                ;
+            };
+        case bookActions.BOOKS_BY_CRITERIA:
+            return {
+                ...state,
+                bookList : action.payload
+            };
         default:
             return state;
     }

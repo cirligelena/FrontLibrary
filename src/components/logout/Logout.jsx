@@ -14,7 +14,7 @@ const LogoutComponent = () => {
 
 
 
-    const logout = () => {
+   const logout = () => {
 
       userData = { };
 
