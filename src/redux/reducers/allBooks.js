@@ -4,6 +4,7 @@ import {bookActions} from "../actions/book";
 const initialState = {
 
     bookList : { },
+    bookByCategory: { },
     lastModified : null
 
 };
@@ -18,6 +19,12 @@ export const allBooks = (state = initialState, action) => {
         case bookActions.RESERVED_BOOK:
             return {
                 ...state,
+                lastModified: action.payload
+            }
+        case bookActions.GET_BOOKS_BY_CATEGORY:
+            return {
+                ...state,
+                bookByCategory : action.payload,
                 lastModified: action.payload
             }
                 ;

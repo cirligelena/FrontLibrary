@@ -2,22 +2,16 @@ import React, {useEffect, useState} from "react";
 import "../../assets/styles/navigation.css";
 import {NavLink} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-
-import {checkIfTokenValid} from "../../services/token";
-import useRefreshToken from "../../hooks/useRefreshToken";
-
-
-
+import {store} from "../../store";
 
 const NavigationComponent = () => {
-    const {auth} = useAuth();
+    const state = store.getState();
+    const {userData} = state.login;
     const [logged, setLogged] = useState(false);
 
     useEffect(() => {
-        if (auth !== null) {
+        if (JSON.stringify(userData) !== JSON.stringify({})) {
             setLogged(true);
-        } else {
-            setLogged(false);
         }
     }, []);
 
@@ -35,19 +29,19 @@ const NavigationComponent = () => {
                     <NavLink to={"/authors"}>Authors</NavLink>
                 </div>
                 <div className="nav-link">
-                    {<NavLink to={"/books"}>Books</NavLink>}
+                    <NavLink to={"/books"}>Books</NavLink>
                 </div>
-                {
-                    logged === false ?
-                        <div className="nav-link auth-link">
-                            <NavLink to={"/login"}>Login /</NavLink>
-                            <NavLink to={"/registration"}>Sign-Up</NavLink>
+                <>    {
+                    logged ? <div className="nav-link auth-link">
+                            <NavLink to={"/profile"}>Profile</NavLink>
                         </div>
                         :
                         <div className="nav-link auth-link">
-                            {<NavLink to={"/profile"}>Profile</NavLink>}
+                            <NavLink to={"/login"}>Login/</NavLink>
+                            <NavLink to={"/registration"}>Sign-Up</NavLink>
                         </div>
-                }
+
+                }</>
             </div>
             <div className="line-horizontal-xxxl"></div>
         </header>

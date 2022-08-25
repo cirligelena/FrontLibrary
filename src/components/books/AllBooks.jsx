@@ -6,10 +6,10 @@ import BookList from "./BookList";
 
 
 const AllBooksComponent = () => {
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
     const books = useSelector(getBookList);
-    const lastModified = useSelector(getLastModifiedBook)
+    const lastModified = useSelector(getLastModifiedBook);
 
     useEffect(() => {
         setLoaded(false)

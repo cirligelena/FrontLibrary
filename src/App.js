@@ -1,6 +1,4 @@
 import './App.css';
-
-
 import {Provider, useSelector} from 'react-redux';
 import {store, persistor} from './store';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -10,9 +8,6 @@ import HomeComponent from "./components/home/Home";
 import AuthorsComponent from "./components/authors/Authors";
 import CategoriesComponent from "./components/categories/Categories";
 import AllBooksComponent from "./components/books/AllBooks";
-
-
-
 import Layout from "./components/layout/Layout";
 import MissingComponent from "./components/missing/Missing";
 import ProfileComponent from "./components/user/Profile";
@@ -21,10 +16,9 @@ import UnauthorizedComponent from "./components/missing/Unauthorized";
 import RequireAuth from "./components/auth/RequireAuth";
 import UsersComponent from "./components/user/Users";
 import LogoutComponent from "./components/logout/Logout";
-import NavigationComponent from "./components/navigation/Navigation";
-
 import {Route, Routes} from "react-router-dom";
 import RefreshToken from "./components/auth/RefreshToken";
+import BookByCategoryComponent from "./components/categories/BookByCategory";
 
 
 function App() {
@@ -34,13 +28,13 @@ function App() {
 
                 <PersistGate persistor={persistor}>
                     <RefreshToken>
-                    <NavigationComponent/>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
                             <Route exact path="/" element={<HomeComponent/>}/>
                             <Route path="/categories" element={<CategoriesComponent/>}/>
                             <Route path="/authors" element={<AuthorsComponent/>}/>
                             <Route path="/books" element={<AllBooksComponent/>}/>
+                            <Route path="/booksByCategory" element={<BookByCategoryComponent/>}/>
                             {/*<Route path="/logout" element={<LogoutComponent/>}/>*/}
 
                             <Route path="/unauthorized" element={<UnauthorizedComponent/>}/>
