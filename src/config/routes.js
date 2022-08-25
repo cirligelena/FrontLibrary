@@ -10,5 +10,9 @@ export const routes = {
      ALL_BOOKS: "book/books",
      ALL_AUTHORS: "author/authors",
      ALL_CATEGORIES: "category/categories",
-     BOOK_THE_BOOK: "book/bookTheBook"
+     BOOK_THE_BOOK: "book/bookTheBook",
+     GET_BOOKS_BY_CRITERIA: "book/find_books_by_criteria",
+     GET_BOOKS_BY_CATEGORY : "book/bookByCategory",
+     GET_BOOKS_BY_AUTHOR :"book/bookByAuthor"
+
 }

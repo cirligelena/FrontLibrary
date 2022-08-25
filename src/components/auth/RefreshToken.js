@@ -5,8 +5,9 @@ import { getTokenStatus, getUserData} from "../../redux/selectors/login";
 import {receiveRefreshToken} from "../../redux/actions/login";
 
 
+
 const RefreshToken = ({children}) => {
-    const userInfo = useSelector(getUserData);
+    let userInfo = useSelector(getUserData);
     const dispatch = useDispatch();
     let tokenValid = useSelector(getTokenStatus)
 
@@ -15,7 +16,11 @@ const RefreshToken = ({children}) => {
             dispatch(receiveRefreshToken()).then(() => {
                 console.log("Token was refreshed")
             });
-        }
+        // } else if (userInfo && !checkIfAccessTokenValid(userInfo) && !checkIfRefreshTokenValid(userInfo)){
+        //     userInfo = { };
+        //     localStorage.clear();
+        //     window.location.href = '/login-page';
+         }
     }, [tokenValid])
 
     return <div>

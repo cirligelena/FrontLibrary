@@ -5,6 +5,7 @@ const CategoriesPage = () => {
     return (
         <div className="categories-page">
             <AllCategoriesComponent />
+
         </div>
     )
 }
