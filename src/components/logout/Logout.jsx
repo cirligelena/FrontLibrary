@@ -1,12 +1,6 @@
 import React from "react";
-
 import { getUserData } from "../../redux/selectors/login";
-
 import { useSelector } from "react-redux/es/exports";
-
-
-
-
 
 const LogoutComponent = () => {
 
@@ -16,6 +10,7 @@ const LogoutComponent = () => {
         userData = {};
         localStorage.clear();
         window.location.href = '/';
+
     }
 
     return <button type="submit" onClick={logout}>

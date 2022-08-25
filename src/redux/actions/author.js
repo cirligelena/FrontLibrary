@@ -2,7 +2,8 @@ import {routes} from "../../config/routes";
 import {HttpService} from "../../services/httpService";
 
 export const authorActions = {
-   AUTHOR_LIST : "AUTHOR_LIST"
+    AUTHOR_LIST: "AUTHOR_LIST",
+
 };
 
 export const fetchAuthorList = () => (dispatch) => {
@@ -10,8 +11,9 @@ export const fetchAuthorList = () => (dispatch) => {
 
     return HttpService.get(url).then(response => {
         return dispatch({
-            type : authorActions.AUTHOR_LIST,
-            payload : response
+            type: authorActions.AUTHOR_LIST,
+            payload: response
         });
     });
 };
+
