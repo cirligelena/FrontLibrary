@@ -1,22 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/styles/navigation.css";
-import {NavLink} from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-
-import {checkIfTokenValid} from "../../services/token";
-import useRefreshToken from "../../hooks/useRefreshToken";
+import { NavLink } from "react-router-dom";
+import { store } from "../../store";
 
 
 const NavigationComponent = () => {
-    const {auth} = useAuth();
+    const state = store.getState();
+    const {userData} = state.login;
     const [logged, setLogged] = useState(false);
 
     useEffect(() => {
-        if (auth !== null) {
+        if (JSON.stringify(userData) !== JSON.stringify({})) {
             setLogged(true);
         }
     }, []);
-
 
     return (
         <header>
@@ -35,12 +32,16 @@ const NavigationComponent = () => {
                 </div>
 
 
-                {logged ? <div className="nav-link">
-                    <NavLink to={"/profile"}>profile</NavLink>
-                </div> : <div className="nav-link auth-link">
-                    <NavLink to={"/login"}>Login /</NavLink>
-                    <NavLink to={"/registration"}>Sign-Up</NavLink>
-                </div>}
+                {logged ? 
+                    <div className="nav-link">
+                        <NavLink to={"/profile"}>Profile</NavLink>
+                    </div> 
+                    : 
+                    <div className="nav-link auth-link">
+                        <NavLink to={"/login"}>Login /</NavLink>
+                        <NavLink to={"/registration"}>Sign-Up</NavLink>
+                    </div>
+                }
 
 
             </div>

@@ -1,10 +1,9 @@
 import LoaderComponent from "../loader/Loader";
 import NoItemsFoundErrorComponent from "../errors/NoItemsFoundError";
-import React from "react";
 import CategoryCard from "./CategoryCard";
 
 
-function CategoriesCards(props) {
+function CategoriesList(props) {
     return (
         <LoaderComponent divToLoad={
             <div>
@@ -27,4 +26,4 @@ function CategoriesCards(props) {
 }
 
 
-export default CategoriesCards;
+export default CategoriesList;

@@ -25,8 +25,9 @@ function BookItem (props)  {
                 <ListGroup.Item>shelfNumber: {props.shelfNumber}</ListGroup.Item>
                 <ListGroup.Item>status: {props.status}</ListGroup.Item>
             </ListGroup>
-            <Button disabled={props.status === "BOOKED" || props.status === "TAKEN"} onClick={() => reserveBook(props.id)} variant="primary" >Reserve the book< /Button>
-        </Card>)
+            <Button disabled={props.status === "BOOKED" || props.status === "TAKEN"} onClick={() => reserveBook(props.id)} variant="primary" >Reserve the book</Button>
+        </Card>
+    )
 
 }
 export default BookItem;

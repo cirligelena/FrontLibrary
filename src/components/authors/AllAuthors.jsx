@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAuthorList} from "../../redux/actions/author";
 import {getAuthorList} from "../../redux/selectors/author";
-import AuthorsCards from "./AuthorsCards";
+import AuthorsList from "./AuthorsList";
 import ServerNotRespondingErrorComponent from "../errors/ServerNotRespondingError";
 
-const AuthorsComponent = () => {
+const AllAuthors = () => {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
     const authors = useSelector(getAuthorList);
@@ -21,7 +21,7 @@ const AuthorsComponent = () => {
     return (
         <>
             {loaded ?
-                <AuthorsCards authors={authors}/>
+                <AuthorsList authors={authors}/>
                 :
                 <ServerNotRespondingErrorComponent/>
             }
@@ -29,4 +29,4 @@ const AuthorsComponent = () => {
     );
 };
 
-export default AuthorsComponent;
+export default AllAuthors;

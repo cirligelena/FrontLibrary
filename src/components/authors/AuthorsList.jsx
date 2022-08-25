@@ -5,7 +5,7 @@ import NoItemsFoundErrorComponent from "../errors/NoItemsFoundError";
 import '../../assets/styles/authors.css';
 
 
-function AuthorsCards(props) {
+function AuthorsList(props) {
     return (
         <LoaderComponent divToLoad={
             <div className="authors-page">
@@ -35,4 +35,4 @@ function AuthorsCards(props) {
 }
 
 
-export default AuthorsCards;
+export default AuthorsList;
