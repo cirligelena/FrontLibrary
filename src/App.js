@@ -39,11 +39,13 @@ function App() {
                             <Route path="/books" element={<BooksPage/>}/>
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
+                            <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
 
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/registration" element={<RegistrationPage/>}/>
+
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
-                            <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
+
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
                                 <Route path="/profile" element={<ProfilePage/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>

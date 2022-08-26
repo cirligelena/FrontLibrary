@@ -24,19 +24,16 @@ export const allBooks = (state = initialState, action) => {
                 ...state,
                 bookList : action.payload
             };
-
-            }
         case bookActions.GET_BOOKS_BY_CATEGORY:
             return {
                 ...state,
                 bookList: action.payload
-            }
+            };
         case bookActions.GET_BOOKS_BY_AUTHOR:
             return {
                 ...state,
                 bookList: action.payload
-            }
-                ;
+            };
 
         default:
             return state;
