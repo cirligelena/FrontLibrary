@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from "react-redux";
 import {getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
 import { fetchBookList} from "../../redux/actions/book";
 import BookList from "./BookList";
+import { PulseLoader } from "react-spinners";
 
 
 const AllBooksComponent = () => {
@@ -20,8 +21,15 @@ const AllBooksComponent = () => {
 
     return (
         <>
-            {loaded? <BookList books = {books}/>
-             : <div></div>}
+            {
+                loaded ? 
+                    <BookList books = {books}/>
+                    : 
+                    <PulseLoader cssOverride={{
+                        textAlign: "center",
+                        paddingTop: "20%"
+                    }} size={25} />
+            }
         </>
     );
 

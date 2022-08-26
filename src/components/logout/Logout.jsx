@@ -1,8 +1,7 @@
-import React from "react";
-
 import { getUserData } from "../../redux/selectors/login";
-
 import { useSelector } from "react-redux/es/exports";
+import logoutIcon from '../../assets/images/icons/profile/logout.svg'
+
 
 
 
@@ -27,11 +26,11 @@ const LogoutComponent = () => {
 
 
 
-   return <button type="submit" onClick={logout}>
-
-        Logout
-
-    </button>
+   return (
+    <>
+      <img src={logoutIcon} onClick={logout} alt="Logout Icon"/>
+    </>
+   )
 
 
 

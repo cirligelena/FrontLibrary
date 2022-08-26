@@ -1,11 +1,9 @@
-import LoaderComponent from "../loader/Loader";
 import NoItemsFoundErrorComponent from "../errors/NoItemsFoundError";
 import CategoryCard from "./CategoryCard";
 
 
 function CategoriesList(props) {
     return (
-        <LoaderComponent divToLoad={
             <div>
                 <ul>
                     {Array.isArray(props.categories) ?
@@ -21,7 +19,6 @@ function CategoriesList(props) {
                     }
                 </ul>
             </div>
-        } />
     );
 }
 

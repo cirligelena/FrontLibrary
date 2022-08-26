@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from "react-bootstrap/Form";
-import LoaderComponent from "../loader/Loader";
+import { PulseLoader } from "react-spinners";
 
 
 
@@ -64,7 +64,7 @@ const UsersComponent = () => {
 
     return (
         <>
-            {loaded ? <LoaderComponent divToLoad={
+            {loaded ?
                 <div>
 
                     {Array.isArray(users)
@@ -128,9 +128,12 @@ const UsersComponent = () => {
                         : null
                     }
                 </div>
-            }/> : <div>
-
-            </div>}
+                : 
+                <PulseLoader cssOverride={{
+                    textAlign: "center",
+                    paddingTop: "20%"
+                }} size={25} />
+            }
         </>
     );
 
