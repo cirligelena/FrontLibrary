@@ -8,16 +8,18 @@ import HeaderProfileComponent from "../components/profile/ProfileHeader";
 import { PulseLoader } from "react-spinners";
 
 import '../assets/styles/profile.css';
+import ProfileSideMenuComponent from "../components/profile/ProfileSideMenu";
 
 
 
-const ProfilePage = () => {
+const ProfilePage = (props) => {
 
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
 
     const userAccountData = useSelector(getUserData);
     const userProfileData = useSelector(getUserProfileData);
+
     const userFullName = userProfileData.firstName + " " + userProfileData.lastName;
 
     useEffect(() => {
@@ -33,7 +35,9 @@ const ProfilePage = () => {
                 <>
                     <NavigationComponent />
                     <div className="profile-page">
-                        <HeaderProfileComponent userFullName = {userFullName}/>
+                        <HeaderProfileComponent userFullName = {userFullName} />
+                        <ProfileSideMenuComponent />
+                        {props.renderComponent}
                     </div>
                 </>
                 : 
