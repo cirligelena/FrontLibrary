@@ -2,9 +2,11 @@
 
 
 const ProfileText = () => {
-    return <div>
-        <h5>Profile</h5>
-    </div>
+    return (
+        <div className="">
+            <h1>Profile</h1>
+        </div>
+    )
 
 }
 
