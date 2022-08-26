@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/navigation.css";
 import { NavLink } from "react-router-dom";
-import { store } from "../../store";
-
-
+import {useSelector} from "react-redux";
+import {getUserData} from "../../redux/selectors/login";
 
 const NavigationComponent = () => {
-    const state = store.getState();
-    const {userData} = state.login;
+    const userData = useSelector(getUserData)
     const [logged, setLogged] = useState(false);
 
     useEffect(() => {
@@ -15,7 +13,6 @@ const NavigationComponent = () => {
             setLogged(true);
         }
     }, []);
-
 
     return (
         <header>

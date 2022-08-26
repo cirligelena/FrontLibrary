@@ -22,7 +22,8 @@ export const login = (state = initialState, action) => {
                          access_token: action.payload.access_token,
                          refresh_token: action.payload.refresh_token,
                          roles: state.userData.roles
-                    }
+                    },
+                    tokenValid : true
                };
           case loginActions.CHECK_ACCESS_TOKEN:
                return {

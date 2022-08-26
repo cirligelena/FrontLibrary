@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 function AuthorCard(props) {
+    const url = "/books-by-author/" + props.id;
     return (
         <div className="cards__author-card">
             <div className="author-card__name">
@@ -20,7 +21,8 @@ function AuthorCard(props) {
             </div>
             <div className="author-card__card-footer">
                 <div className="card-footer__buttons">
-                    <Link to={"#"}>Go to books</Link>
+                    <Link to={url} className="btn">Books</Link>
+
                 </div>
             </div>
         </div>

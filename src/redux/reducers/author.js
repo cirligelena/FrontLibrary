@@ -2,7 +2,8 @@
 import {authorActions} from "../actions/author";
 
 const initialState = {
-    authorList : { }
+    authorList : { },
+    authorBookList : { }
 };
 
 export const allAuthors = (state = initialState, action) => {
@@ -12,7 +13,6 @@ export const allAuthors = (state = initialState, action) => {
                 ...state,
                 authorList : action.payload
             };
-
         default:
             return state;
     }
