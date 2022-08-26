@@ -5,6 +5,7 @@ import {fetchBookList, searchBooks} from "../../redux/actions/book";
 import BookList from "./BookList";
 import { PulseLoader } from "react-spinners";
 import {useNavigate} from "react-router-dom";
+import NavigationComponent from "../navigation/Navigation";
 
 
 const AllBooksComponent = () => {
@@ -28,6 +29,7 @@ const AllBooksComponent = () => {
             {
                 loaded ? 
                     <div>
+                        <NavigationComponent/>
                         <div className="input-group">
                             <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search"
                                 aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>

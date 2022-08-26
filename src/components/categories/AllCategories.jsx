@@ -5,6 +5,7 @@ import {fetchCategoryList} from "../../redux/actions/category";
 import {getCategoryList} from "../../redux/selectors/category";
 import ServerNotRespondingErrorComponent from "../errors/ServerNotRespondingError";
 import CategoriesList from "./CategoriesList";
+import NavigationComponent from "../navigation/Navigation";
 
 
 const AllCategoriesComponent = () => {
@@ -27,7 +28,10 @@ const AllCategoriesComponent = () => {
         <>
             {
                 loaded ?
-                    <CategoriesList categories={categories}/>
+                    <>
+                        <NavigationComponent/>
+                        <CategoriesList categories={categories}/>
+                    </>
                     :
                     <PulseLoader cssOverride={{
                         textAlign: "center",
