@@ -14,5 +14,4 @@ export const routes = {
      GET_BOOKS_BY_CRITERIA: "book/find_books_by_criteria",
      GET_BOOKS_BY_CATEGORY : "book/bookByCategory",
      GET_BOOKS_BY_AUTHOR :"book/bookByAuthor"
-
 }

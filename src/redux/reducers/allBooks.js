@@ -18,12 +18,14 @@ export const allBooks = (state = initialState, action) => {
                 ...state,
                 lastModified: action.payload
 
+
             };
         case bookActions.BOOKS_BY_CRITERIA:
             return {
                 ...state,
                 bookList : action.payload
             };
+
         case bookActions.GET_BOOKS_BY_CATEGORY:
             return {
                 ...state,
@@ -33,7 +35,9 @@ export const allBooks = (state = initialState, action) => {
             return {
                 ...state,
                 bookList: action.payload
+
             };
+
 
         default:
             return state;

@@ -18,9 +18,9 @@ import AdminComponent from './components/user/Admin';
 import UsersComponent from './components/user/Users';
 import PageNotFoundPage from './pages/PageNotFound';
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
-import BooksByCategory from "./components/books/BooksByCategory";
 import BookByCategoryComponent from "./components/books/BooksByCategory";
 import BookByAuthorComponent from "./components/books/BooksByAuthor";
+
 
 
 
@@ -39,7 +39,9 @@ function App() {
                             <Route path="/books" element={<BooksPage/>}/>
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
+
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
+
 
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/registration" element={<RegistrationPage/>}/>
