@@ -1,6 +1,7 @@
 import { routes } from "../../config/routes";
 import { HttpService } from "../../services/httpService";
 import * as token from "../../services/token";
+import {store} from "../../store";
 
 
 export const loginActions = {
@@ -42,4 +43,12 @@ export const checkAccesToken = (userData) => (dispatch) => {
                payload : response
           });
      });
+};
+
+export const logout = () => () => {
+    const state = store.getState();
+   let {userData} = state.login;
+    userData = { };
+    localStorage.clear();
+    window.location.href = '/';
 };

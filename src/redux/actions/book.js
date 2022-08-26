@@ -8,7 +8,9 @@ export const bookActions = {
     RESERVED_BOOK : "RESERVED_BOOK",
     BOOKS_BY_CRITERIA : "BOOKS_BY_CRITERIA",
     GET_BOOKS_BY_CATEGORY:"GET_BOOKS_BY_CATEGORY",
-    GET_BOOKS_BY_AUTHOR :"GET_BOOKS_BY_AUTHOR"
+    GET_BOOKS_BY_AUTHOR :"GET_BOOKS_BY_AUTHOR",
+    GIVE_BOOK : "GIVE_BOOK",
+    RETURN_BOOK : "RETURN_BOOK"
 
 };
 
@@ -67,6 +69,30 @@ export const getBooksByAuthor = (authorId) => (dispatch) => {
         return dispatch({
             type : bookActions.GET_BOOKS_BY_AUTHOR,
 
+            payload : response
+        });
+    });
+};
+export const giveTheBook = (bookId, userId) => (dispatch) => {
+
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.GIVE_THE_BOOK + "/" + bookId
+        + "/" + userId;
+
+    return HttpService.put(url).then(response => {
+        return dispatch({
+            type : bookActions.GIVE_BOOK,
+            payload : response
+        });
+    });
+};
+
+export const returnTheBook = (bookId) => (dispatch) => {
+
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.RETURN_THE_BOOK + "/" + bookId
+
+    return HttpService.put(url).then(response => {
+        return dispatch({
+            type : bookActions.RETURN_BOOK,
             payload : response
         });
     });

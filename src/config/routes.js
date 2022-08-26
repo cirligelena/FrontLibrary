@@ -13,6 +13,8 @@ export const routes = {
      BOOK_THE_BOOK: "book/bookTheBook",
      GET_BOOKS_BY_CRITERIA: "book/find_books_by_criteria",
      GET_BOOKS_BY_CATEGORY : "book/bookByCategory",
-     GET_BOOKS_BY_AUTHOR :"book/bookByAuthor"
+     GET_BOOKS_BY_AUTHOR :"book/bookByAuthor",
+     GIVE_THE_BOOK : "book/giveTheBook",
+     RETURN_THE_BOOK : "book/returnTheBook"
 
 }
