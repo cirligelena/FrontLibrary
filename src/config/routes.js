@@ -4,6 +4,7 @@ export const routes = {
      LOGIN_URL: "login",
      REGISTRATION_URL: "sign-up",
      REFRESH_TOKEN:"token/refresh",
+     PROFILE_DATA: "profile/get/",
      DELETE_USER: "user/delete/",
      UPDATE_USER: "user/update/",
      ALL_USERS: "user/users",

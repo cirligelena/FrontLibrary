@@ -1,0 +1,11 @@
+/* COMPONENTS */
+@import url("./profile/header.css");
+@import url("./profile/sidemenu.css");
+
+
+/* PAGE */
+.profile-page {
+    padding-top: 90px;
+    margin-left: 11%;
+    margin-right: 16.3%;
+}

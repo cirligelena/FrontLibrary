@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import { PulseLoader } from "react-spinners";
 import {fetchCategoryList} from "../../redux/actions/category";
 import {getCategoryList} from "../../redux/selectors/category";
 import ServerNotRespondingErrorComponent from "../errors/ServerNotRespondingError";
 import CategoriesList from "./CategoriesList";
+import NavigationComponent from "../navigation/Navigation";
 
 
 const AllCategoriesComponent = () => {
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(false);
+    
     const dispatch = useDispatch();
     const categories = useSelector(getCategoryList);
 
@@ -25,9 +28,15 @@ const AllCategoriesComponent = () => {
         <>
             {
                 loaded ?
-                    <CategoriesList categories={categories}/>
+                    <>
+                        <NavigationComponent/>
+                        <CategoriesList categories={categories}/>
+                    </>
                     :
-                    <ServerNotRespondingErrorComponent/>
+                    <PulseLoader cssOverride={{
+                        textAlign: "center",
+                        paddingTop: "20%"
+                    }} size={25} />
             }
         </>
     );
