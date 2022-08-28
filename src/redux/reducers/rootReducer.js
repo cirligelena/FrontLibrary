@@ -8,6 +8,7 @@ import {user} from "./user";
 import {allBooks} from "./allBooks";
 import {allAuthors} from "./author";
 import {allCategories} from "./category";
+import {userProfileData} from './profile';
 
 const persistConfig = {
      key: "root",
@@ -16,7 +17,7 @@ const persistConfig = {
 
  };
 
- const rootReducer = combineReducers({ login, registration, user, allBooks, allAuthors, allCategories});
+ const rootReducer = combineReducers({ login, registration, user, allBooks, allAuthors, allCategories, userProfileData});
 
 
  export default persistReducer(persistConfig, rootReducer);

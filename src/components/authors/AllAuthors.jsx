@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchAuthorList} from "../../redux/actions/author";
 import {getAuthorList} from "../../redux/selectors/author";
 import AuthorsList from "./AuthorsList";
-import ServerNotRespondingErrorComponent from "../errors/ServerNotRespondingError";
+import { PulseLoader } from "react-spinners";
 
 const AllAuthorsComponent = () => {
     const [loaded, setLoaded] = useState(false);
@@ -23,7 +23,10 @@ const AllAuthorsComponent = () => {
             {loaded ?
                 <AuthorsList authors={authors}/>
                 :
-                <ServerNotRespondingErrorComponent/>
+                <PulseLoader cssOverride={{
+                    textAlign: "center",
+                    paddingTop: "20%"
+                }} size={25} />
             }
         </>
     );
