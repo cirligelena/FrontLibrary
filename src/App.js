@@ -20,6 +20,8 @@ import PageNotFoundPage from './pages/PageNotFound';
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import BookByCategoryComponent from "./components/books/BooksByCategory";
 import BookByAuthorComponent from "./components/books/BooksByAuthor";
+import InsertBookComponent from "./components/books/InsertBook";
+import DeleteBookComponent from "./components/books/DeleteABook";
 
 
 
@@ -37,9 +39,11 @@ function App() {
                             <Route path="/categories" element={<CategoriesPage/>}/>
                             <Route path="/authors" element={<AuthorPage/>}/>
                             <Route path="/books" element={<BooksPage/>}/>
+                            <Route path="/delete-book" element={<DeleteBookComponent />}/>
+                            <Route path="/insert-book" element={<InsertBookComponent />}/>
+
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
-
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
 
 

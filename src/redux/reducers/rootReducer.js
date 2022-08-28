@@ -12,7 +12,6 @@ import {allCategories} from "./category";
 const persistConfig = {
      key: "root",
      storage,
-
      whitelist: [ "login", "registration"]
 
  };

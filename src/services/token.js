@@ -21,9 +21,18 @@ const parseJwt = (token) => {
     }
 };
 
-export function checkIfAccessTokenValid1(userInfo) {
+export function checkIfAccessTokenValidPromise(userInfo) {
     if (userInfo.access_token) {
         let parsedToken = parseJwt(userInfo.access_token);
+        return new Promise((resolve, reject) => {
+            resolve(parsedToken.exp * 1000 > new Date().getTime() + 1000 * 30);
+        });
+    }
+}
+
+export function checkIfRefreshTokenValidPromise(userInfo) {
+    if (userInfo.refresh_token) {
+        let parsedToken = parseJwt(userInfo.refresh_token);
         return new Promise((resolve, reject) => {
             resolve(parsedToken.exp * 1000 > new Date().getTime() + 1000 * 30);
         });
