@@ -17,11 +17,12 @@ import LogoutComponent from './components/logout/Logout';
 import AdminComponent from './components/user/Admin';
 import UsersComponent from './components/user/Users';
 import PageNotFoundPage from './pages/PageNotFound';
-import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
-import BooksByCategory from "./components/books/BooksByCategory";
+import HistoryComponent from './components/profile/History';
+import ProfileBooksComponent from './components/profile/ProfileBooks';
+import ProfileAuthComponent from './components/profile/ProfileAuth';
 import BookByCategoryComponent from "./components/books/BooksByCategory";
 import BookByAuthorComponent from "./components/books/BooksByAuthor";
-
+import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 
 
 
@@ -37,20 +38,25 @@ function App() {
                             <Route path="/categories" element={<CategoriesPage/>}/>
                             <Route path="/authors" element={<AuthorPage/>}/>
                             <Route path="/books" element={<BooksPage/>}/>
-                            <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
-                            <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
 
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/registration" element={<RegistrationPage/>}/>
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
+
+                            <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
+                            <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
+
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
                                 <Route path="/profile" element={<ProfilePage/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>
+                                <Route path="/profile/myhistory" element={<ProfilePage renderComponent={<HistoryComponent/>}/>}/>
+                                <Route path="/profile/mybooks" element={<ProfilePage renderComponent={<ProfileBooksComponent/>}/>}/>
+                                <Route path="/profile/authorization" element={<ProfilePage renderComponent={<ProfileAuthComponent/>}/>}/>
                             </Route>
 
                             <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
-                                <Route path="/admin" element={<AdminComponent/>}/>
+                                <Route path="/profile/admin" element={<ProfilePage renderComponent={<AdminComponent/>}/>}/>
                                 <Route path="/users" element={<UsersComponent/>}/>
                             </Route>
 
