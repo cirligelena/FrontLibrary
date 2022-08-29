@@ -2,7 +2,7 @@ import {categoryActions} from "../actions/category";
 
 
 const initialState = {
-    categoryList : {}
+    categoryList : { },
 };
 
 export const allCategories = (state = initialState, action) => {

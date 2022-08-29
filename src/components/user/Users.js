@@ -121,7 +121,6 @@ const UsersComponent = () => {
                                         </button>
 
                                     </OverlayTrigger>
-                                    <button >newToken</button>
                                 </div>
                             )
                         })
