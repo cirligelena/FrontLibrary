@@ -1,11 +1,9 @@
-import NavigationComponent from "../navigation/Navigation";
 import profileUserIcon from '../../assets/images/icons/profile/person-circle.svg';
 import LogoutComponent from "../logout/Logout";
 
 const ProfileHeaderComponent = (props) => {
-    
+
     return (
-        
         <>
             <div className="profile-header">
                 <div className="profile-header__info align-left">
@@ -17,7 +15,7 @@ const ProfileHeaderComponent = (props) => {
                         <p><small>Your personal account</small></p>
                     </div>
                     <div className="logout">
-                        <LogoutComponent />
+                        <LogoutComponent/>
                     </div>
                 </div>
                 <div className="profile-header__buttons">
