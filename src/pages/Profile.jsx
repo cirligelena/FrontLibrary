@@ -36,8 +36,7 @@ const ProfilePage = (props) => {
                     <NavigationComponent />
                     <div className="profile-page">
                         <HeaderProfileComponent userFullName = {userFullName} />
-                        <ProfileSideMenuComponent />
-                        {props.renderComponent}
+                        <ProfileSideMenuComponent rightSideComponent = {props.renderComponent}/>
                     </div>
                 </>
                 : 
