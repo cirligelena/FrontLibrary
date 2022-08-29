@@ -4,6 +4,7 @@ export const routes = {
      LOGIN_URL: "login",
      REGISTRATION_URL: "sign-up",
      REFRESH_TOKEN:"token/refresh",
+     PROFILE_DATA: "profile/get/",
      DELETE_USER: "user/delete/",
      UPDATE_USER: "user/update/",
      ALL_USERS: "user/users",
@@ -13,6 +14,9 @@ export const routes = {
      BOOK_THE_BOOK: "book/bookTheBook",
      GET_BOOKS_BY_CRITERIA: "book/find_books_by_criteria",
      GET_BOOKS_BY_CATEGORY : "book/bookByCategory",
-     GET_BOOKS_BY_AUTHOR :"book/bookByAuthor"
+     GET_BOOKS_BY_AUTHOR :"book/bookByAuthor",
+     DELETE_BOOK: "book/delete/",
+     INSERT_BOOK: "book/create"
+
 
 }

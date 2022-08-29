@@ -8,8 +8,9 @@ export const bookActions = {
     RESERVED_BOOK : "RESERVED_BOOK",
     BOOKS_BY_CRITERIA : "BOOKS_BY_CRITERIA",
     GET_BOOKS_BY_CATEGORY:"GET_BOOKS_BY_CATEGORY",
-    GET_BOOKS_BY_AUTHOR :"GET_BOOKS_BY_AUTHOR"
-
+    GET_BOOKS_BY_AUTHOR :"GET_BOOKS_BY_AUTHOR",
+    DELETE_BOOK: "DELETE_BOOK",
+    INSERT_BOOK: "INSERT_BOOK"
 };
 
 export const fetchBookList = () => (dispatch) => {
@@ -30,11 +31,11 @@ export const reserveTheBook = (bookId, userId) => (dispatch) => {
 
     return HttpService.put(url).then(response => {
         return dispatch({
-            type : bookActions.RESERVED_BOOK,
-            payload : response
+            type: bookActions.RESERVED_BOOK,
+            payload: response
         });
     });
-};
+}
 
 
 export const searchBooks = (criteria) => (dispatch) => {
@@ -42,12 +43,11 @@ export const searchBooks = (criteria) => (dispatch) => {
 
     return HttpService.get(url).then(response => {
         return dispatch({
-            type : bookActions.BOOKS_BY_CRITERIA,
-            payload : response
+            type: bookActions.BOOKS_BY_CRITERIA,
+            payload: response
         });
     });
-};
-
+}
 
 export const getBooksByCategory = ( categoryId) => (dispatch) => {
 
@@ -67,8 +67,30 @@ export const getBooksByAuthor = (authorId) => (dispatch) => {
     return HttpService.get(url).then(response => {
         return dispatch({
             type : bookActions.GET_BOOKS_BY_AUTHOR,
-
             payload : response
         });
     });
+};
+export const deleteBook  = (id) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.DELETE_BOOK + id;
+
+    return HttpService.delete(url).then(response => {
+        console.log("Response = " + response);
+        return dispatch({
+            type: bookActions.DELETE_BOOK,
+            payload: response
+        });
+    });
+
+};
+export const insertBook  = (bookData) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.INSERT_BOOK ;
+
+    return HttpService.post(url, bookData).then(response => {
+        return dispatch({
+            type: bookActions.INSERT_BOOK,
+            payload: response
+        });
+    });
+
 };

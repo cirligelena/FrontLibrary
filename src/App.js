@@ -23,6 +23,8 @@ import ProfileAuthComponent from './components/profile/ProfileAuth';
 import BookByCategoryComponent from "./components/books/BooksByCategory";
 import BookByAuthorComponent from "./components/books/BooksByAuthor";
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
+import InsertBookComponent from "./components/books/InsertBook";
+import DeleteBookComponent from "./components/books/DeleteBook";
 
 
 
@@ -43,6 +45,8 @@ function App() {
                             <Route path="/registration" element={<RegistrationPage/>}/>
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
 
+
+
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
@@ -58,9 +62,12 @@ function App() {
                             <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
                                 <Route path="/profile/admin" element={<ProfilePage renderComponent={<AdminComponent/>}/>}/>
                                 <Route path="/users" element={<UsersComponent/>}/>
+                                <Route path="/insert-book" element={<InsertBookComponent/>}/>
+                                <Route path="/delete-book" element={<DeleteBookComponent/>}/>
                             </Route>
 
-                            
+
+
                             <Route path="*" element={<PageNotFoundPage/>}/>
                         </Route>
                     </Routes>

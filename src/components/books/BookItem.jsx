@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getUserData} from "../../redux/selectors/login";
 
 
-function BookItem (props)  {
+function BookItem(props) {
     const dispatch = useDispatch();
     const userInfo = useSelector(getUserData);
     const userId = userInfo.id;
@@ -16,18 +16,32 @@ function BookItem (props)  {
         dispatch(reserveTheBook(bookId, userId));
     }
     return (
-        <Card style={{ width: '18rem' }} >
-            <Card.Body>
-                <Card.Title>{props.title}</Card.Title>
-                <Card.Text>{props.description}</Card.Text>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-                <ListGroup.Item>shelfNumber: {props.shelfNumber}</ListGroup.Item>
-                <ListGroup.Item>status: {props.status}</ListGroup.Item>
-            </ListGroup>
-            <Button disabled={props.status === "BOOKED" || props.status === "TAKEN"} onClick={() => reserveBook(props.id)} variant="primary" >Reserve the book</Button>
-        </Card>
+        <div className="card">
+            <div className="card__name">
+                <h3>{props.title}</h3>
+            </div>
+            <div className="card__horizontal-line"></div>
+            <div className="card__body">
+                <p>
+                    About: {props.description}
+                </p>
+            </div>
+            <div className="card__body">
+                <p>
+                    shelfNumber: {props.shelfNumber}<br/>
+                    status: {props.status}
+                </p>
+            </div>
+            <div className="card__card-footer">
+                <div className="card-footer__buttons">
+                    <button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
+                            onClick={() => reserveBook(props.id)}  >Reserve the book</button>
+                </div>
+            </div>
+        </div>
+
     )
 
 }
+
 export default BookItem;

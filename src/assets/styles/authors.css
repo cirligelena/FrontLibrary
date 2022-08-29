@@ -2,86 +2,83 @@ p {
     word-wrap: anywhere;
 }
 
-.authors-page {
+.page {
     padding-top: 150px;
     margin-left: 11%;
     margin-right: 16.3%;
 }
 
-.authors-page__title {
+.page__title {
     text-align: left;
 }
 
-.authors-page__horizontal-line {
+.page__horizontal-line {
     border: 1px solid black;
     width:100%;
     height: 1px;
 }
 
-.authors-page__cards {
+.page__cards {
     padding-top: 50px;
     display: grid;
     gap: 10%;
     grid-template-columns: repeat(3, 1fr);
 }
 
-.cards__author-card {
+.card {
     box-shadow: 2px 2px 2px 2px #646464;
     text-align: left;
 }
 
-.author-card__name {
+.card__name {
     padding-top: 5px;
 }
 
-.author-card__biography {
+.card__body {
     padding-top: 7px;
 }
 
-.author-card__birthDate {
-    padding-top: 7px;
-}
 
-.author-card__horizontal-line {
+.card__horizontal-line {
     border: 1px solid black;
     width: 100%;
     height: 1px;
 }
 
-.author-card__card-footer {
+.card__card-footer {
     width: 100%;
-    height: 30px;
+    height: 40px;
     background-color: #606060;
     padding-top: 5px;
     padding-right: 3px;
     text-align: right;
 }
 
-.author-card__card-footer a {
+.card__card-footer a {
     color: white;
     text-decoration: none;
 }
 
-.author-card__card-footer a:hover {
+.card__card-footer a:hover {
     color: white;
     text-decoration: underline;
 }
 
 
 @media (min-width: 600px) {
-    .authors-page__cards {
+    .page__cards {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (min-width: 900px) {
-    .authors-page__cards {
+    .page__cards {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (min-width: 1400px) {
-    .authors-page__cards {
+    .page__cards {
         grid-template-columns: repeat(3, 1fr);
     }
 }
