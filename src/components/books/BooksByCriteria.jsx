@@ -4,6 +4,8 @@ import {getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
 import { searchBooks} from "../../redux/actions/book";
 import BookList from "./BookList";
 import {useParams} from "react-router-dom";
+import NavigationComponent from "../navigation/Navigation";
+import {PulseLoader} from "react-spinners";
 
 
 
@@ -25,8 +27,15 @@ const BooksByCriteriaComponent = () => {
     return (
         <>
             {loaded?
-                <BookList books = {books}/>
-                : <div></div>}
+                <div>
+                    <NavigationComponent/>
+                    <BookList books = {books}/>
+                </div>
+                :  <PulseLoader cssOverride={{
+                    textAlign: "center",
+                    paddingTop: "20%"
+                }} size={25} />
+            }
         </>
     );
 

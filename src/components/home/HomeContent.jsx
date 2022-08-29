@@ -1,9 +1,10 @@
 import libraryPhoto from '../../assets/images/library-photo.jpg';
-import { useNavigate } from "react-router-dom";
-import LogoutComponent from "../logout/Logout";
+import {useNavigate} from "react-router-dom";
+import React from "react";
 
 const HomeContentComponent = () => {
     const navigate = useNavigate();
+
 
     return (
         <div className="home-page">

@@ -7,7 +7,8 @@ import {store} from "../../store";
 export const loginActions = {
      RECEIVE_USER_AUTH : "RECEIVE_USER_AUTH",
      RECEIVE_REFRESH_TOKEN:"RECEIVE_REFRESH_TOKEN",
-     CHECK_ACCESS_TOKEN : "CHECK_ACCESS_TOKEN"
+     CHECK_ACCESS_TOKEN : "CHECK_ACCESS_TOKEN",
+    LOGOUT : "LOGOUT"
 
 };
 
@@ -35,20 +36,22 @@ export const receiveRefreshToken = () => (dispatch) => {
      });
 };
 
-export const checkAccesToken = (userData) => (dispatch) => {
+export const checkAccessToken = (userData) => (dispatch) => {
 
-   return token.checkIfAccessTokenValid1(userData).then(response => {
          return dispatch({
                type : loginActions.CHECK_ACCESS_TOKEN,
-               payload : response
+               payload : token.checkIfTokenValid(userData.access_token)
           });
-     });
 };
 
-export const logout = () => () => {
+export const logout = () => (dispatch) => {
     const state = store.getState();
    let {userData} = state.login;
     userData = { };
     localStorage.clear();
-    window.location.href = '/';
+   // window.location.href = '/';
+    return dispatch({
+        type : loginActions.LOGOUT,
+        payload : userData
+    });
 };
