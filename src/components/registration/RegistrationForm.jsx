@@ -53,6 +53,10 @@ const RegistrationFormComponent = () => {
         }
     }
 
+    useEffect(() => {
+        handleOnChangeValidating();
+    })
+
     return (
         <div className="registration-page__form-container">
             <div className="form-container__container">
