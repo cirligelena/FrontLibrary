@@ -6,6 +6,23 @@ form section input {
     border-radius: 10px;
 }
 
+.sign-up-btn button:disabled {
+    width: 100%;
+    height: 45px;
+    color: white;
+    text-align: center;
+    background: #2b5d1a;
+    border: #2b5d1a 3px solid;
+    opacity: 90%;
+    border-radius: 10px;
+}
+.sign-up-btn button:disabled:hover {
+    background: #2b5d1a;
+    border: #2b5d1a 3px solid;
+    opacity: 90%;
+    border-radius: 10px;
+}
+
 .error-message {
     text-align: left;
     color: #444444;

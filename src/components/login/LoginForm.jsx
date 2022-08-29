@@ -10,9 +10,9 @@ import { useDispatch } from "react-redux";
 const LoginFormComponent = () => {
 
     const userInfo = useSelector(getUserData);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
 
     const dispatch = useDispatch();
@@ -31,7 +31,12 @@ const LoginFormComponent = () => {
         };
         dispatch(loginUser(userData));
 
-        navigate(from, {replace: true});
+
+        if (userInfo === 403) {
+            setError("Invalid email or password!");
+        } else {
+            navigate(from, {replace: true});
+        }
     }
 
     return (
@@ -52,6 +57,9 @@ const LoginFormComponent = () => {
                                    aria-describedby="password-constraints" required
                                    onChange={event => setPassword(event.target.value)}/>
                         </section>
+                        <div className="error-message">
+                            <p>{error}</p>
+                        </div>
                         <div className="login-form__login-btn">
                             <button type="submit">
                                 Login

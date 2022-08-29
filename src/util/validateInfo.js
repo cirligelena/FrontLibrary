@@ -8,6 +8,13 @@ export default function validateInfo(values) {
     const PASSWORD_MUST_CONTAIN_AT_LEAST_ONE_SPECIAL_CHARACTER_REGEX = /(?=.*[!@#$%^&*])/;
 
     let errors = {};
+    let isPasswordMatch = values.password === values.confirmedPassword;
+
+    if (values.firstName.trim() && values.lastName.trim() && values.email.trim() &&
+        EMAIL_VALIDATOR_REGEX_CODE.test(values.email) && values.password.trim() &&
+        PASSWORD_VALIDATOR_REGEX_CODE.test(values.password) && isPasswordMatch) {
+        return false;
+    }
 
     if (!values.firstName.trim()) {
         errors.firstName = "First name required";
@@ -47,10 +54,8 @@ export default function validateInfo(values) {
         }
     }
 
-    let isPasswordMatch = values.password === values.confirmedPassword;
     if (!isPasswordMatch) {
         errors.confirmedPassword = "Password does not match";
     }
-
     return errors;
 };
