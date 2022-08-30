@@ -10,7 +10,8 @@ export const bookActions = {
     GET_BOOKS_BY_CATEGORY:"GET_BOOKS_BY_CATEGORY",
     GET_BOOKS_BY_AUTHOR :"GET_BOOKS_BY_AUTHOR",
     DELETE_BOOK: "DELETE_BOOK",
-    INSERT_BOOK: "INSERT_BOOK"
+    INSERT_BOOK: "INSERT_BOOK",
+    GET_USER_BOOKS:"GET_USER_BOOKS",
 };
 
 export const fetchBookList = () => (dispatch) => {
@@ -93,4 +94,15 @@ export const insertBook  = (bookData) => (dispatch) => {
         });
     });
 
+};
+export const getUserBooks = (userId) => (dispatch) => {
+
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.GET_USER_BOOKS  + userId;
+
+    return HttpService.get(url).then(response => {
+        return dispatch({
+            type : bookActions.GET_USER_BOOKS,
+            payload : response
+        });
+    });
 };

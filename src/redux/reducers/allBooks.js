@@ -2,9 +2,9 @@ import {bookActions} from "../actions/book";
 
 
 const initialState = {
-    bookList: { },
+    bookList: {},
     lastModified: null,
-    bookData : { }
+    bookData: {}
 };
 
 export const allBooks = (state = initialState, action) => {
@@ -22,7 +22,7 @@ export const allBooks = (state = initialState, action) => {
         case bookActions.BOOKS_BY_CRITERIA:
             return {
                 ...state,
-                bookList : action.payload
+                bookList: action.payload
             };
 
         case bookActions.GET_BOOKS_BY_CATEGORY:
@@ -45,7 +45,13 @@ export const allBooks = (state = initialState, action) => {
         case bookActions.INSERT_BOOK:
             return {
                 ...state,
-                bookData : action.payload
+                bookData: action.payload
+            };
+        case bookActions.GET_USER_BOOKS:
+            return {
+                ...state,
+                bookList: action.payload
+
             };
 
         default:

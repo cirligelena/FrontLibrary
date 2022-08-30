@@ -5,7 +5,7 @@ import {fetchBookList, insertBook} from "../../redux/actions/book";
 import {getAuthorList} from "../../redux/selectors/author";
 import Select from "react-select/base";
 import {getCategoryList} from "../../redux/selectors/category";
-import {fetchCategoryList} from "../../redux/actions/category";
+import {fetchCategoryList, getCategoryById} from "../../redux/actions/category";
 import {fetchAuthorList} from "../../redux/actions/author";
 
 
@@ -17,33 +17,12 @@ const InsertBookComponent = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('');
     const [shelfNumber, setShelfNumber] = useState('');
-    const [category, setCategory] = useState('');
-    const [author, setAuthor] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [birthDate, setBirthDate] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [biography, setBiography] = useState('');
+    const [categoryTitle, setCategoryTitle] = useState('');
 
-    const categories = useSelector(getCategoryList);
-    const books = useSelector(getBookList);
-    const authors = useSelector(getAuthorList);
-
-    const chooseCategories = () => {
-        return <select name="category">
-            {Array.isArray(categories)
-                ? categories.map(category =>
-                    <option key={category.id} value={category.title}>
-                        {category.title}
-                    </option>)
-                : <>{console.log("Array category is null")}</>}
-        </select>
-    }
-    const chooseAuthor = () => {
-        return <select name="authors">
-            {Array.isArray(authors)
-                ? authors.map(author =>
-                    <option key={author.id} value={author.firstName}>
-                        {author.firstName}
-                    </option>)
-                : <>{console.log("Array authors is null")}</>}
-        </select>
-    }
 
     const createBook = (event) => {
         event.preventDefault()
@@ -52,11 +31,18 @@ const InsertBookComponent = () => {
             "title": title,
             "description": description,
             "shelfNumber": shelfNumber,
-            "categories": [{category}],
-            "authors": [{author}]
+            "authors": [{
+                'firstName': firstName,
+                'lastName': lastName,
+                "birthDate": birthDate,
+                "biography": biography
+            }],
+            "categories": [{
+                "title": categoryTitle
+            }]
+
         }
 
-        console.log(title)
         dispatch(insertBook(bookData))
     }
 
@@ -68,36 +54,45 @@ const InsertBookComponent = () => {
         dispatch(fetchAuthorList()).then(() => {
             setLoaded(true)
         })
+        dispatch(fetchBookList()).then(() => {
+            setLoaded(true)
+        })
     }, [lastModified]);
 
     return (
         <>
-            <div>
+            <form onSubmit={createBook}>
+                <label>Title</label><br/>
+                <input type="text" placeholder="Title"
+                       onChange={event => setTitle(event.target.value)}/><br/><br/>
 
-                <form onSubmit={createBook}>
-                    <label>Title</label>
-                    <input type="text" placeholder="Title"
-                           onChange={event => setTitle(event.target.value)}/>
+                <label>Description</label><br/>
+                <input type="text" placeholder="Description"
+                       onChange={event => setDescription(event.target.value)}/><br/><br/>
 
+                <label>ShelfNumber</label><br/>
+                <input type="text" placeholder="ShelfNumber"
+                       onChange={event => setShelfNumber(event.target.value)}/><br/><br/>
 
-                    <label>Description</label>
-                    <input type="text" placeholder="Description"
-                           onChange={event => setDescription(event.target.value)}/>
+                <label>Author details</label><br/>
+                <input type="text" placeholder="firstName"
+                       onChange={event => setFirstName(event.target.value)}/><br/>
+                <input type="text" placeholder="lastName"
+                       onChange={event => setLastName(event.target.value)}/><br/>
+                <input type="text" placeholder="biography"
+                       onChange={event => setBiography(event.target.value)}/><br/>
+                <input type="text" placeholder="birthdate(yyyy-mm-dd)"
+                       onChange={event => setBirthDate(event.target.value)}/><br/><br/>
 
+                <label>Category details</label><br/>
+                <input type="text" placeholder="categoryTitle"
+                       onChange={event => setCategoryTitle(event.target.value)}/>
 
-                    <label>ShelfNumber</label>
-                    <input type="text" placeholder="ShelfNumber"
-                           onChange={event => setShelfNumber(event.target.value)}/>
-                    <label>Choose Category</label>
-                    {chooseCategories(event => setCategory(event.target.value))}dispatch assign instead of set
+                <button type="submit">
+                    Insert the book
+                </button>
+            </form>
 
-                    <label>Choose Author</label>
-                    {chooseAuthor(event => setAuthor(event.target.value))}
-                    <button type="submit">
-                        Insert a book
-                    </button>
-                </form>
-            </div>
         </>
 
     );
