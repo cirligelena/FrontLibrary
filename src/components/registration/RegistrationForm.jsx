@@ -55,7 +55,7 @@ const RegistrationFormComponent = () => {
 
     useEffect(() => {
         handleOnChangeValidating();
-    })
+    }, [email, firstName, lastName, password, confirmedPassword, phoneNumber])
 
     return (
         <div className="registration-page__form-container">
