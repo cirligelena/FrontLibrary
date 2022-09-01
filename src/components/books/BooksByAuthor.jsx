@@ -22,12 +22,18 @@ function BookByAuthorComponent ()  {
 
     return (
         <>
-            {loaded? <div>
-                    <NavigationComponent/> <BookList books = {books}/></div>
-                : <PulseLoader cssOverride={{
+
+            {loaded?
+                <div>
+                    <NavigationComponent/>
+                <BookList books = {books}/>
+                </div>
+                :  <PulseLoader cssOverride={{
                     textAlign: "center",
                     paddingTop: "20%"
-                }} size={25} />}
+                }} size={25} />
+            }
+
         </>
     );
 

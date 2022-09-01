@@ -51,6 +51,7 @@ const ProfileSideMenuComponent = (props) => {
                 </div>
                 <div className="profile-side-menu__break-horizontal-line "></div>
 
+
                 {admin ?
                     <div className="profile-side-menu__administration">
                         <div className="section-name">
@@ -63,6 +64,7 @@ const ProfileSideMenuComponent = (props) => {
                     </div>
                     : <></>
                 }
+
 
             </div>
             <div className="profile-side-content">

@@ -24,6 +24,8 @@ import BookByCategoryComponent from "./components/books/BooksByCategory";
 import BookByAuthorComponent from "./components/books/BooksByAuthor";
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
+import ProfileInfoComponent from "./components/profile/ProfileInfo";
+
 
 
 
@@ -51,7 +53,7 @@ function App() {
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
 
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
-                                <Route path="/profile" element={<ProfilePage/>}/>
+                                <Route path="/profile" element={<ProfilePage renderComponent={<ProfileInfoComponent/>}/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>
                                 <Route path="/profile/myhistory" element={<ProfilePage renderComponent={<HistoryComponent/>}/>}/>
                                 <Route path="/profile/mybooks" element={<ProfilePage renderComponent={<ProfileBooksComponent/>}/>}/>

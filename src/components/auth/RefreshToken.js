@@ -1,31 +1,49 @@
-import {createContext, useEffect} from "react";
-import {checkIfAccessTokenValid, checkIfRefreshTokenValid} from "../../services/token";
+import React, {useEffect, useState} from "react";
+import { checkIfTokenValid} from "../../services/token";
 import {useDispatch, useSelector} from "react-redux";
-import { getTokenStatus, getUserData} from "../../redux/selectors/login";
-import {receiveRefreshToken} from "../../redux/actions/login";
+import {getTokenStatus, getUserData} from "../../redux/selectors/login";
+import {logout, receiveRefreshToken} from "../../redux/actions/login";
+import {useNavigate} from "react-router-dom";
+import {Modal} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 
 
 const RefreshToken = ({children}) => {
-    let userInfo = useSelector(getUserData);
+    const userInfo = useSelector(getUserData);
     const dispatch = useDispatch();
-    let tokenValid = useSelector(getTokenStatus)
-
+    const tokenValid = useSelector(getTokenStatus);
+    const navigate = useNavigate();
+    const [showpopup, setShowpopup] = useState(false)
+    const handlePopUp = (e) => {setShowpopup(!showpopup)};
     useEffect(() => {
-        if (userInfo && !checkIfAccessTokenValid(userInfo) && checkIfRefreshTokenValid(userInfo)) {
+        if (userInfo && !tokenValid && checkIfTokenValid(userInfo.refresh_token)) {
             dispatch(receiveRefreshToken()).then(() => {
                 console.log("Token was refreshed")
             });
-        // } else if (userInfo && !checkIfAccessTokenValid(userInfo) && !checkIfRefreshTokenValid(userInfo)){
-        //     userInfo = { };
-        //     localStorage.clear();
-        //     window.location.href = '/login-page';
-         }
+        } else if (userInfo.email && !tokenValid && !checkIfTokenValid(userInfo.refresh_token)) {
+            dispatch(logout())
+            handlePopUp()
+        }
     }, [tokenValid])
 
-    return <div>
+
+    return  (
+        <>
+    <div>
         {children}
-    </div>;
+    </div>
+    <Modal show={showpopup} onHide={handlePopUp}>
+        <Modal.Header closeButton>
+            <Modal.Title>Session finished </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Please login again</Modal.Body>
+        <Modal.Footer>
+            <Button variant="primary" onClick={() => {navigate("/login");  handlePopUp()}}>Login</Button>
+        </Modal.Footer>
+    </Modal>
+        </>
+)
 }
 
 export default RefreshToken;

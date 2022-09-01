@@ -12,6 +12,9 @@ export const bookActions = {
     DELETE_BOOK: "DELETE_BOOK",
     INSERT_BOOK: "INSERT_BOOK",
     GET_USER_BOOKS:"GET_USER_BOOKS",
+    GIVE_BOOK : "GIVE_BOOK",
+    RETURN_BOOK : "RETURN_BOOK"
+
 };
 
 export const fetchBookList = () => (dispatch) => {
@@ -106,3 +109,29 @@ export const getUserBooks = (userId) => (dispatch) => {
         });
     });
 };
+
+export const giveTheBook = (bookId, userId) => (dispatch) => {
+
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.GIVE_THE_BOOK + "/" + bookId
+        + "/" + userId;
+
+    return HttpService.put(url).then(response => {
+        return dispatch({
+            type : bookActions.GIVE_BOOK,
+            payload : response
+        });
+    });
+};
+
+export const returnTheBook = (bookId) => (dispatch) => {
+
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.RETURN_THE_BOOK + "/" + bookId
+
+    return HttpService.put(url).then(response => {
+        return dispatch({
+            type : bookActions.RETURN_BOOK,
+            payload : response
+        });
+    });
+};
+

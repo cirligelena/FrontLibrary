@@ -8,6 +8,7 @@ import NavigationComponent from "../navigation/Navigation";
 import {PulseLoader} from "react-spinners";
 
 
+
 const BooksByCriteriaComponent = () => {
     const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch();
@@ -25,15 +26,17 @@ const BooksByCriteriaComponent = () => {
 
     return (
         <>
-
-            {loaded ? <div>
+            {loaded?
+                <div>
                     <NavigationComponent/>
-                    <BookList books={books}/>
+                    <BookList books = {books}/>
                 </div>
-                : <PulseLoader cssOverride={{
+                :  <PulseLoader cssOverride={{
                     textAlign: "center",
                     paddingTop: "20%"
-                }} size={25} />}
+                }} size={25} />
+            }
+
         </>
     );
 

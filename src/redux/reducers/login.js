@@ -30,6 +30,11 @@ export const login = (state = initialState, action) => {
                     ...state,
                     tokenValid : action.payload
                };
+          case loginActions.LOGOUT:
+               return {
+                    ...state,
+                    userData : action.payload
+               };
           default:
                return state;     
      }

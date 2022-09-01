@@ -21,5 +21,8 @@ export const routes = {
     ASSIGN_BOOK_TO_CATEGORY: "category/assignBook/",
     GET_USER_BOOKS: "user/usersBooks/",
     GET_USER_HISTORY: "user/usersHistory/",
+    GIVE_THE_BOOK: "book/giveTheBook",
+    RETURN_THE_BOOK: "book/returnTheBook",
+    CLIENT_DATA: "user/find-by-email/"
 
 }
