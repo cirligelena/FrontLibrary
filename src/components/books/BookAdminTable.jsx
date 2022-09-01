@@ -57,9 +57,7 @@ const DeleteBookComponent = () => {
                                             <button onClick={() => deleteBookById(result.id)}>
                                                 delete
                                             </button>
-                                        </td> <td>
-
-                                    </td>
+                                       </td>
                                     </tr>
                                     </tbody>
                                 )

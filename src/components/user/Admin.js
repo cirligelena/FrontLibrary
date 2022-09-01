@@ -104,17 +104,17 @@ const AdminComponent = () => {
                             }
                         >
                             <button>
-                                add new book
+                                Add Book
                             </button>
 
                         </OverlayTrigger>
-                        <button onClick={() => nav("/delete-book")}>Delete Book</button>
+                        <button onClick={() => nav("/delete-book")}>Manage Books</button>
                     </div>
 
 
                     <div className="card__body">
                         <p>When clicked, the admin can add a user</p>
-                        <button>Add a user</button>
+                        <button>Add User</button>
                     </div>
                 </div>
 
