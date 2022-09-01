@@ -1,10 +1,12 @@
 import libraryPhoto from '../../assets/images/library-photo.jpg';
 import {useNavigate} from "react-router-dom";
 import React from "react";
+import {logout} from "../../redux/actions/login";
+import {useDispatch} from "react-redux";
 
 const HomeContentComponent = () => {
     const navigate = useNavigate();
-
+const dispatch= useDispatch()
 
     return (
         <div className="home-page">
@@ -34,8 +36,8 @@ const HomeContentComponent = () => {
                         </p>
                     </div>
                     <div className="content-container__button">
-                        <button className="open-library__btn" onClick={() => navigate("/library")}>
-                            Open Library
+                        <button className="open-library__btn" onClick={() => dispatch(logout())}>
+                            logout
                         </button>
                     </div>
                 </div>
