@@ -7,7 +7,7 @@ import {Table} from "react-bootstrap";
 import NavigationComponent from "../navigation/Navigation";
 
 
-const DeleteBookComponent = () => {
+const ManageBooksComponent = () => {
     const books = useSelector(getBookList);
     const dispatch = useDispatch();
     const [loaded, setLoaded] = useState(false)
@@ -75,4 +75,4 @@ const DeleteBookComponent = () => {
     );
 
 };
-export default DeleteBookComponent;
+export default ManageBooksComponent;

@@ -23,7 +23,7 @@ import ProfileAuthComponent from './components/profile/ProfileAuth';
 import BookByCategoryComponent from "./components/books/BooksByCategory";
 import BookByAuthorComponent from "./components/books/BooksByAuthor";
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
-import DeleteBookComponent from "./components/books/BookAdminTable";
+import ManageBooksComponent from "./components/books/BookAdminTable";
 
 
 
@@ -61,7 +61,7 @@ function App() {
                             <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
                                 <Route path="/profile/admin" element={<ProfilePage renderComponent={<AdminComponent/>}/>}/>
                                 <Route path="/users" element={<UsersComponent/>}/>
-                                <Route path="/delete-book" element={<DeleteBookComponent/>}/>
+                                <Route path="/manage-book" element={<ManageBooksComponent/>}/>
                             </Route>
 
 

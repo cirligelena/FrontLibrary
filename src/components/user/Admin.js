@@ -108,7 +108,7 @@ const AdminComponent = () => {
                             </button>
 
                         </OverlayTrigger>
-                        <button onClick={() => nav("/delete-book")}>Manage Books</button>
+                        <button onClick={() => nav("/manage-book")}>Manage Books</button>
                     </div>
 
 
