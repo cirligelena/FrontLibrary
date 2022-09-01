@@ -1,5 +1,5 @@
 import {store} from "../store";
-import {checkAccesToken} from "../redux/actions/login";
+import {checkAccessToken} from "../redux/actions/login";
 
 
 const CREDENTIALS = {
@@ -68,7 +68,7 @@ async function request(url, method, requestParams) {
     const refresh_token = userData?.refresh_token;
 
     if (token) {
-        store.dispatch(checkAccesToken(userData))
+        await store.dispatch(checkAccessToken(userData))
     }
     if (token && url !== "http://localhost:8080/api/token/refresh") {
         HEADERS[`Authorization`] = 'Bearer ' + token

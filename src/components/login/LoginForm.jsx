@@ -4,11 +4,11 @@ import { getUserData } from "../../redux/selectors/login";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 
 const LoginFormComponent = () => {
-
+    const [loaded, setLoaded] = useState(false);
     const userInfo = useSelector(getUserData);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,19 +25,30 @@ const LoginFormComponent = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        setLoaded(true);
+        verifyError();
         const userData = {
             'email': email,
             'password': password
         };
-        dispatch(loginUser(userData));
-
-
+        dispatch(loginUser(userData)).then(() => {
+            setTimeout(() => {
+                verifyError();
+                setLoaded(false);
+            }, 1000);
+        })
+    }
+    const verifyError = () => {
         if (userInfo === 403) {
             setError("Invalid email or password!");
-        } else {
+        } else if (userInfo.email) {
             navigate(from, {replace: true});
         }
     }
+
+    useEffect(() => {
+        verifyError();
+    }, [loaded])
 
     return (
         <div className="login-container">
