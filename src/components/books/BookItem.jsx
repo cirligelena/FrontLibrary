@@ -77,7 +77,7 @@ function BookItem(props) {
                         variant="primary"> {props.status !== "TAKEN" ? "Give the book" : "Return the book"}</Button>
                 </Card>
                 :
-                <Card style={{width: '18rem'}}>
+                <Card>
                     <Card.Body>
                         <Card.Title>{props.title}</Card.Title>
                         <Card.Text>{props.description}</Card.Text>

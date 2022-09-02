@@ -33,7 +33,7 @@ export const login = (state = initialState, action) => {
           case loginActions.LOGOUT:
                return {
                     ...state,
-                    userData : action.payload
+                    userData : action.payload,
                };
           default:
                return state;     

@@ -7,6 +7,7 @@ export const routes = {
     PROFILE_DATA: "profile/get/",
     DELETE_USER: "user/delete/",
     UPDATE_USER: "user/update/",
+    CREATE_USER : "user/create",
     ALL_USERS: "user/users",
     ALL_BOOKS: "book/books",
     ALL_AUTHORS: "author/authors",

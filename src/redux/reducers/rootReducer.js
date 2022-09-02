@@ -10,6 +10,7 @@ import {allAuthors} from "./author";
 import {allCategories} from "./category";
 import {userProfileData} from './profile';
 import {clientData} from "./client";
+import {loginActions} from "../actions/login";
 
 const persistConfig = {
      key: "root",

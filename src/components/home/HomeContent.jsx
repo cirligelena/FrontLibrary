@@ -1,12 +1,37 @@
 import libraryPhoto from '../../assets/images/library-photo.jpg';
 import {useNavigate} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 import {logout} from "../../redux/actions/login";
 import {useDispatch} from "react-redux";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import {createUser, updateUser} from "../../redux/actions/user";
 
 const HomeContentComponent = () => {
     const navigate = useNavigate();
-const dispatch= useDispatch()
+const dispatch= useDispatch();
+
+
+    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const createNewUser = () => {
+
+        const userDetails = {
+            "email": email,
+            "password": "",
+            "profile": {
+                "firstName": firstName,
+                "lastName": lastName,
+                "phoneNumber" : phoneNumber
+            }
+        };
+
+        dispatch(createUser(userDetails))
+    }
 
     return (
         <div className="home-page">
@@ -40,6 +65,48 @@ const dispatch= useDispatch()
                             logout
                         </button>
                     </div>
+                    <OverlayTrigger
+                        trigger="click"
+                        key='right'
+                        placement='right'
+                        overlay={
+                            <Popover>
+                                <Popover.Header as="h3">{`Create new user`}</Popover.Header>
+                                <Popover.Body>
+                                    <Form.Group className="mb-3" controlId="formEmail">
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control type="text" placeholder="Email"
+                                                      onChange={e => setEmail(e.target.value)}/>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formFirstName">
+                                        <Form.Label>FirstName</Form.Label>
+                                        <Form.Control type="text" placeholder="FirstName"
+                                                      onChange={e => setFirstName(e.target.value)}/>
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-3" controlId="formLastName">
+                                        <Form.Label>LastName</Form.Label>
+                                        <Form.Control type="text" placeholder="LastName"
+                                                      onChange={e => setLastName(e.target.value)}/>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formPhoneNumber">
+                                        <Form.Label>PhoneNumber</Form.Label>
+                                        <Form.Control type="text" placeholder="PhoneNumber"
+                                                      onChange={e => setPhoneNumber(e.target.value)}/>
+                                    </Form.Group>
+                                    <Button variant="primary" type="submit"
+                                            onClick={() => createNewUser()}>
+                                        Save user
+                                    </Button>
+                                </Popover.Body>
+                            </Popover>
+                        }
+                    >
+                        <button>
+                            update
+                        </button>
+
+                    </OverlayTrigger>
                 </div>
             </div>
     )

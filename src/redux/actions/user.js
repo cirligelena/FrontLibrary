@@ -6,7 +6,8 @@ export const userActions = {
 
     USER_LIST: "USER_LIST",
     DELETE_USER: "DELETE_USER",
-    UPDATE_USER: "UPDATE_USER"
+    UPDATE_USER: "UPDATE_USER",
+    CREATE_NEW_USER : "CREATE_NEW_USER"
 };
 
 
@@ -43,5 +44,14 @@ export const updateUser = (id, userData) => (dispatch) => {
             payload: response
         });
     });
+};
+export const createUser = (userData) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.CREATE_USER;
 
+    return HttpService.post(url, userData).then(response => {
+        return dispatch({
+            type: userActions.CREATE_NEW_USER,
+            payload: response
+        });
+    });
 };

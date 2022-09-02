@@ -2,7 +2,8 @@ import { userActions } from "../actions/user";
 
 
 const initialState = {
-    userList : { }
+    userList : { },
+    password : null
 };
 
 export const user = (state = initialState, action) => {
@@ -22,6 +23,11 @@ export const user = (state = initialState, action) => {
             return {
                 ...state,
                 userList : action.payload
+            };
+        case userActions.CREATE_NEW_USER:
+            return {
+                ...state,
+                password : action.payload
             };
         default:
             return state;
