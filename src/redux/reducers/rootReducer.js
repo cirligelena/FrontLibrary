@@ -21,6 +21,7 @@ const persistConfig = {
 
  };
 
+
  const rootReducer = combineReducers({ login, registration, user, allBooks, allAuthors, allCategories, userProfileData, history, clientData});
 
 
