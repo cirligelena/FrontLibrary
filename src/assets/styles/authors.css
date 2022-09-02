@@ -58,6 +58,7 @@ p {
 
 .card-btn50__buttons{
     alignment: center;
+    font-size: 0.93vw;
     width: 50%;
     height: 35px;
     color: #EBF2FA;
