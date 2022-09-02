@@ -16,6 +16,12 @@ export const routes = {
     GET_BOOKS_BY_CRITERIA: "book/find_books_by_criteria",
     GET_BOOKS_BY_CATEGORY: "book/bookByCategory",
     GET_BOOKS_BY_AUTHOR: "book/bookByAuthor",
+    DELETE_BOOK: "book/delete/",
+    INSERT_BOOK: "book/create",
+    GET_CATEGORY_BY_ID: "category/get/",
+    ASSIGN_BOOK_TO_CATEGORY: "category/assignBook/",
+    GET_USER_BOOKS: "user/usersBooks/",
+    GET_USER_HISTORY: "user/usersHistory/",
     GIVE_THE_BOOK: "book/giveTheBook",
     RETURN_THE_BOOK: "book/returnTheBook",
     CLIENT_DATA: "user/find-by-email/"
