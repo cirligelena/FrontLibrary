@@ -25,6 +25,7 @@ import BookByAuthorComponent from "./components/books/BooksByAuthor";
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
 import ProfileInfoComponent from "./components/profile/ProfileInfo";
+import ChangePasswordNotification from "./components/auth/ChangePasswordNotification";
 
 
 
@@ -34,6 +35,7 @@ function App() {
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <RefreshToken>
+                    <ChangePasswordNotification>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
                             <Route exact path="/" element={<HomePage/>}/>
@@ -71,6 +73,7 @@ function App() {
                             <Route path="*" element={<PageNotFoundPage/>}/>
                         </Route>
                     </Routes>
+                    </ChangePasswordNotification>
                 </RefreshToken>
             </PersistGate>
         </Provider>
