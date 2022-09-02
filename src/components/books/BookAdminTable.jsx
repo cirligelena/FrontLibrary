@@ -41,6 +41,7 @@ const ManageBooksComponent = () => {
                             <th>Id</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th>Shelf number</th>
                             <th>Delete Book</th>
                         </tr>
                         </thead>
@@ -50,6 +51,7 @@ const ManageBooksComponent = () => {
 
                                     <tbody key={result.id}>
                                     <tr>
+                                        <td>{result.id}</td>
                                         <td>{result.title}</td>
                                         <td>{result.description}</td>
                                         <td>{result.shelfNumber}</td>
@@ -57,7 +59,7 @@ const ManageBooksComponent = () => {
                                             <button onClick={() => deleteBookById(result.id)}>
                                                 delete
                                             </button>
-                                       </td>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 )
