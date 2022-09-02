@@ -1,15 +1,13 @@
-import {Link} from "react-router-dom";
-import {loginUser} from "../../redux/actions/login";
-import {getUserData} from "../../redux/selectors/login";
-import {useSelector} from "react-redux";
-import {useLocation} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { loginUser } from "../../redux/actions/login";
+import { getUserData } from "../../redux/selectors/login";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
-import {ClipLoader, FadeLoader} from "react-spinners";
+import { useDispatch } from "react-redux";
 
 const LoginFormComponent = () => {
-
     const [loaded, setLoaded] = useState(false);
     const userInfo = useSelector(getUserData);
     const [email, setEmail] = useState('');
@@ -28,7 +26,6 @@ const LoginFormComponent = () => {
 
         setLoaded(true);
         verifyError();
-
         const userData = {
             'email': email,
             'password': password
@@ -41,7 +38,7 @@ const LoginFormComponent = () => {
             }, 1000);
         })
     }
-
+    
     const verifyError = () => {
         if (userInfo === 403) {
             setError("Invalid email or password!");

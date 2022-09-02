@@ -22,7 +22,7 @@ export const allBooks = (state = initialState, action) => {
         case bookActions.BOOKS_BY_CRITERIA:
             return {
                 ...state,
-                bookList : action.payload
+                bookList: action.payload
             };
 
         case bookActions.GET_BOOKS_BY_CATEGORY:
@@ -34,8 +34,17 @@ export const allBooks = (state = initialState, action) => {
             return {
                 ...state,
                 bookList: action.payload
-            }
-                ;
+            };
+        case bookActions.GIVE_BOOK:
+            return {
+                ...state,
+                lastModified: action.payload
+            };
+        case bookActions.RETURN_BOOK:
+            return {
+                ...state,
+                lastModified: action.payload
+            };
 
         default:
             return state;

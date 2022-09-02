@@ -52,6 +52,9 @@ const RegistrationFormComponent = () => {
             }
         }
     }
+    useEffect(() => {
+        handleOnChangeValidating();
+    }, [email, firstName, lastName, password, confirmedPassword, phoneNumber])
 
     useEffect(() => {
         handleOnChangeValidating();

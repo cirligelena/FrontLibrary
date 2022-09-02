@@ -1,8 +1,8 @@
 
 
-export function checkIfAccessTokenValid(userInfo) {
-    if (userInfo.access_token) {
-        let parsedToken = parseJwt(userInfo.access_token);
+export function checkIfTokenValid(token) {
+    if (token) {
+        let parsedToken = parseJwt(token);
         return parsedToken.exp * 1000 > new Date().getTime() + 1000 * 30;
     }
 }
