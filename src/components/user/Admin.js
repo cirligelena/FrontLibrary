@@ -85,7 +85,7 @@ const AdminComponent = () => {
                                                           onChange={e => setFirstName(e.target.value)}/>
                                             <Form.Control type="text" placeholder="lastName"
                                                           onChange={e => setLastName(e.target.value)}/>
-                                            <Form.Control type="text" placeholder="birthDate"
+                                            <Form.Control type="text" placeholder="birthDate(yyyy-mm-dd)"
                                                           onChange={e => setBirthDate(e.target.value)}/>
                                             <Form.Control type="text" placeholder="biography"
                                                           onChange={e => setBiography(e.target.value)}/>

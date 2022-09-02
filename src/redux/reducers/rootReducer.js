@@ -3,7 +3,6 @@ import {combineReducers} from "redux";
 import storage from "redux-persist/lib/storage";
 
 import {login} from "./login";
-import {registration} from "./registration";
 import {user} from "./user";
 import {allBooks} from "./allBooks";
 import {allAuthors} from "./author";
@@ -16,12 +15,12 @@ import {clientData} from "./client";
 const persistConfig = {
      key: "root",
      storage,
-     whitelist: [ "login", "registration"]
+     whitelist: [ "login"]
 
  };
 
 
- const rootReducer = combineReducers({ login, registration, user, allBooks, allAuthors, allCategories, userProfileData, history, clientData});
+ const rootReducer = combineReducers({ login, user, allBooks, allAuthors, allCategories, userProfileData, history, clientData});
 
 
  export default persistReducer(persistConfig, rootReducer);
