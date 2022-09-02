@@ -2,7 +2,8 @@ import {categoryActions} from "../actions/category";
 
 
 const initialState = {
-    categoryList : { }
+    categoryList : { },
+    categoryData : { }
 };
 
 export const allCategories = (state = initialState, action) => {
@@ -11,6 +12,16 @@ export const allCategories = (state = initialState, action) => {
             return {
                 ...state,
                 categoryList : action.payload
+            };
+        case categoryActions.GET_CATEGORY_BY_ID:
+            return {
+                ...state,
+                categoryData : action.payload
+            };
+        case categoryActions.ASSIGN_BOOK_TO_CATEGORY:
+            return {
+                ...state,
+                categoryData : action.payload
             };
 
         default:

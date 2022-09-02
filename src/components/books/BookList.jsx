@@ -3,6 +3,7 @@ import React from "react";
 import NoItemsFoundErrorComponent from "../errors/NoItemsFoundError";
 import {Col, Container, Row} from "react-bootstrap";
 
+
 function BookList(props) {
     return (
         <Container>
@@ -12,12 +13,14 @@ function BookList(props) {
                         return (
                             <Col xs="4" key={book.id}>
                                 <BookItem
+
                                           id={book.id}
                                           title={book.title}
                                           description={book.description}
                                           shelfNumber={book.shelfNumber}
                                           status={book.status}
                                 />
+
                             </Col>
                         )
                     })
@@ -27,5 +30,6 @@ function BookList(props) {
         </Container>
     )
 }
+
 
 export default BookList;

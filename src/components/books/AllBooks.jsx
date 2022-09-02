@@ -9,12 +9,12 @@ import NavigationComponent from "../navigation/Navigation";
 
 
 const AllBooksComponent = () => {
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(false);
     const [criteria, setCriteria] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const books = useSelector(getBookList);
-    const lastModified = useSelector(getLastModifiedBook)
+    const lastModified = useSelector(getLastModifiedBook);
     const url = "/books/search_result/" + criteria
 
     useEffect(() => {
