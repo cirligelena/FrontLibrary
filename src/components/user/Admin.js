@@ -50,6 +50,7 @@ const AdminComponent = () => {
                     <div className="card__body">
                         <p>When clicked this button will show a list of users witch can be deleted and updated by
                             admin</p>
+
                         <button className="card-btn100__buttons"  onClick={() => nav("/users")}>Users</button>
                     </div>
 
@@ -95,7 +96,9 @@ const AdminComponent = () => {
                                             <Form.Control type="text" placeholder="title"
                                                           onChange={e => setCategoryTitle(e.target.value)}/>
                                         </Form.Group>
+
                                         <Button className="card-btn100__buttons"  type="submit"
+
                                                 onClick={createBook}>
                                             Insert
                                         </Button>
@@ -103,18 +106,24 @@ const AdminComponent = () => {
                                 </Popover>
                             }
                         >
+
                             <button className="card-btn50__buttons">
+
                                 Add Book
                             </button>
 
                         </OverlayTrigger>
+
                         <button className="card-btn50__buttons" onClick={() => nav("/manage-book")}>Manage Books</button>
+
                     </div>
 
 
                     <div className="card__body">
                         <p>When clicked, the admin can add a user</p>
+
                         <button className="card-btn100__buttons" >Add User</button>
+
                     </div>
                 </div>
 
