@@ -22,6 +22,7 @@ function BookByAuthorComponent ()  {
 
     return (
         <>
+
             {loaded?
                 <div>
                     <NavigationComponent/>
@@ -32,6 +33,7 @@ function BookByAuthorComponent ()  {
                     paddingTop: "20%"
                 }} size={25} />
             }
+
         </>
     );
 

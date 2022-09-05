@@ -7,7 +7,7 @@ import {useParams} from "react-router-dom";
 import NavigationComponent from "../navigation/Navigation";
 import {PulseLoader} from "react-spinners";
 
-function BookByCategoryComponent ()  {
+function BookByCategoryComponent() {
     const [loaded, setLoaded] = useState(false)
     const lastModified = useSelector(getLastModifiedBook)
     const books = useSelector(getBookList);
@@ -32,6 +32,7 @@ function BookByCategoryComponent ()  {
                     paddingTop: "20%"
                 }} size={25} />
             }
+
         </>
     );
 

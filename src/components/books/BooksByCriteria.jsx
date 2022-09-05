@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import { useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
-import { searchBooks} from "../../redux/actions/book";
+import {searchBooks} from "../../redux/actions/book";
 import BookList from "./BookList";
 import {useParams} from "react-router-dom";
 import NavigationComponent from "../navigation/Navigation";
@@ -36,6 +36,7 @@ const BooksByCriteriaComponent = () => {
                     paddingTop: "20%"
                 }} size={25} />
             }
+
         </>
     );
 

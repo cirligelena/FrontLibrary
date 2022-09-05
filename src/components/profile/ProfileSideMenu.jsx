@@ -3,12 +3,25 @@ import bookIcon from '../../assets/images/icons/profile/book.svg';
 import historyIcon from '../../assets/images/icons/profile/clock-history.svg';
 import authIcon from '../../assets/images/icons/profile/shield-lock.svg';
 import adminIcon from '../../assets/images/icons/profile/bug.svg';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {useSelector} from "react-redux";
+import {getUserData} from "../../redux/selectors/login";
+import {useEffect, useState} from "react";
 
 
 const ProfileSideMenuComponent = (props) => {
     const navigate = useNavigate();
+    const userData = useSelector(getUserData)
+    const allowedRoles = 'ADMIN';
+    const [admin, setAdmin] = useState(false);
+    useEffect(() => {
 
+
+        if (userData?.roles?.find(role => allowedRoles?.includes(role))) {
+            setAdmin(true);
+        }
+
+    }, []);
     return (
         <div className="profile-menu-content-flex">
             <div className="profile-side-menu">
@@ -37,15 +50,22 @@ const ProfileSideMenuComponent = (props) => {
                     </div>
                 </div>
                 <div className="profile-side-menu__break-horizontal-line "></div>
-                <div className="profile-side-menu__administration">
-                    <div className="section-name">
-                        <h6>Administration</h6>
+
+
+                {admin ?
+                    <div className="profile-side-menu__administration">
+                        <div className="section-name">
+                            <h6>Administration</h6>
+                        </div>
+                        <div className="admin-panel" onClick={() => navigate("/profile/admin")}>
+                            <img src={adminIcon} alt="Admin Icon"/>
+                            <h5>Admin Panel</h5>
+                        </div>
                     </div>
-                    <div className="admin-panel" onClick={() => navigate("/profile/admin")}>
-                        <img src={adminIcon} alt="Admin Icon"/>
-                        <h5>Admin Panel</h5>
-                    </div>
-                </div>
+                    : <></>
+                }
+
+
             </div>
             <div className="profile-side-content">
                 {props.rightSideComponent}

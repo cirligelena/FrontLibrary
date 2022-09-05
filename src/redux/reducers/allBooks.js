@@ -3,7 +3,8 @@ import {bookActions} from "../actions/book";
 
 const initialState = {
     bookList: {},
-    lastModified: null
+    lastModified: null,
+    bookData: {}
 };
 
 export const allBooks = (state = initialState, action) => {
@@ -17,7 +18,6 @@ export const allBooks = (state = initialState, action) => {
             return {
                 ...state,
                 lastModified: action.payload
-
             };
         case bookActions.BOOKS_BY_CRITERIA:
             return {
@@ -29,11 +29,29 @@ export const allBooks = (state = initialState, action) => {
             return {
                 ...state,
                 bookList: action.payload
-            }
+            };
         case bookActions.GET_BOOKS_BY_AUTHOR:
             return {
                 ...state,
                 bookList: action.payload
+
+            };
+        case bookActions.DELETE_BOOK:
+            return {
+                ...state,
+                bookList: action.payload
+
+            };
+        case bookActions.INSERT_BOOK:
+            return {
+                ...state,
+                bookData: action.payload
+            };
+        case bookActions.GET_USER_BOOKS:
+            return {
+                ...state,
+                bookList: action.payload
+
             };
         case bookActions.GIVE_BOOK:
             return {
@@ -44,6 +62,7 @@ export const allBooks = (state = initialState, action) => {
             return {
                 ...state,
                 lastModified: action.payload
+
             };
 
         default:

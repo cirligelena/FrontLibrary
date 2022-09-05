@@ -1,16 +1,20 @@
-import Card from "react-bootstrap/Card";
-import React, {useEffect, useState} from "react";
-import {Link, NavLink, Route} from "react-router-dom";
+
+import React from "react";
+import {Link} from "react-router-dom";
 
 function CategoryCard(props) {
     const url = "/books-by-category/" + props.id;
     return (
-        <Card style={{width: '18rem'}} key={props.id}>
-            <Card.Body>
-                <Card.Title>{props.title}</Card.Title>
-            </Card.Body>
-            <Link to={url} className="btn btn-primary">Books</Link>
-        </Card>
+        <div className="card">
+            <div className="card__name">
+                <h3>{props.title}</h3>
+            </div>
+            <div className="card__card-footer">
+                <div className="card-footer__buttons">
+                    <Link to={url} className="btn">Books</Link>
+                </div>
+            </div>
+        </div>
     );
 }
 
