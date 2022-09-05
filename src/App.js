@@ -25,6 +25,7 @@ import BookByAuthorComponent from "./components/books/BooksByAuthor";
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
 import ProfileInfoComponent from "./components/profile/ProfileInfo";
+import EmailConfirmationComponent from "./components/confirmation/EmailConfirmation";
 
 
 
@@ -51,6 +52,7 @@ function App() {
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
+                            <Route path="/email-confirmation/:token" element={<EmailConfirmationComponent />}/>
 
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
                                 <Route path="/profile" element={<ProfilePage renderComponent={<ProfileInfoComponent/>}/>}/>

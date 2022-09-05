@@ -1,23 +1,21 @@
-
-import { getUserData } from "../../redux/selectors/login";
-import { useSelector } from "react-redux/es/exports";
 import {logout} from "../../redux/actions/login";
 import {useDispatch} from "react-redux";
-import {returnTheBook, searchBooks} from "../../redux/actions/book";
 import {useNavigate} from "react-router-dom";
+import logoutIcon from '../../assets/images/icons/profile/logout.svg';
 
 
 const LogoutComponent = () => {
-const dispatch = useDispatch();
-const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
-    return <button type="submit" onClick={() => {
-        dispatch(logout())
-        navigate("/")}}>
-        Logout
-    </button>
-
-
+    return (
+        <>
+            <img src={logoutIcon} onClick={() => {
+                dispatch(logout())
+                navigate("/")
+            }} alt="Logout icon"/>
+        </>
+    )
 }
 
 export default LogoutComponent;
