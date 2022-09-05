@@ -36,6 +36,11 @@ export const login = (state = initialState, action) => {
                     userData : action.payload,
 
                };
+          case loginActions.RECEIVE_USER_REGISTER:
+               return {
+                    ...state,
+                    userData : action.payload
+               };
           default:
                return state;     
      }
