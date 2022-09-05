@@ -25,6 +25,7 @@ import BookByAuthorComponent from "./components/books/BooksByAuthor";
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
 import ProfileInfoComponent from "./components/profile/ProfileInfo";
+import ForgotPasswordComponent from "./components/login/ForgotPassword";
 
 
 
@@ -47,6 +48,7 @@ function App() {
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
 
 
+                            <Route path="/forgot-password" element={<ForgotPasswordComponent/>}/>
 
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
@@ -55,6 +57,7 @@ function App() {
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
                                 <Route path="/profile" element={<ProfilePage renderComponent={<ProfileInfoComponent/>}/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>
+
                                 <Route path="/profile/myhistory" element={<ProfilePage renderComponent={<HistoryComponent/>}/>}/>
                                 <Route path="/profile/mybooks" element={<ProfilePage renderComponent={<ProfileBooksComponent/>}/>}/>
                                 <Route path="/profile/authorization" element={<ProfilePage renderComponent={<ProfileAuthComponent/>}/>}/>
