@@ -56,112 +56,123 @@ function BookItem(props) {
     };
     return (
 
-        <>
-            {userInfo?.roles?.includes("ADMIN" || "LIBRARIAN") ?
-                <div className="card">
-                    <div className="card__name">
-                        <h1>{props.title}</h1>
-                        <h3><p>{props.description}</p></h3>
-                    </div>
-                    <div className="card__horizontal-line"></div>
-                    <div className="card__body">
-                        <p>shelfNumber: {props.shelfNumber}</p>
-                        <p>status: {props.status}</p>
-                    </div>
-                    <div >
-                        <div className="card-footer__buttons">
-                            <button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
-                                    className="card-btn50__buttons"
-                                    onClick={() => {
-                                        setShowpopup(true);
-                                        setAction("reserve")
-                                    }}
-                                    variant="primary">Reserve the book
-                            </button>
-                            <button
-                                className="card-btn50__buttons"
-                                onClick={() => props.status !== "TAKEN" ? (setShowpopup(true), setAction("give")) : returnBook(props.id)}
-                                variant="primary"> {props.status !== "TAKEN" ? "Give the book" : "Return the book"}</button>
-                        </div>
-                    </div>
-                </div>
-                :
-                <div className="card" style={{width: '18rem'}}>
-                    <div className="card__name">
-                        <h1>{props.title}</h1>
-                        <h5>{props.description}</h5>
-                    </div>
-                    <div className="card__body">
-                        <p>shelfNumber: {props.shelfNumber}</p>
-                        <p>status: {props.status}</p>
-                    </div>
-                    <div >
-                        <div >
-                            <button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
-                                    className="card-btn100__buttons"
-                                    onClick={() => userInfo?.roles ? reserveBook(props.id) : handlePopUp()}
-                                   >Reserve
-                                the book
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            <Modal show={showpopup} onHide={handlePopUp}>
+        <div className="page">
+            <div className="page__cards">
                 {userInfo?.roles?.includes("ADMIN" || "LIBRARIAN") ?
-                    <>
-                        <Modal.Header closeButton>
-                            <Modal.Title> Please introduce the email of client </Modal.Title>
-                        </Modal.Header>
-                        <div className="input-group">
-                            <input type="search" className="form-control rounded" placeholder="Search"
-                                   aria-label="Search"
-                                   aria-describedby="search-addon" onChange={event => {
-                                setClientEmail(event.target.value);
-                            }}/>
-                            <button type="button" className="card-btn15__buttons" onClick={() => {
-                                setLoaded(false);
-                                searchClient(clientEmail)
-                            }}>search
-                            </button>
+                    <div className="card">
+                        <div className="card__name">
+                            <h1>{props.title}</h1>
+                            <h3><p>{props.description}</p></h3>
                         </div>
-                        {loaded ? (
-                            clientInfo.email ?
-                                <div> Client {clientInfo.profile.firstName} {clientInfo.profile.lastName} was
-                                    found </div>
-                                : <div>Client not found, please check introduced email and try again</div>
-                        ) : <div></div>
-                        }
-                        {action === "reserve" ?
-                            <>
-                                <button className="card-btn100__buttons" onClick={() => reserveBookForClient(props.id)}>Reserve
-                                    book</button>
-                                <button onClick={() => reserveBook(props.id)} className="card-btn100__buttons"><b>Reserve for me</b></button>
-                            </>
-                            :
-                            <>
-                                <button className="card-btn100__buttons" onClick={() => giveBookToClient(props.id)}>Give the
-                                    book</button>
-                                <button onClick={() => giveBook(props.id)}
-                                        className="card-btn100__buttons"><b>Take yourself</b>
+                        <div className="card__horizontal-line"></div>
+                        <div className="card__body">
+                            <p>shelfNumber: {props.shelfNumber}</p>
+                            <p>status: {props.status}</p>
+                        </div>
+                        <div>
+                            <div className="card-footer__buttons">
+                                <button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
+                                        className="card-btn50__buttons"
+                                        onClick={() => {
+                                            setShowpopup(true);
+                                            setAction("reserve")
+                                        }}
+                                        variant="primary">Reserve the book
                                 </button>
-                            </>
-                        }
-                    </>
+                                <button
+                                    className="card-btn50__buttons"
+                                    onClick={() => props.status !== "TAKEN" ? (setShowpopup(true), setAction("give")) : returnBook(props.id)}
+                                    variant="primary"> {props.status !== "TAKEN" ? "Give the book" : "Return the book"}</button>
+                            </div>
+                        </div>
+                    </div>
                     :
-                    <>
-                        <Modal.Header closeButton>
-                            <Modal.Title>For this action you should be authorized! </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>Please login or register</Modal.Body>
-                        <Modal.Footer>
-                            <button className="card-btn100__buttons" onClick={() => navigate("/login")}><b>Login</b></button>
-                            <button className="card-btn100__buttons" onClick={() => navigate("/registration")}>Register</button>
-                        </Modal.Footer>
-                    </>}
-            </Modal>
-        </>
+                    <div className="card" style={{width: '18rem'}}>
+                        <div className="card__name">
+                            <h1>{props.title}</h1>
+                            <h5>{props.description}</h5>
+                        </div>
+                        <div className="card__body">
+                            <p>shelfNumber: {props.shelfNumber}</p>
+                            <p>status: {props.status}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
+                                        className="card-btn100__buttons"
+                                        onClick={() => userInfo?.roles ? reserveBook(props.id) : handlePopUp()}
+                                >Reserve
+                                    the book
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+                <Modal show={showpopup} onHide={handlePopUp}>
+                    {userInfo?.roles?.includes("ADMIN" || "LIBRARIAN") ?
+                        <>
+                            <Modal.Header closeButton>
+                                <Modal.Title> Please introduce the email of client </Modal.Title>
+                            </Modal.Header>
+                            <div className="input-group">
+                                <input type="search" className="form-control rounded" placeholder="Search"
+                                       aria-label="Search"
+                                       aria-describedby="search-addon" onChange={event => {
+                                    setClientEmail(event.target.value);
+                                }}/>
+                                <button type="button" className="card-btn15__buttons" onClick={() => {
+                                    setLoaded(false);
+                                    searchClient(clientEmail)
+                                }}>search
+                                </button>
+                            </div>
+                            {loaded ? (
+                                clientInfo.email ?
+                                    <div> Client {clientInfo.profile.firstName} {clientInfo.profile.lastName} was
+                                        found </div>
+                                    : <div>Client not found, please check introduced email and try again</div>
+                            ) : <div></div>
+                            }
+                            {action === "reserve" ?
+                                <>
+                                    <button className="card-btn100__buttons"
+                                            onClick={() => reserveBookForClient(props.id)}>Reserve
+                                        book
+                                    </button>
+                                    <button onClick={() => reserveBook(props.id)} className="card-btn100__buttons"><b>Reserve
+                                        for me</b></button>
+                                </>
+                                :
+                                <>
+                                    <button className="card-btn100__buttons"
+                                            onClick={() => giveBookToClient(props.id)}>Give the
+                                        book
+                                    </button>
+                                    <button onClick={() => giveBook(props.id)}
+                                            className="card-btn100__buttons"><b>Take yourself</b>
+                                    </button>
+                                </>
+                            }
+                        </>
+                        :
+                        <>
+                            <Modal.Header closeButton>
+                                <Modal.Title>For this action you should be authorized! </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Please login or register</Modal.Body>
+                            <Modal.Footer>
+                                <button className="card-btn100__buttons" onClick={() => navigate("/login")}><b>Login</b>
+                                </button>
+                                <button className="card-btn100__buttons"
+                                        onClick={() => navigate("/registration")}>Register
+                                </button>
+                            </Modal.Footer>
+                        </>}
+                </Modal>
+            </div>
+        </div>
 
     )
 

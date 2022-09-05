@@ -27,7 +27,7 @@ const ProfileSideMenuComponent = (props) => {
             <div className="profile-side-menu">
                 <div className="profile-side-menu__user">
                     <div className="profile" onClick={() => navigate("/profile")}>
-                        <img src={profileIcon} alt="Profile Icon"/>
+                        <img src={profileIcon} alt="Book Icon"/>
                         <h5>Profile</h5>
                     </div>
                     <div className="books" onClick={() => navigate("/profile/mybooks")}>
