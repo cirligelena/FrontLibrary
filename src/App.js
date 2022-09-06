@@ -29,7 +29,6 @@ import EmailConfirmationComponent from "./components/confirmation/EmailConfirmat
 
 
 
-
 function App() {
     return (
         <Provider store={store}>
@@ -46,8 +45,6 @@ function App() {
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/registration" element={<RegistrationPage/>}/>
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
-
-
 
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
