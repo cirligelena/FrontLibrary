@@ -1,10 +1,12 @@
+import {useSelector} from "react-redux";
+import {getUserData} from "../../redux/selectors/login";
 
 
 const ProfileAuthComponent = (props) => {
-
+const userData = useSelector(getUserData)
     return (
         <>
-        password and email
+            {userData.email}
         </>
     )
 }

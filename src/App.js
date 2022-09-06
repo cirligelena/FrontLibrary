@@ -26,8 +26,10 @@ import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
 import ProfileInfoComponent from "./components/profile/ProfileInfo";
 import ChangePasswordNotification from "./components/auth/ChangePasswordNotification";
-import ForgotPasswordComponent from "./components/login/ForgotPassword";
+
 import ResetPasswordComponent from "./components/login/ResetPassword";
+import ForgotPasswordComponent from "./components/login/ForgotPassword";
+
 
 
 
@@ -63,6 +65,7 @@ function App() {
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
                                 <Route path="/profile" element={<ProfilePage renderComponent={<ProfileInfoComponent/>}/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>
+
                                 <Route path="/profile/myhistory" element={<ProfilePage renderComponent={<HistoryComponent/>}/>}/>
                                 <Route path="/profile/mybooks" element={<ProfilePage renderComponent={<ProfileBooksComponent/>}/>}/>
                                 <Route path="/profile/authorization" element={<ProfilePage renderComponent={<ProfileAuthComponent/>}/>}/>

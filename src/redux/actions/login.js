@@ -9,8 +9,8 @@ export const loginActions = {
     RECEIVE_REFRESH_TOKEN: "RECEIVE_REFRESH_TOKEN",
     CHECK_ACCESS_TOKEN: "CHECK_ACCESS_TOKEN",
     LOGOUT: "LOGOUT",
-    FORGOT_PASSWORD: "FORGOT_PASSWORD"
-
+    FORGOT_PASSWORD: "FORGOT_PASSWORD",
+    RECEIVE_USER_REGISTER : "RECEIVE_USER_REGISTER",
 };
 
 export const loginUser = (userData) => (dispatch) => {
@@ -67,3 +67,13 @@ export const forgotPassword = (email) => (dispatch) => {
     );
 
 };
+export const registerUser = (userData) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REGISTRATION_URL;
+
+    return HttpService.post(url, userData).then(response => {
+        return dispatch({
+            type : loginActions.RECEIVE_USER_REGISTER,
+            payload : response
+        });
+    });
+}

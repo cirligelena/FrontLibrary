@@ -39,7 +39,7 @@ const RefreshToken = ({children}) => {
         </Modal.Header>
         <Modal.Body>Please login again</Modal.Body>
         <Modal.Footer>
-            <Button variant="primary" onClick={() => {navigate("/login");  handlePopUp()}}>Login</Button>
+            <button className="card-btn100__buttons" onClick={() => {navigate("/login");  handlePopUp()}}>Login</button>
         </Modal.Footer>
     </Modal>
         </>
