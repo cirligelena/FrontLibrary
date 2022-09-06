@@ -31,9 +31,6 @@ import ResetPasswordComponent from "./components/login/ResetPassword";
 import ForgotPasswordComponent from "./components/login/ForgotPassword";
 
 
-
-
-
 function App() {
     return (
         <Provider store={store}>

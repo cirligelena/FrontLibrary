@@ -1,4 +1,5 @@
 import { userActions } from "../actions/user";
+import {bookActions} from "../actions/book";
 
 
 const initialState = {
@@ -24,6 +25,11 @@ export const user = (state = initialState, action) => {
         case userActions.CREATE_NEW_USER:
             return {
                 ...state,
+            };
+        case userActions.USERS_BY_CRITERIA:
+            return {
+                ...state,
+               userList: action.payload
             };
         default:
             return state;
