@@ -1,5 +1,6 @@
 import {store} from "../store";
 import {checkAccessToken} from "../redux/actions/login";
+import {getToken} from "./token";
 
 
 const CREDENTIALS = {
@@ -64,18 +65,24 @@ async function request(url, method, requestParams) {
 
     const state = store.getState();
     const {userData} = state.login;
-    const token = userData?.access_token;
-    const refresh_token = userData?.refresh_token;
-
-    if (token) {
-        await store.dispatch(checkAccessToken(userData))
+    const access_token = userData?.access_token;
+    // const refresh_token = userData?.refresh_token;
+    //
+    // if (token) {
+    //     await store.dispatch(checkAccessToken(userData))
+    // }
+    // if (token && url !== "http://localhost:8080/api/token/refresh") {
+    //     HEADERS[`Authorization`] = 'Bearer ' + token
+    // } else if (url === "http://localhost:8080/api/token/refresh") {
+    //     HEADERS[`Authorization`] = 'Bearer ' + refresh_token;
+    // }
+    //
+    if (access_token) {
+        const token = await getToken();
+        if (token) {
+            HEADERS[`Authorization`] = 'Bearer ' + token;
+        }
     }
-    if (token && url !== "http://localhost:8080/api/token/refresh") {
-        HEADERS[`Authorization`] = 'Bearer ' + token
-    } else if (url === "http://localhost:8080/api/token/refresh") {
-        HEADERS[`Authorization`] = 'Bearer ' + refresh_token;
-    }
-
 
     config.headers = HEADERS;
 

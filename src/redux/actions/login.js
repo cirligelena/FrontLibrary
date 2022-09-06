@@ -1,7 +1,6 @@
 import {routes} from "../../config/routes";
 import {HttpService} from "../../services/httpService";
 import * as token from "../../services/token";
-import {store} from "../../store";
 
 
 export const loginActions = {
@@ -10,6 +9,8 @@ export const loginActions = {
     CHECK_ACCESS_TOKEN: "CHECK_ACCESS_TOKEN",
     LOGOUT: "LOGOUT",
     RECEIVE_USER_REGISTER : "RECEIVE_USER_REGISTER",
+    FINISH_SESSION : "FINISH_SESSION",
+    CHANGE_USER_PASSWORD : "CHANGE_USER_PASSWORD"
 };
 
 export const loginUser = (userData) => (dispatch) => {
@@ -23,21 +24,14 @@ export const loginUser = (userData) => (dispatch) => {
         });
     });
 };
-export const receiveRefreshToken = () => (dispatch) => {
-
-    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REFRESH_TOKEN;
-
-    return HttpService.get(url).then(response => {
-
+export const receiveRefreshToken = (response) => (dispatch) => {
         return dispatch({
             type: loginActions.RECEIVE_REFRESH_TOKEN,
             payload: response
         });
-    });
 };
 
 export const checkAccessToken = (userData) => (dispatch) => {
-
     return dispatch({
         type: loginActions.CHECK_ACCESS_TOKEN,
         payload: token.checkIfTokenValid(userData.access_token)
@@ -45,16 +39,18 @@ export const checkAccessToken = (userData) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-    const state = store.getState();
-    let {userData} = state.login;
-    userData = {};
-    localStorage.clear();
     return dispatch({
         type: loginActions.LOGOUT,
-        payload: userData
+        payload: {}
     });
 };
+export const finishSession = () => (dispatch) => {
 
+    return dispatch({
+        type: loginActions.FINISH_SESSION,
+        payload: {},
+    })
+};
 export const registerUser = (userData) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REGISTRATION_URL;
 
@@ -65,3 +61,14 @@ export const registerUser = (userData) => (dispatch) => {
         });
     });
 }
+export const changePassword = (id, password) => (dispatch) => {
+
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.CHANGE_PASSWORD + id;
+
+    return HttpService.put(url, password).then(response => {
+        return dispatch({
+            type: loginActions.CHANGE_USER_PASSWORD,
+            payload: response
+        });
+    });
+};

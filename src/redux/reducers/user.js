@@ -1,4 +1,5 @@
 import { userActions } from "../actions/user";
+import {loginActions} from "../actions/login";
 
 
 const initialState = {
@@ -25,6 +26,9 @@ export const user = (state = initialState, action) => {
             return {
                 ...state,
             };
+        case loginActions.LOGOUT:
+        case loginActions.FINISH_SESSION:
+            return initialState;
         default:
             return state;
     }

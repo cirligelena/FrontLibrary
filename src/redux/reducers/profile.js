@@ -1,4 +1,5 @@
 import { profileActions } from "../actions/profile"
+import {loginActions} from "../actions/login";
 
 const initialState = {
     profileData : { }
@@ -11,6 +12,9 @@ export const userProfileData = (state = initialState, action) => {
                 ...state,
                 profileData : action.payload
             }
+        case loginActions.LOGOUT:
+        case loginActions.FINISH_SESSION:
+            return initialState;
         default:
             return state;    
     }

@@ -1,4 +1,5 @@
 import {historyActions} from "../actions/history";
+import {loginActions} from "../actions/login";
 
 
 const initialState = {
@@ -11,8 +12,10 @@ export const history = (state = initialState, action) => {
             return {
                 ...state,
                 historyList: action.payload
-
             };
+        case loginActions.LOGOUT:
+        case loginActions.FINISH_SESSION:
+            return initialState;
 
         default:
             return state;

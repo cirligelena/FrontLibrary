@@ -1,4 +1,5 @@
 import {bookActions} from "../actions/book";
+import {loginActions} from "../actions/login";
 
 
 const initialState = {
@@ -64,6 +65,9 @@ export const allBooks = (state = initialState, action) => {
                 lastModified: action.payload
 
             };
+        case loginActions.LOGOUT:
+        case loginActions.FINISH_SESSION:
+            return initialState;
 
         default:
             return state;

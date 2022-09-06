@@ -8,9 +8,9 @@ import {allBooks} from "./allBooks";
 import {allAuthors} from "./author";
 import {allCategories} from "./category";
 import {userProfileData} from './profile';
-import {loginActions} from "../actions/login";
 import {history} from "./history";
 import {clientData} from "./client";
+import {flag} from "./flagReducers";
 
 
 const persistConfig = {
@@ -21,8 +21,7 @@ const persistConfig = {
  };
 
 
- const rootReducer = combineReducers({ login, user, allBooks, allAuthors, allCategories, userProfileData, history, clientData});
+ const rootReducer = combineReducers({ login, user, allBooks, allAuthors, allCategories, userProfileData,
+     history, clientData, flag});
 
-
-
- export default persistReducer(persistConfig, rootReducer);
+export default persistReducer(persistConfig, rootReducer);

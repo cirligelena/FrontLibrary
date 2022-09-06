@@ -31,15 +31,24 @@ export const login = (state = initialState, action) => {
                     tokenValid : action.payload
                };
           case loginActions.LOGOUT:
-               return {
-                    ...state,
-                    userData : action.payload,
-
-               };
+          case loginActions.FINISH_SESSION:
+               return initialState;
           case loginActions.RECEIVE_USER_REGISTER:
                return {
                     ...state,
                     userData : action.payload
+               };
+          case loginActions.CHANGE_USER_PASSWORD:
+               return {
+                    ...state,
+                    userData: {
+                         id: state.userData.id,
+                         email: state.userData.email,
+                         access_token: state.userData.access_token,
+                         refresh_token: state.userData.refresh_token,
+                         roles: state.userData.roles,
+                         status: null
+                    },
                };
           default:
                return state;     

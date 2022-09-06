@@ -1,4 +1,5 @@
 import {categoryActions} from "../actions/category";
+import {loginActions} from "../actions/login";
 
 
 const initialState = {
@@ -23,7 +24,9 @@ export const allCategories = (state = initialState, action) => {
                 ...state,
                 categoryData : action.payload
             };
-
+        case loginActions.LOGOUT:
+        case loginActions.FINISH_SESSION:
+            return initialState;
         default:
             return state;
     }

@@ -11,11 +11,11 @@ function BookList(props) {
                 <h1>Books</h1>
             </div>
             <div className="page__horizontal-line"></div>
-            <Row className="page__cards">
+            <div className="page__cards">
                 {Array.isArray(props.books) ?
                     props.books.map((book) => {
                         return (
-                            <Col xs="4" key={book.id}>
+                            <div  key={book.id}>
                                 <BookItem
 
                                           id={book.id}
@@ -25,12 +25,12 @@ function BookList(props) {
                                           status={book.status}
                                 />
 
-                            </Col>
+                            </div>
                         )
                     })
                     : <NoItemsFoundErrorComponent/>
                 }
-            </Row>
+            </div>
         </Container>
     )
 }
