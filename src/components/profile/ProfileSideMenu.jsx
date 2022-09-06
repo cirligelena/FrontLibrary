@@ -14,14 +14,14 @@ const ProfileSideMenuComponent = (props) => {
     const userData = useSelector(getUserData)
     const allowedRoles = 'ADMIN';
     const [admin, setAdmin] = useState(false);
+
     useEffect(() => {
-
-
         if (userData?.roles?.find(role => allowedRoles?.includes(role))) {
             setAdmin(true);
         }
 
     }, []);
+
     return (
         <div className="profile-menu-content-flex">
             <div className="profile-side-menu">

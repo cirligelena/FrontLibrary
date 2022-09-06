@@ -36,6 +36,12 @@ export const login = (state = initialState, action) => {
                     userData : action.payload,
 
                };
+               case loginActions.FORGOT_PASSWORD:
+               return {
+                    ...state,
+                    userData : action.payload,
+
+               };
           default:
                return state;     
      }
