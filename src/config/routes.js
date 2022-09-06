@@ -23,6 +23,6 @@ export const routes = {
     GET_USER_HISTORY: "user/usersHistory/",
     GIVE_THE_BOOK: "book/giveTheBook",
     RETURN_THE_BOOK: "book/returnTheBook",
-    CLIENT_DATA: "user/find-by-email/"
-
+    CLIENT_DATA: "user/find-by-email/",
+    CONFIRM_EMAIL_BY_TOKEN : "email-confirmation/"
 }
