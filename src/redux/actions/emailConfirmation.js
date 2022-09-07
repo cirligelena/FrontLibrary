@@ -6,7 +6,7 @@ export const emailConfirmationActions = {
 }
 
 export const confirmEmailByToken = (token) => (dispatch) => {
-    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.CONFIRM_EMAIL_BY_TOKEN;
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.CONFIRM_EMAIL_BY_TOKEN + token;
 
     return HttpService.get(url).then(response => {
         return dispatch({

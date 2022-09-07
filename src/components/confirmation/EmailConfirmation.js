@@ -17,7 +17,7 @@ const EmailConfirmationComponent = () => {
         dispatch(confirmEmailByToken(params.token)).then(() => {
             setLoaded(true);
         })
-    })
+    }, [emailConfirmationToken, params])
 
     return (
         <>
@@ -26,7 +26,12 @@ const EmailConfirmationComponent = () => {
                     <>
                         <NavigationComponent/>
                         <div>
-
+                            {
+                                emailConfirmationToken === 'CONFIRMED' ?
+                                    <p>Email is confirmed. Thanks</p>
+                                    :
+                                    <p>Failed</p>
+                            }
                         </div>
                     </>
                     :
@@ -36,7 +41,7 @@ const EmailConfirmationComponent = () => {
                     }} size={25}/>
             }
         </>
-    )
+    );
 }
 
 export default EmailConfirmationComponent;
