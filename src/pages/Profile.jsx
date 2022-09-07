@@ -26,7 +26,7 @@ const ProfilePage = (props) => {
         dispatch(profileData(userAccountData.id)).then(() => {
             setLoaded(true);
         });
-    }, [dispatch])
+    }, [userAccountData])
 
     return (
         <>

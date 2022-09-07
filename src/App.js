@@ -26,6 +26,8 @@ import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
 import ProfileInfoComponent from "./components/profile/ProfileInfo";
 import EmailConfirmationComponent from "./components/confirmation/EmailConfirmation";
+import Welcome from "./pages/Welcome";
+import WelcomePage from "./pages/Welcome";
 
 
 
@@ -37,6 +39,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Layout/>}>
                             <Route exact path="/" element={<HomePage/>}/>
+                            <Route exact path="/welcome" element={<WelcomePage/>}/>
 
                             <Route path="/categories" element={<CategoriesPage/>}/>
                             <Route path="/authors" element={<AuthorPage/>}/>

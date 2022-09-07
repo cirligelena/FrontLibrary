@@ -19,11 +19,6 @@ const ProfileHeaderComponent = (props) => {
                     </div>
                 </div>
                 <div className="profile-header__buttons">
-                    <div className="delete-account btn-red">
-                        <button>
-                            Delete Account
-                        </button>
-                    </div>
                     <div className="edit-profile btn-blue">
                         <button>
                             Edit Profile

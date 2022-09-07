@@ -4,11 +4,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {registerUser} from '../../redux/actions/registration';
 import 'react-phone-input-2/lib/style.css';
 import validateInfo from "../../util/validateInfo";
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {getUserData} from "../../redux/selectors/registration";
+import {ClipLoader} from "react-spinners";
+import {loginUser} from "../../redux/actions/login";
 
 const RegistrationFormComponent = () => {
-
+    const [loaded, setLoaded] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/welcome";
     const userInfo = useSelector(getUserData);
     const [emailTakenError, setEmailTakenError] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -32,8 +37,7 @@ const RegistrationFormComponent = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        setErrors(validateInfo({firstName, lastName, email, phoneNumber, password, confirmedPassword}));
+        setLoaded(true);
 
         if (errors !== null) {
             const userData = {
@@ -44,21 +48,25 @@ const RegistrationFormComponent = () => {
                 'phoneNumber': phoneNumber
             };
 
-            dispatch(registerUser(userData));
-
-            if (userInfo === 403) {
-                setEmailTakenError("Email already taken");
-                setBadEmail(email);
-            }
+            dispatch(registerUser(userData)).then(() => {
+                setTimeout(() => {
+                    if (userInfo === 403) {
+                        setEmailTakenError("Email already taken");
+                        setBadEmail(email);
+                        setLoaded(false);
+                    } else {
+                        dispatch(loginUser(userData)).then(() => {
+                            setLoaded(false);
+                            navigate(from, {replace: true});
+                        });
+                    }
+                }, 1000);
+            });
         }
     }
     useEffect(() => {
         handleOnChangeValidating();
-    }, [email, firstName, lastName, password, confirmedPassword, phoneNumber])
-
-    useEffect(() => {
-        handleOnChangeValidating();
-    }, [email, firstName, lastName, password, confirmedPassword, phoneNumber])
+    }, [email, firstName, lastName, password, confirmedPassword, phoneNumber, emailTakenError])
 
     return (
         <div className="registration-page__form-container">
@@ -151,11 +159,19 @@ const RegistrationFormComponent = () => {
                             {errors.confirmedPassword &&
                                 <p className="error-message">{errors.confirmedPassword}<i>*</i></p>}
                         </section>
-                                <div className="sign-up-btn">
-                                    <button type="submit" disabled={errors}>
-                                        Register me
-                                    </button>
-                                </div>
+                        <div className="sign-up-btn">
+                            <button type="submit" disabled={errors}>
+                                {
+                                    loaded ?
+                                        <ClipLoader
+                                            color="#ffffff"
+                                            size={30}
+                                            speedMultiplier={0.6}
+                                        />
+                                        : <>Register me</>
+                                }
+                            </button>
+                        </div>
                     </form>
                     <div className="already-have-account">
                         <p>

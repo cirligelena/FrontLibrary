@@ -1,21 +1,19 @@
-import { Link } from "react-router-dom";
-import { loginUser } from "../../redux/actions/login";
-import { getUserData } from "../../redux/selectors/login";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import {useEffect, useState} from "react";
-import { useDispatch } from "react-redux";
+import {Link} from "react-router-dom";
+import {loginUser} from "../../redux/actions/login";
+import {getUserData} from "../../redux/selectors/login";
+import {useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
 import {ClipLoader} from "react-spinners";
 
 const LoginFormComponent = () => {
     const [loaded, setLoaded] = useState(false);
-    const userInfo = useSelector(getUserData);
+    let userInfo = useSelector(getUserData);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,7 +24,6 @@ const LoginFormComponent = () => {
         event.preventDefault();
 
         setLoaded(true);
-        verifyError();
         const userData = {
             'email': email,
             'password': password
@@ -34,8 +31,8 @@ const LoginFormComponent = () => {
 
         dispatch(loginUser(userData)).then(() => {
             setTimeout(() => {
-                verifyError();
                 setLoaded(false);
+                verifyError();
             }, 1000);
         })
     }
@@ -48,10 +45,6 @@ const LoginFormComponent = () => {
         }
     }
 
-    useEffect(() => {
-        verifyError();
-    }, [loaded])
-
     return (
         <div className="login-container">
             <div className="login-title">
@@ -62,26 +55,37 @@ const LoginFormComponent = () => {
                 <form onSubmit={handleSubmit}>
                     <section className="login-form__email-section">
                         <input id="email" name="email" type="email" placeholder="Email address"
-                               required onChange={event => setEmail(event.target.value)}/>
+                               required onChange={event => setEmail(event.target.value)}
+                               onFocus={() => setError('')}
+                        />
                     </section>
                     <section className="login-form__password-section">
                         <input id="current-password" name="current-password" type="password"
                                placeholder="Password"
                                aria-describedby="password-constraints" required
-                               onChange={event => setPassword(event.target.value)}/>
+                               onChange={event => setPassword(event.target.value)}
+                               onFocus={() => setError('')}
+                        />
                     </section>
                     <div className="error-message">
-                        <p>{error}</p>
+                        {
+                            userInfo ?
+                            <p>{error}</p>
+                            :
+                            <></>
+                        }
                     </div>
                     <div className="login-form__login-btn">
                         <button type="submit">
                             {
                                 loaded ?
-                                    <ClipLoader
-                                        color="#ffffff"
-                                        size={30}
-                                        speedMultiplier={0.6}
-                                    />
+                                    <>
+                                        <ClipLoader
+                                            color="#ffffff"
+                                            size={28}
+                                            speedMultiplier={0.6}
+                                        />
+                                    </>
                                     :
                                     <>Login</>
                             }
