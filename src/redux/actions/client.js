@@ -1,8 +1,9 @@
 import {routes} from "../../config/routes";
 import {HttpService} from "../../services/httpService";
 
+
 export const clientActions = {
-    GET_CLIENT_DATA : "GET_CLIENT_DATA"
+    GET_CLIENT_DATA : "GET_CLIENT_DATA",
 }
 
 export const searchClientData = (email) => (dispatch) => {

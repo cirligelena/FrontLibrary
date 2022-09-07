@@ -1,0 +1,1 @@
+export const getShowModalState = (state) => state.flag.showModalSessionFinished;

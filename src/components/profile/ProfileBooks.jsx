@@ -5,6 +5,7 @@ import BookList from "../books/BookList";
 import {PulseLoader} from "react-spinners";
 import React, {useEffect, useState} from "react";
 import {getUserBooks} from "../../redux/actions/book";
+import {Table} from "react-bootstrap";
 
 
 const ProfileBooksComponent = () => {
@@ -13,6 +14,37 @@ const ProfileBooksComponent = () => {
     const dispatch = useDispatch();
     const books = useSelector(getBookList);
     const lastModified = useSelector(getLastModifiedBook)
+
+
+
+    const showAuthors = (authors) => {
+        return (<div>
+            {Array.isArray(authors)
+                ? authors.map(result => {
+                    return(  <div key={result.id}>
+                        <td>{result.firstName} {result.lastName}</td>
+                    </div>)
+
+                }) : <></>
+            }
+        </div>)
+    }
+
+
+
+    const showCategory = (categories) => {
+        return (<div>
+            {Array.isArray(categories)
+                ? categories.map(result => {
+                    return(  <div key={result.id}>
+                        <td>{result.title}</td>
+                    </div>)
+
+                }) : <></>
+            }
+        </div>)
+    }
+
 
 
     useEffect(() => {
@@ -24,7 +56,36 @@ const ProfileBooksComponent = () => {
     return (
         <>
             {loaded ? <div>
-                    <BookList books={books}/>
+                    <Table>
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                        </tr>
+                        </thead>
+                        {Array.isArray(books)
+                            ? books.map(result => {
+
+                                return (
+                                    <tbody key={result.id}>
+                                    <tr>
+                                        <td>{result.id}</td>
+                                        <td>{result.title}</td>
+                                        <td>{result.description}</td>
+                                        <td>{showAuthors(result.authors)}</td>
+                                        <td>{showCategory(result.categories)}</td>
+
+
+                                    </tr>
+                                    </tbody>
+                                )
+                            })
+                            : <></>
+                        }
+                    </Table>
                 </div>
                 : <PulseLoader cssOverride={{
                     textAlign: "center",

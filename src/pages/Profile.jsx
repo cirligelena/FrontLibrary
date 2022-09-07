@@ -6,7 +6,6 @@ import { getUserProfileData } from "../redux/selectors/profile";
 import NavigationComponent from "../components/navigation/Navigation";
 import HeaderProfileComponent from "../components/profile/ProfileHeader";
 import { PulseLoader } from "react-spinners";
-
 import '../assets/styles/profile.css';
 import ProfileSideMenuComponent from "../components/profile/ProfileSideMenu";
 

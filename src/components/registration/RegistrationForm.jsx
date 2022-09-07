@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import '../../assets/styles/registration.css';
 import {useDispatch, useSelector} from "react-redux";
-import {registerUser} from '../../redux/actions/registration';
 import 'react-phone-input-2/lib/style.css';
 import validateInfo from "../../util/validateInfo";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {getUserData} from "../../redux/selectors/registration";
 import {ClipLoader} from "react-spinners";
 import {loginUser} from "../../redux/actions/login";
+import {registerUser} from "../../redux/actions/login";
 
 const RegistrationFormComponent = () => {
     const [loaded, setLoaded] = useState(false);

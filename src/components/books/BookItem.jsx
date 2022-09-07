@@ -1,13 +1,11 @@
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import Button from "react-bootstrap/Button";
+
 import React, {useState} from "react";
 import {giveTheBook, reserveTheBook, returnTheBook} from "../../redux/actions/book";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserData} from "../../redux/selectors/login";
 import {useNavigate} from "react-router-dom";
 import {Modal} from "react-bootstrap";
-import {searchClientData} from "../../redux/actions/client";
+import { searchClientData} from "../../redux/actions/client";
 import {getClientData} from "../../redux/selectors/client";
 
 
@@ -34,13 +32,13 @@ function BookItem(props) {
     }
     const reserveBookForClient = (bookId) => {
         dispatch(reserveTheBook(bookId, clientInfo.id)).then(() => {
-            setLoaded(true);
+            setLoaded(false);
         })
         console.log(bookId);
     }
     const giveBookToClient = (bookId) => {
         dispatch(giveTheBook(bookId, clientInfo.id)).then(() => {
-            setLoaded(true);
+            setLoaded(false);
         })
         console.log(bookId);
     }
@@ -55,42 +53,58 @@ function BookItem(props) {
         setShowpopup(!showpopup)
     };
     return (
-
         <>
             {userInfo?.roles?.includes("ADMIN" || "LIBRARIAN") ?
-                <Card>
-                    <Card.Body>
-                        <Card.Title>{props.title}</Card.Title>
-                        <Card.Text>{props.description}</Card.Text>
-                    </Card.Body>
-                    <ListGroup className="list-group-flush">
-                        <ListGroup.Item>shelfNumber: {props.shelfNumber}</ListGroup.Item>
-                        <ListGroup.Item>status: {props.status}</ListGroup.Item>
-                    </ListGroup>
-                    <Button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
-                            onClick={() => {
-                                setShowpopup(true);
-                                setAction("reserve")
-                            }}
-                            variant="primary">Reserve the book </Button>
-                    <Button
-                        onClick={() => props.status !== "TAKEN" ? (setShowpopup(true), setAction("give")) : returnBook(props.id)}
-                        variant="primary"> {props.status !== "TAKEN" ? "Give the book" : "Return the book"}</Button>
-                </Card>
+                <div className="card">
+                    <div className="card__name">
+                        <h3>{props.title}</h3>
+                        <h5><p>{props.description}</p></h5>
+                    </div>
+                    <div className="card__horizontal-line"></div>
+                    <div className="card__body">
+                        <p>shelfNumber: {props.shelfNumber}</p>
+                        <p>status: {props.status}</p>
+                    </div>
+                    <div>
+                        <div className="card-footer__buttons">
+                            <button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
+                                    className="card-btn50__buttons"
+                                    onClick={() => {
+                                        setShowpopup(true);
+                                        setAction("reserve")
+                                    }}
+                                    variant="primary">Reserve the book
+                            </button>
+                            <button
+                                className="card-btn50__buttons"
+                                onClick={() => props.status !== "TAKEN" ? (setShowpopup(true), setAction("give")) : returnBook(props.id)}
+                                variant="primary"> {props.status !== "TAKEN" ? "Give the book" : "Return the book"}</button>
+                        </div>
+                    </div>
+                </div>
                 :
-                <Card style={{width: '18rem'}}>
-                    <Card.Body>
-                        <Card.Title>{props.title}</Card.Title>
-                        <Card.Text>{props.description}</Card.Text>
-                    </Card.Body>
-                    <ListGroup className="list-group-flush">
-                        <ListGroup.Item>shelfNumber: {props.shelfNumber}</ListGroup.Item>
-                        <ListGroup.Item>status: {props.status}</ListGroup.Item>
-                    </ListGroup>
-                    <Button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
-                            onClick={() => userInfo?.roles ? reserveBook(props.id) : handlePopUp()} variant="primary">Reserve
-                        the book</Button>
-                </Card>
+
+                <div className="card" style={{width: '18rem'}}>
+                    <div className="card__name">
+                        <h3>{props.title}</h3>
+                        <h5>{props.description}</h5>
+                    </div>
+                    <div className="card__body">
+                        <p>shelfNumber: {props.shelfNumber}</p>
+                        <p>status: {props.status}</p>
+                    </div>
+                    <div>
+                        <div>
+                            <button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
+                                    className="card-btn100__buttons"
+                                    onClick={() => userInfo?.roles ? reserveBook(props.id) : handlePopUp()}
+                            >Reserve
+                                the book
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             }
 
             <Modal show={showpopup} onHide={handlePopUp}>
@@ -105,7 +119,7 @@ function BookItem(props) {
                                    aria-describedby="search-addon" onChange={event => {
                                 setClientEmail(event.target.value);
                             }}/>
-                            <button type="button" className="btn btn-outline-primary" onClick={() => {
+                            <button type="button" className="card-btn15__buttons" onClick={() => {
                                 setLoaded(false);
                                 searchClient(clientEmail)
                             }}>search
@@ -120,16 +134,33 @@ function BookItem(props) {
                         }
                         {action === "reserve" ?
                             <>
-                                <Button variant="primary" onClick={() => reserveBookForClient(props.id)}>Reserve
-                                    book</Button>
-                                <button onClick={() => reserveBook(props.id)} variant="primary">Reserve for me</button>
+                                <button className="card-btn100__buttons" onClick={() => {
+                                    reserveBookForClient(props.id);
+                                    handlePopUp()
+
+                                }}>Reserve
+                                    book
+                                </button>
+                                <button onClick={() => {
+                                    reserveBook(props.id);
+                                    handlePopUp()
+                                }} className="card-btn100__buttons"><b>Reserve
+                                    for me</b></button>
                             </>
                             :
                             <>
-                                <Button variant="primary" onClick={() => giveBookToClient(props.id)}>Give the
-                                    book</Button>
-                                <button onClick={() => giveBook(props.id)}
-                                        variant="primary">Take yourself
+                                <button className="card-btn100__buttons" onClick={() => {
+                                    giveBookToClient(props.id);
+                                    handlePopUp()
+                                }}>Give
+                                    the
+                                    book
+                                </button>
+                                <button onClick={() => {
+                                    giveBook(props.id);
+                                    handlePopUp()
+                                }}
+                                        className="card-btn100__buttons"><b>Take yourself</b>
                                 </button>
                             </>
                         }
@@ -141,8 +172,11 @@ function BookItem(props) {
                         </Modal.Header>
                         <Modal.Body>Please login or register</Modal.Body>
                         <Modal.Footer>
-                            <Button variant="primary" onClick={() => navigate("/login")}>Login</Button>
-                            <Button variant="primary" onClick={() => navigate("/registration")}>Register</Button>
+                            <button className="card-btn100__buttons" onClick={() => navigate("/login")}><b>Login</b>
+                            </button>
+                            <button className="card-btn100__buttons"
+                                    onClick={() => navigate("/registration")}>Register
+                            </button>
                         </Modal.Footer>
                     </>}
             </Modal>

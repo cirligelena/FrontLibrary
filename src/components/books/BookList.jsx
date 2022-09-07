@@ -6,12 +6,16 @@ import {Col, Container, Row} from "react-bootstrap";
 
 function BookList(props) {
     return (
-        <Container>
-            <Row>
+        <Container className="page">
+            <div className="page__title">
+                <h1>Books</h1>
+            </div>
+            <div className="page__horizontal-line"></div>
+            <div className="page__cards">
                 {Array.isArray(props.books) ?
                     props.books.map((book) => {
                         return (
-                            <Col xs="4" key={book.id}>
+                            <div  key={book.id}>
                                 <BookItem
 
                                           id={book.id}
@@ -21,15 +25,14 @@ function BookList(props) {
                                           status={book.status}
                                 />
 
-                            </Col>
+                            </div>
                         )
                     })
                     : <NoItemsFoundErrorComponent/>
                 }
-            </Row>
+            </div>
         </Container>
     )
 }
-
 
 export default BookList;

@@ -2,7 +2,7 @@ import {Provider} from 'react-redux';
 import {store, persistor} from './store';
 import { Routes, Route } from 'react-router-dom';
 import {PersistGate} from 'redux-persist/integration/react';
-import RefreshToken from './components/auth/RefreshToken';
+import SessionFinished from './components/auth/SessionFinished';
 import RequireAuth from './components/auth/RequireAuth';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/Home';
@@ -26,16 +26,17 @@ import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
 import ProfileInfoComponent from "./components/profile/ProfileInfo";
 import EmailConfirmationComponent from "./components/confirmation/EmailConfirmation";
-import Welcome from "./pages/Welcome";
 import WelcomePage from "./pages/Welcome";
 
+import ResetPasswordComponent from "./components/login/ResetPassword";
+import ForgotPasswordComponent from "./components/login/ForgotPassword";
 
 
 function App() {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <RefreshToken>
+                <SessionFinished>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
                             <Route exact path="/" element={<HomePage/>}/>
@@ -48,15 +49,20 @@ function App() {
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/registration" element={<RegistrationPage/>}/>
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
+                            <Route path="/forgot-password" element={<ForgotPasswordComponent/>}/>
 
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
                             <Route path="/email-confirmation/:token" element={<EmailConfirmationComponent />}/>
 
+
+                            <Route path="/resetPassword/:userId/:email" element={<ResetPasswordComponent />}/>
+
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
                                 <Route path="/profile" element={<ProfilePage renderComponent={<ProfileInfoComponent/>}/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>
+
                                 <Route path="/profile/myhistory" element={<ProfilePage renderComponent={<HistoryComponent/>}/>}/>
                                 <Route path="/profile/mybooks" element={<ProfilePage renderComponent={<ProfileBooksComponent/>}/>}/>
                                 <Route path="/profile/authorization" element={<ProfilePage renderComponent={<ProfileAuthComponent/>}/>}/>
@@ -68,12 +74,10 @@ function App() {
                                 <Route path="/manage-book" element={<ManageBooksComponent/>}/>
                             </Route>
 
-
-
                             <Route path="*" element={<PageNotFoundPage/>}/>
                         </Route>
                     </Routes>
-                </RefreshToken>
+                </SessionFinished>
             </PersistGate>
         </Provider>
 

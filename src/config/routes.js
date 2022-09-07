@@ -7,6 +7,7 @@ export const routes = {
     PROFILE_DATA: "profile/get/",
     DELETE_USER: "user/delete/",
     UPDATE_USER: "user/update/",
+    CREATE_USER : "user/create",
     ALL_USERS: "user/users",
     ALL_BOOKS: "book/books",
     ALL_AUTHORS: "author/authors",
@@ -24,5 +25,9 @@ export const routes = {
     GIVE_THE_BOOK: "book/giveTheBook",
     RETURN_THE_BOOK: "book/returnTheBook",
     CLIENT_DATA: "user/find-by-email/",
-    CONFIRM_EMAIL_BY_TOKEN : "email-confirmation/confirm/"
+    CONFIRM_EMAIL_BY_TOKEN: "email-confirmation/confirm/",
+    CHANGE_PASSWORD : "user/change-password/",
+    FORGOT_PASSWORD: "user/forgotPassword",
+    GET_USERS_BY_CRITERIA: "user/find_users_by_criteria",
+    UPDATE_PASSWORD: "user/forgotPassword/changePassword/"
 }

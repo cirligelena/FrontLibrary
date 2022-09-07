@@ -1,5 +1,4 @@
-export default function validateInfo(values) {
-    const EMAIL_VALIDATOR_REGEX_CODE = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+export default function validatePassword(values) {
     const PASSWORD_VALIDATOR_REGEX_CODE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
     const PASSWORD_MUST_CONTAIN_AT_LEAST_ONE_LOWERCASE_CHARACTER_REGEX = /(?=.*[a-z])/;
     const PASSWORD_MUST_CONTAIN_AT_LEAST_ONE_UPPERCASE_CHARACTER_REGEX = /(?=.*[A-Z])/;
@@ -10,32 +9,10 @@ export default function validateInfo(values) {
     let errors = {};
     let isPasswordMatch = values.password === values.confirmedPassword;
 
-    if (values.firstName.trim() && values.lastName.trim() && values.email.trim() &&
-        EMAIL_VALIDATOR_REGEX_CODE.test(values.email) && values.password.trim() &&
-        PASSWORD_VALIDATOR_REGEX_CODE.test(values.password) && isPasswordMatch) {
+    if(values.password.trim() &&
+        PASSWORD_VALIDATOR_REGEX_CODE.test(values.password) && isPasswordMatch){
         return false;
     }
-
-    if (!values.firstName.trim()) {
-        errors.firstName = "First name required";
-    }
-
-    if (!values.lastName.trim()) {
-        errors.lastName = "Last name required";
-    }
-
-    if (!values.email.trim()) {
-        errors.email = "Email required";
-    } else if (!EMAIL_VALIDATOR_REGEX_CODE.test(values.email)) {
-        if (values.email.toString().charAt(0) === "@") {
-            errors.email = "Email address must contain characters before '@'";
-        }
-    }
-
-    if (!values.phoneNumber.trim()) {
-        errors.phoneNumber = "Phone numbers required";
-    }
-
 
     if (!values.password.trim()) {
         errors.password = "Password required";
@@ -58,5 +35,4 @@ export default function validateInfo(values) {
         errors.confirmedPassword = "Password does not match";
     }
     return errors;
-};
-
+}

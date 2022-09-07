@@ -1,15 +1,17 @@
 import libraryPhoto from '../../assets/images/library-photo.jpg';
-import {useNavigate} from "react-router-dom";
 import React from "react";
 import {logout} from "../../redux/actions/login";
 import {useDispatch} from "react-redux";
+import ChangePasswordNotification from "../auth/ChangePasswordNotification";
+
 
 const HomeContentComponent = () => {
-    const navigate = useNavigate();
-const dispatch= useDispatch()
+    const dispatch = useDispatch();
+
 
     return (
-        <div className="home-page">
+        <>
+            <div className="home-page">
                 <div className="photo-container">
                     <img src={libraryPhoto}/>
                 </div>
@@ -40,8 +42,11 @@ const dispatch= useDispatch()
                             logout
                         </button>
                     </div>
+
                 </div>
             </div>
+            <ChangePasswordNotification/>
+        </>
     )
 }
 

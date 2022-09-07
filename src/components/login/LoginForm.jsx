@@ -4,7 +4,7 @@ import {getUserData} from "../../redux/selectors/login";
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {ClipLoader} from "react-spinners";
 
