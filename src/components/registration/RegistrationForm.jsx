@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import '../../assets/styles/registration.css';
 import {useDispatch, useSelector} from "react-redux";
-import {registerUser} from '../../redux/actions/registration';
 import 'react-phone-input-2/lib/style.css';
 import validateInfo from "../../util/validateInfo";
-import {Link} from "react-router-dom";
-import {getUserData} from "../../redux/selectors/registration";
+import {Link, useNavigate} from "react-router-dom";
+import {getUserData} from "../../redux/selectors/login";
+import {registerUser} from "../../redux/actions/login";
 
 const RegistrationFormComponent = () => {
 
@@ -22,6 +22,7 @@ const RegistrationFormComponent = () => {
     const [errors, setErrors] = useState({})
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleOnChangeValidating = () => {
         if (email !== badEmail) {
@@ -44,7 +45,11 @@ const RegistrationFormComponent = () => {
                 'phoneNumber': phoneNumber
             };
 
-            dispatch(registerUser(userData));
+            dispatch(registerUser(userData)).then(() => {
+                if (userInfo !== 403) {
+                    navigate("/");
+                }
+            });
 
             if (userInfo === 403) {
                 setEmailTakenError("Email already taken");
@@ -147,11 +152,11 @@ const RegistrationFormComponent = () => {
                             {errors.confirmedPassword &&
                                 <p className="error-message">{errors.confirmedPassword}<i>*</i></p>}
                         </section>
-                                <div className="sign-up-btn">
-                                    <button type="submit" disabled={errors}>
-                                        Register me
-                                    </button>
-                                </div>
+                        <div className="sign-up-btn">
+                            <button type="submit" disabled={errors}>
+                                Register me
+                            </button>
+                        </div>
                     </form>
                     <div className="already-have-account">
                         <p>

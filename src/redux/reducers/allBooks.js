@@ -52,6 +52,7 @@ export const allBooks = (state = initialState, action) => {
                 ...state,
                 bookList: action.payload
 
+
             };
         case bookActions.GIVE_BOOK:
             return {

@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {useDispatch} from "react-redux";
 import {insertBook} from "../../redux/actions/book";
+import {createUser} from "../../redux/actions/user";
 
 const AdminComponent = () => {
     const nav = useNavigate();
@@ -19,6 +20,8 @@ const AdminComponent = () => {
     const [lastName, setLastName] = useState('');
     const [biography, setBiography] = useState('');
     const [categoryTitle, setCategoryTitle] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     const createBook = (e) => {
         e.preventDefault()
@@ -41,6 +44,22 @@ const AdminComponent = () => {
 
         dispatch(insertBook(bookData))
     }
+
+
+    const createNewUser = () => {
+
+        const userDetails = {
+            "email": email,
+            "password": "",
+            "profile": {
+                "firstName": firstName,
+                "lastName": lastName,
+                "phoneNumber" : phoneNumber
+            }
+        };
+
+        dispatch(createUser(userDetails))
+    }
     return (
         // <article style={{padding: "100px"}}className="page">
         <article>
@@ -50,7 +69,8 @@ const AdminComponent = () => {
                     <div className="card__body">
                         <p>When clicked this button will show a list of users witch can be deleted and updated by
                             admin</p>
-                        <button onClick={() => nav("/users")}>Users</button>
+
+                        <button className="card-btn100__buttons"  onClick={() => nav("/users")}>Users</button>
                     </div>
 
                     <div className="card__body">
@@ -59,6 +79,7 @@ const AdminComponent = () => {
                             trigger="click"
                             key='right'
                             placement='right'
+                            rootClose={true}
                             overlay={
                                 <Popover>
                                     <Popover.Header
@@ -85,7 +106,7 @@ const AdminComponent = () => {
                                                           onChange={e => setFirstName(e.target.value)}/>
                                             <Form.Control type="text" placeholder="lastName"
                                                           onChange={e => setLastName(e.target.value)}/>
-                                            <Form.Control type="text" placeholder="birthDate"
+                                            <Form.Control type="text" placeholder="birthDate(yyyy-mm-dd)"
                                                           onChange={e => setBirthDate(e.target.value)}/>
                                             <Form.Control type="text" placeholder="biography"
                                                           onChange={e => setBiography(e.target.value)}/>
@@ -95,7 +116,9 @@ const AdminComponent = () => {
                                             <Form.Control type="text" placeholder="title"
                                                           onChange={e => setCategoryTitle(e.target.value)}/>
                                         </Form.Group>
-                                        <Button variant="primary" type="submit"
+
+                                        <Button className="card-btn100__buttons"  type="submit"
+
                                                 onClick={createBook}>
                                             Insert
                                         </Button>
@@ -103,18 +126,66 @@ const AdminComponent = () => {
                                 </Popover>
                             }
                         >
-                            <button>
+
+                            <button className="card-btn50__buttons">
+
                                 Add Book
                             </button>
 
                         </OverlayTrigger>
-                        <button onClick={() => nav("/manage-book")}>Manage Books</button>
+
+                        <button className="card-btn50__buttons" onClick={() => nav("/manage-book")}>Manage Books</button>
+
                     </div>
 
 
                     <div className="card__body">
                         <p>When clicked, the admin can add a user</p>
-                        <button>Add User</button>
+
+                        <OverlayTrigger
+                            trigger="click"
+                            key='right'
+                            placement='right'
+                            rootClose={true}
+                            overlay={
+                                <Popover>
+                                    <Popover.Header as="h3">{`Create new user`}</Popover.Header>
+                                    <Popover.Body>
+                                        <Form.Group className="mb-3" controlId="formEmail">
+                                            <Form.Label>Email</Form.Label>
+                                            <Form.Control type="text" placeholder="Email"
+                                                          onChange={e => setEmail(e.target.value)}/>
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="formFirstName">
+                                            <Form.Label>FirstName</Form.Label>
+                                            <Form.Control type="text" placeholder="FirstName"
+                                                          onChange={e => setFirstName(e.target.value)}/>
+                                        </Form.Group>
+
+                                        <Form.Group className="mb-3" controlId="formLastName">
+                                            <Form.Label>LastName</Form.Label>
+                                            <Form.Control type="text" placeholder="LastName"
+                                                          onChange={e => setLastName(e.target.value)}/>
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="formPhoneNumber">
+                                            <Form.Label>PhoneNumber</Form.Label>
+                                            <Form.Control type="text" placeholder="PhoneNumber"
+                                                          onChange={e => setPhoneNumber(e.target.value)}/>
+                                        </Form.Group>
+                                        <Button variant="primary" type="submit"
+                                                onClick={() => createNewUser()}>
+                                            Save user
+                                        </Button>
+                                    </Popover.Body>
+                                </Popover>
+                            }
+                        >
+                            <button>
+                                Add new user
+                            </button>
+
+                        </OverlayTrigger>
+
                     </div>
                 </div>
 

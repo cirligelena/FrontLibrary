@@ -4,7 +4,7 @@ import { getUserData } from "../../redux/selectors/login";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 
 const LoginFormComponent = () => {
@@ -25,7 +25,7 @@ const LoginFormComponent = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        setLoaded(true);
+
         verifyError();
         const userData = {
             'email': email,
@@ -34,7 +34,7 @@ const LoginFormComponent = () => {
         dispatch(loginUser(userData)).then(() => {
             setTimeout(() => {
                 verifyError();
-                setLoaded(false);
+                setLoaded(true);
             }, 1000);
         })
     }
@@ -68,9 +68,10 @@ const LoginFormComponent = () => {
                                    aria-describedby="password-constraints" required
                                    onChange={event => setPassword(event.target.value)}/>
                         </section>
-                        <div className="error-message">
-                            <p>{error}</p>
-                        </div>
+                        {loaded? <div className="error-message">
+                                <p>{error}</p>
+                            </div>
+                            :<></>}
                         <div className="login-form__login-btn">
                             <button type="submit">
                                 Login

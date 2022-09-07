@@ -1,12 +1,21 @@
 import libraryPhoto from '../../assets/images/library-photo.jpg';
 import {useNavigate} from "react-router-dom";
-import React from "react";
+
+import React, {useState} from "react";
 import {logout} from "../../redux/actions/login";
 import {useDispatch} from "react-redux";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import {createUser, updateUser} from "../../redux/actions/user";
 
 const HomeContentComponent = () => {
     const navigate = useNavigate();
-const dispatch= useDispatch()
+const dispatch= useDispatch();
+
+
+
 
     return (
         <div className="home-page">
@@ -40,6 +49,7 @@ const dispatch= useDispatch()
                             logout
                         </button>
                     </div>
+
                 </div>
             </div>
     )

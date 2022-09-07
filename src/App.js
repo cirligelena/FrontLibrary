@@ -25,8 +25,10 @@ import BookByAuthorComponent from "./components/books/BooksByAuthor";
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
 import ProfileInfoComponent from "./components/profile/ProfileInfo";
+import ChangePasswordNotification from "./components/auth/ChangePasswordNotification";
 
-
+import ResetPasswordComponent from "./components/login/ResetPassword";
+import ForgotPasswordComponent from "./components/login/ForgotPassword";
 
 
 function App() {
@@ -34,6 +36,7 @@ function App() {
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <RefreshToken>
+                    <ChangePasswordNotification>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
                             <Route exact path="/" element={<HomePage/>}/>
@@ -45,6 +48,7 @@ function App() {
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/registration" element={<RegistrationPage/>}/>
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
+                            <Route path="/forgot-password" element={<ForgotPasswordComponent/>}/>
 
 
 
@@ -52,9 +56,13 @@ function App() {
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
 
+
+                            <Route path="/resetPassword/:userId/:email" element={<ResetPasswordComponent />}/>
+
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
                                 <Route path="/profile" element={<ProfilePage renderComponent={<ProfileInfoComponent/>}/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>
+
                                 <Route path="/profile/myhistory" element={<ProfilePage renderComponent={<HistoryComponent/>}/>}/>
                                 <Route path="/profile/mybooks" element={<ProfilePage renderComponent={<ProfileBooksComponent/>}/>}/>
                                 <Route path="/profile/authorization" element={<ProfilePage renderComponent={<ProfileAuthComponent/>}/>}/>
@@ -71,6 +79,7 @@ function App() {
                             <Route path="*" element={<PageNotFoundPage/>}/>
                         </Route>
                     </Routes>
+                    </ChangePasswordNotification>
                 </RefreshToken>
             </PersistGate>
         </Provider>
