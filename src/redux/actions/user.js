@@ -10,6 +10,7 @@ export const userActions = {
     UPDATE_USER: "UPDATE_USER",
     CREATE_NEW_USER : "CREATE_NEW_USER",
     USERS_BY_CRITERIA : "USERS_BY_CRITERIA",
+    UPDATE_PASSWORD: "UPDATE_PASSWORD",
 };
 
 
@@ -67,3 +68,13 @@ export const searchUsers = (criteria) => (dispatch) => {
         });
     });
 }
+export const updatePassword = (id, userData) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.UPDATE_PASSWORD + id;
+
+    return HttpService.put(url, userData).then(response => {
+        return dispatch({
+            type: userActions.UPDATE_PASSWORD,
+            payload: response
+        });
+    });
+};

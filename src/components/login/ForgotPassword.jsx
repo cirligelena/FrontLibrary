@@ -1,27 +1,58 @@
 import Form from "react-bootstrap/Form";
 
 
-import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {forgotPassword} from "../../redux/actions/login";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {forgotPassword, loginUser} from "../../redux/actions/login";
 import React from "react";
 import passwordIcon from "../../assets/images/icons/profile/password.svg";
+import {getUserData} from "../../redux/selectors/login";
+import {useNavigate} from "react-router-dom";
+import {searchClientData} from "../../redux/actions/client";
 
 const ForgotPasswordComponent = () => {
+
     const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
+    const userInfo = useSelector(getUserData);
+    const [loaded, setLoaded] = useState(false);
+
     const dispatch = useDispatch();
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        //console.log(email)
 
-        console.log(email)
-        dispatch(forgotPassword(email));
+        verifyError();
+
+        dispatch(forgotPassword(email)).then(() => {
+            setTimeout(() => {
+                verifyError();
+                setLoaded(true);
+            }, 1000);
+        })
     }
+
+    const verifyError = () => {
+        if (userInfo === 403) {
+            setError("No user with this email!");
+        } else if (userInfo.email) {
+            setError("Email sent to "+email+"!");
+        }
+    }
+
+    useEffect(() => {
+        verifyError();
+    }, [loaded])
+
+
     return (<div className="page">
         <div className="header-with-img">
             <img src={passwordIcon} alt="Password Icon"/>
             <h1>Forgot password?</h1>
         </div>
         <div className="page__horizontal-line"></div>
+        <br/>
         <h5>Find your account</h5>
         <p>
             Please enter your email, and we will send you a link
@@ -33,11 +64,16 @@ const ForgotPasswordComponent = () => {
             <Form.Control type="text" placeholder="email"
                           onChange={event => setEmail(event.target.value)}/>
         </Form.Group>
+        {loaded? <div className="error-message">
+            <p>{error}</p>
+        </div>
+        :<></>}
         <div className="login-form__login-btn">
             <button type="button" onClick={handleSubmit}>
                 send!
             </button>
         </div>
+
 
     </div>)
 

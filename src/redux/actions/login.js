@@ -10,7 +10,7 @@ export const loginActions = {
     CHECK_ACCESS_TOKEN: "CHECK_ACCESS_TOKEN",
     LOGOUT: "LOGOUT",
     FORGOT_PASSWORD: "FORGOT_PASSWORD",
-    RECEIVE_USER_REGISTER : "RECEIVE_USER_REGISTER",
+    RECEIVE_USER_REGISTER: "RECEIVE_USER_REGISTER",
 };
 
 export const loginUser = (userData) => (dispatch) => {
@@ -58,22 +58,21 @@ export const logout = () => (dispatch) => {
 
 export const forgotPassword = (email) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.FORGOT_PASSWORD + "/" + email;
-    HttpService.put(url).then(response => {
-            return dispatch({
-                type: loginActions.FORGOT_PASSWORD,
-                payload: response
-            });
-        }
-    );
 
+    return HttpService.get(url).then(response => {
+        return dispatch({
+            type: loginActions.FORGOT_PASSWORD,
+            payload: response
+        });
+    });
 };
 export const registerUser = (userData) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REGISTRATION_URL;
 
     return HttpService.post(url, userData).then(response => {
         return dispatch({
-            type : loginActions.RECEIVE_USER_REGISTER,
-            payload : response
+            type: loginActions.RECEIVE_USER_REGISTER,
+            payload: response
         });
     });
 }

@@ -4,7 +4,7 @@ import {getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
 import {useNavigate, useParams} from "react-router-dom";
 import NavigationComponent from "../navigation/Navigation";
 import {PulseLoader} from "react-spinners";
-import {updateUser} from "../../redux/actions/user";
+import {updatePassword, updateUser} from "../../redux/actions/user";
 import validatePassword from "../../util/passwordValid";
 import passwordIcon from "../../assets/images/icons/profile/password.svg";
 
@@ -33,7 +33,8 @@ function ResetPasswordComponent() {
             "password": password,
         };
         console.log("in the update function")
-        dispatch(updateUser(params.userId, userDetails)).then(() => {
+console.log(params.userId)
+        dispatch(updatePassword(params.userId, userDetails)).then(() => {
             navigate("/login");
 
         });

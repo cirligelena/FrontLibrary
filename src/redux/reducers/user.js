@@ -1,5 +1,4 @@
 import { userActions } from "../actions/user";
-import {bookActions} from "../actions/book";
 
 
 const initialState = {
@@ -17,7 +16,6 @@ export const user = (state = initialState, action) => {
             return {
                 ...state,
             };
-
         case userActions.UPDATE_USER:
             return {
                 ...state,
@@ -30,6 +28,10 @@ export const user = (state = initialState, action) => {
             return {
                 ...state,
                userList: action.payload
+            };
+        case userActions.UPDATE_PASSWORD:
+            return {
+                ...state,
             };
         default:
             return state;
