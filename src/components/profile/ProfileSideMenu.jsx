@@ -14,20 +14,20 @@ const ProfileSideMenuComponent = (props) => {
     const userData = useSelector(getUserData)
     const allowedRoles = 'ADMIN';
     const [admin, setAdmin] = useState(false);
+
     useEffect(() => {
-
-
         if (userData?.roles?.find(role => allowedRoles?.includes(role))) {
             setAdmin(true);
         }
 
     }, []);
+
     return (
         <div className="profile-menu-content-flex">
             <div className="profile-side-menu">
                 <div className="profile-side-menu__user">
                     <div className="profile" onClick={() => navigate("/profile")}>
-                        <img src={profileIcon} alt="Profile Icon"/>
+                        <img src={profileIcon} alt="Book Icon"/>
                         <h5>Profile</h5>
                     </div>
                     <div className="books" onClick={() => navigate("/profile/mybooks")}>
@@ -67,6 +67,7 @@ const ProfileSideMenuComponent = (props) => {
 
 
             </div>
+
             <div className="profile-side-content">
                 {props.rightSideComponent}
             </div>

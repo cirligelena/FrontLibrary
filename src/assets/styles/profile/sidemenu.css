@@ -23,7 +23,10 @@
     display: flex;
     flex-direction: column;
 }
-
+.header-with-img {
+    display: flex;
+    flex-direction: row;
+}
 .profile-side-menu__user div {
     display: flex;
     padding-top: 10px;

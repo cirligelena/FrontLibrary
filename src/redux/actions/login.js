@@ -10,7 +10,9 @@ export const loginActions = {
     LOGOUT: "LOGOUT",
     RECEIVE_USER_REGISTER : "RECEIVE_USER_REGISTER",
     FINISH_SESSION : "FINISH_SESSION",
-    CHANGE_USER_PASSWORD : "CHANGE_USER_PASSWORD"
+    CHANGE_USER_PASSWORD : "CHANGE_USER_PASSWORD",
+    FORGOT_PASSWORD: "FORGOT_PASSWORD",
+    
 };
 
 export const loginUser = (userData) => (dispatch) => {
@@ -51,16 +53,6 @@ export const finishSession = () => (dispatch) => {
         payload: {},
     })
 };
-export const registerUser = (userData) => (dispatch) => {
-    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REGISTRATION_URL;
-
-    return HttpService.post(url, userData).then(response => {
-        return dispatch({
-            type : loginActions.RECEIVE_USER_REGISTER,
-            payload : response
-        });
-    });
-}
 export const changePassword = (id, password) => (dispatch) => {
 
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.CHANGE_PASSWORD + id;
@@ -72,3 +64,24 @@ export const changePassword = (id, password) => (dispatch) => {
         });
     });
 };
+
+export const forgotPassword = (email) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.FORGOT_PASSWORD + "/" + email;
+
+    return HttpService.get(url).then(response => {
+        return dispatch({
+            type: loginActions.FORGOT_PASSWORD,
+            payload: response
+        });
+    });
+};
+export const registerUser = (userData) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.REGISTRATION_URL;
+
+    return HttpService.post(url, userData).then(response => {
+        return dispatch({
+            type: loginActions.RECEIVE_USER_REGISTER,
+            payload: response
+        });
+    });
+}

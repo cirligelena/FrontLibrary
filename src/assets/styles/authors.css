@@ -64,7 +64,7 @@ p {
     width: 50%;
     height: 35px;
     color: #EBF2FA;
-    background: #427aa1;
+    background: #6c757d;
     text-align: center;
     border-radius: 5px;
 }
@@ -90,6 +90,16 @@ p {
     text-decoration: none;
     border-radius: 5px;
 }
+.card-btn-updateProfile__buttons{
+    width: 17%;
+    height: 40px;
+    color: black;
+    background:  #a5be00;
+    text-align: center;
+    border-radius: 5px;
+
+}
+
 .card__card-footer a {
     color: #EBF2FA;
     text-decoration: none;

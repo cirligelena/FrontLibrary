@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import BookList from "./BookList";
 import {useDispatch, useSelector} from "react-redux";
-import {getBookByCategory, getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
+import {getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
 import {getBooksByCategory} from "../../redux/actions/book";
 import {useParams} from "react-router-dom";
 import NavigationComponent from "../navigation/Navigation";

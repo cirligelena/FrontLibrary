@@ -8,6 +8,7 @@ import ChangePasswordNotification from "../auth/ChangePasswordNotification";
 const HomeContentComponent = () => {
     const dispatch = useDispatch();
 
+
     return (
         <>
             <div className="home-page">

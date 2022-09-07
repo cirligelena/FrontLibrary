@@ -22,6 +22,7 @@ const ChangePasswordNotification = ({children}) => {
         }
     }, [])
 
+
     const handleOnChangeValidating = () => {
         setErrors((validatePassword({password, confirmedPassword})));
     }
@@ -32,11 +33,13 @@ const ChangePasswordNotification = ({children}) => {
         dispatch(changePassword(userInfo.id, newUserData))
         console.log(newUserData)
     }
+
     return  (
         <>
             <div>
                 {children}
             </div>
+
             <Modal show={showpopup} >
                 <Modal.Header>
                     <Modal.Title>You've been signed in with a temporary password </Modal.Title>

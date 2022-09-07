@@ -10,6 +10,7 @@ import {createUser} from "../../redux/actions/user";
 import {getNewUserData} from "../../redux/selectors/user";
 import {getBookData} from "../../redux/selectors/allBooks";
 
+
 const AdminComponent = () => {
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const AdminComponent = () => {
     const newUserData = useSelector(getNewUserData);
     const newBookData = useSelector(getBookData);
     const [loaded, setLoaded] = useState(false);
+
 
     const createBook = (e) => {
         e.preventDefault()
@@ -69,6 +71,8 @@ const AdminComponent = () => {
             setLoaded(true)
         })
     }
+
+
     return (
         // <article style={{padding: "100px"}}className="page">
         <article>
