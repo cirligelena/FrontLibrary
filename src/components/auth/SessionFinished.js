@@ -13,7 +13,7 @@ const SessionFinished = ({children}) => {
     const handlePopUp = (e) => {setShowpopup(!showpopup)};
     useEffect(() => {
         navigate("/");
-            setShowpopup(true)
+          if (showModal) {setShowpopup(true)}
     }, [showModal])
 
     return  (

@@ -4,6 +4,7 @@ import {loginActions} from "../actions/login";
 
 const initialState = {
     userList : { },
+    newUser: { }
 };
 
 export const user = (state = initialState, action) => {
@@ -25,6 +26,7 @@ export const user = (state = initialState, action) => {
         case userActions.CREATE_NEW_USER:
             return {
                 ...state,
+                newUser: action.payload
             };
         case loginActions.LOGOUT:
         case loginActions.FINISH_SESSION:

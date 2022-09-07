@@ -4,9 +4,11 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {insertBook} from "../../redux/actions/book";
 import {createUser} from "../../redux/actions/user";
+import {getNewUserData} from "../../redux/selectors/user";
+import {getBookData} from "../../redux/selectors/allBooks";
 
 const AdminComponent = () => {
     const nav = useNavigate();
@@ -22,6 +24,9 @@ const AdminComponent = () => {
     const [categoryTitle, setCategoryTitle] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const newUserData = useSelector(getNewUserData);
+    const newBookData = useSelector(getBookData);
+    const [loaded, setLoaded] = useState(false);
 
     const createBook = (e) => {
         e.preventDefault()
@@ -42,7 +47,9 @@ const AdminComponent = () => {
 
         }
 
-        dispatch(insertBook(bookData))
+        dispatch(insertBook(bookData)).then(() => {
+            setLoaded(true)
+        })
     }
 
 
@@ -58,8 +65,9 @@ const AdminComponent = () => {
                 "phoneNumber" : phoneNumber
             }
         };
-
-        dispatch(createUser(userDetails))
+        dispatch(createUser(userDetails)).then(() => {
+            setLoaded(true)
+        })
     }
     return (
         // <article style={{padding: "100px"}}className="page">
@@ -119,10 +127,16 @@ const AdminComponent = () => {
                                         </Form.Group>
 
                                         <Button className="card-btn100__buttons"  type="submit"
-
                                                 onClick={createBook}>
                                             Insert
                                         </Button>
+                                        {loaded ? (
+                                            newBookData.title?
+                                                <div> New book {newBookData.title} was
+                                                    added to library </div>
+                                                : <div> an error occurred </div>
+                                        ) : <div></div>
+                                        }
                                     </Popover.Body>
                                 </Popover>
                             }
@@ -177,6 +191,13 @@ const AdminComponent = () => {
                                                 onClick={() => createNewUser()}>
                                             Save user
                                         </Button>
+                                        {loaded ? (
+                                            newUserData.email?
+                                                <div> New user {newUserData.profile.firstName} {newUserData.profile.lastName} was
+                                                    created! A temporary password was sent to {newUserData.email}</div>
+                                                : <div> an error occurred </div>
+                                        ) : <div></div>
+                                        }
                                     </Popover.Body>
                                 </Popover>
                             }

@@ -47,7 +47,7 @@ export const login = (state = initialState, action) => {
                          access_token: state.userData.access_token,
                          refresh_token: state.userData.refresh_token,
                          roles: state.userData.roles,
-                         status: null
+                         hasTemporaryPassword : false
                     },
                };
           default:

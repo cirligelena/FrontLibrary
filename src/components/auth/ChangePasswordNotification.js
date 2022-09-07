@@ -17,7 +17,7 @@ const ChangePasswordNotification = ({children}) => {
     const handleHidePopUp = () => {setShowpopup(false)};
 
     useEffect(() => {
-        if (userInfo.status === "new user") {
+        if (userInfo.hasTemporaryPassword) {
             handleShowPopUp()
         }
     }, [])
