@@ -67,6 +67,7 @@ const ProfileSideMenuComponent = (props) => {
 
 
             </div>
+
             <div className="profile-side-content">
                 {props.rightSideComponent}
             </div>

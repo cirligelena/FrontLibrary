@@ -89,7 +89,18 @@ p {
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
+
 }
+.card-btn-updateProfile__buttons{
+    width: 17%;
+    height: 40px;
+    color: black;
+    background:  #a5be00;
+    text-align: center;
+    border-radius: 5px;
+
+}
+
 .card__card-footer a {
     color: #EBF2FA;
     text-decoration: none;

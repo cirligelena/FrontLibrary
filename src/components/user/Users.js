@@ -22,7 +22,6 @@ const UsersComponent = () => {
     const [criteria, setCriteria] = useState('');
     const [loaded, setLoaded] = useState(false)
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
@@ -39,7 +38,6 @@ const UsersComponent = () => {
 
         const userDetails = {
             "email": email,
-            "password": password,
             "profile": {
                 "firstName": firstName,
                 "lastName": lastName
@@ -96,7 +94,7 @@ const UsersComponent = () => {
                                         <td>{result.profile.firstName}</td>
                                         <td>{result.profile.lastName}</td>
                                         <td>
-                                            <button onClick={() => deleteUserById(result.id)}>
+                                            <button className="card-btn50__buttons" onClick={() => deleteUserById(result.id)}>
                                                 delete
                                             </button>
                                         </td>
@@ -126,21 +124,16 @@ const UsersComponent = () => {
                                                                 <Form.Control type="text" placeholder="LastName"
                                                                               onChange={e => setLastName(e.target.value)}/>
                                                             </Form.Group>
-                                                            <Form.Group className="mb-3"
-                                                                        controlId="formBasicPassword">
-                                                                <Form.Label>Password</Form.Label>
-                                                                <Form.Control type="password" placeholder="Password"
-                                                                              onChange={e => setPassword(e.target.value)}/>
-                                                            </Form.Group>
-                                                            <Button variant="primary" type="submit"
+
+                                                            <button className="card-btn100__buttons" type="submit"
                                                                     onClick={() => updateUserFields(result.id)}>
                                                                 Submit
-                                                            </Button>
+                                                            </button>
                                                         </Popover.Body>
                                                     </Popover>
                                                 }
                                             >
-                                                <button>
+                                                <button className="card-btn50__buttons">
                                                     update
                                                 </button>
 

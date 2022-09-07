@@ -4,7 +4,7 @@ import Popover from "react-bootstrap/Popover";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {updateUser} from "../../redux/actions/user";
 import {getUserData} from "../../redux/selectors/login";
 
@@ -16,10 +16,10 @@ const ProfileInfoComponent = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-
+    const [loaded, setLoaded] = useState(false);
+    const [message, setMessage] = useState('');
 
     const updateUserFields = (id) => {
-
         const userDetails = {
             "email": userData.email,
             "profile": {
@@ -29,20 +29,25 @@ const ProfileInfoComponent = () => {
             }
         };
 
-        dispatch(updateUser(id, userDetails));
+        dispatch(updateUser(id, userDetails)).then(() => {
+            setLoaded(true);
+        });
     }
 
 
     return (
         <div className="profile-side-content__user-info" key={profileData.id}>
-            <div className="user-info__name">
-                <h5>First name: {profileData.firstName}</h5>
 
+            <div className="page__title">
+                <h1>Profile Info:</h1>
+            </div>
+            <div className="page__horizontal-line"></div>
+
+            <div className="profile-side-content1">
+                <h5>First name: {profileData.firstName}</h5>
                 <h5>Last name: {profileData.lastName}</h5>
-            </div>
-            <div className="user-info__phone-number">
-                <h5>Phone number: {profileData.phoneNumber}</h5>
-            </div>
+                <h5>Phone number: {profileData.phoneNumber}</h5></div>
+
             <OverlayTrigger
                 trigger="click"
                 key='right'
@@ -70,19 +75,29 @@ const ProfileInfoComponent = () => {
                                               onChange={e => setPhoneNumber(e.target.value)}/>
                             </Form.Group>
 
-                            <Button variant="primary" type="submit"
+                            <button className="card-btn100__buttons"
                                     onClick={() => updateUserFields(profileData.id)}>
                                 Submit
-                            </Button>
+                            </button>
                         </Popover.Body>
                     </Popover>
                 }
             >
-                <button>
+
+                <button className="card-btn-updateProfile__buttons">
                     Update Profile
                 </button>
 
+
             </OverlayTrigger>
+
+            {loaded ?
+                <div className="error-message">
+                    <p>Successfully updated, you can now refresh the page!</p>
+                </div>
+                : <></>
+            }
+
         </div>
     )
 }

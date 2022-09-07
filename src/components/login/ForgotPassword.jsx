@@ -13,7 +13,7 @@ import {searchClientData} from "../../redux/actions/client";
 const ForgotPasswordComponent = () => {
 
     const [email, setEmail] = useState('');
-    const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
     const userInfo = useSelector(getUserData);
     const [loaded, setLoaded] = useState(false);
 
@@ -35,9 +35,9 @@ const ForgotPasswordComponent = () => {
 
     const verifyError = () => {
         if (userInfo === 403) {
-            setError("No user with this email!");
+            setMessage("No user with this email!");
         } else if (userInfo.email) {
-            setError("Email sent to "+email+"!");
+            setMessage("Email sent to "+email+"!");
         }
     }
 
@@ -65,7 +65,7 @@ const ForgotPasswordComponent = () => {
                           onChange={event => setEmail(event.target.value)}/>
         </Form.Group>
         {loaded? <div className="error-message">
-            <p>{error}</p>
+            <p>{message}</p>
         </div>
         :<></>}
         <div className="login-form__login-btn">
