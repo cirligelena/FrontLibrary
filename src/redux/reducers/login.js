@@ -1,9 +1,9 @@
-import { loginActions } from "../actions/login";
+import {loginActions} from "../actions/login";
 
 
 const initialState = {
-     userData : { },
-     tokenValid : true
+    userData: {},
+    tokenValid: true
 };
 
 export const login = (state = initialState, action) => {
@@ -30,7 +30,39 @@ export const login = (state = initialState, action) => {
                     ...state,
                     tokenValid : action.payload
                };
+          case loginActions.LOGOUT:
+          case loginActions.FINISH_SESSION:
+               return initialState;
+          case loginActions.RECEIVE_USER_REGISTER:
+               return {
+                    ...state,
+                    userData : action.payload
+               };
+          case loginActions.CHANGE_USER_PASSWORD:
+               return {
+                    ...state,
+                    userData: {
+                         id: state.userData.id,
+                         email: state.userData.email,
+                         access_token: state.userData.access_token,
+                         refresh_token: state.userData.refresh_token,
+                         roles: state.userData.roles,
+                         hasTemporaryPassword : false
+                    },
+               };
+               case loginActions.FORGOT_PASSWORD:
+            return {
+                ...state,
+                userData: action.payload,
+
+            };
+        case loginActions.RECEIVE_USER_REGISTER:
+            return {
+                ...state,
+                userData: action.payload
+            };
           default:
                return state;     
      }
-}
+
+    }  

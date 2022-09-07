@@ -1,6 +1,7 @@
 /* COMPONENTS */
 @import url("./profile/header.css");
 @import url("./profile/sidemenu.css");
+@import url("./profile/profileinfo.css");
 
 
 /* PAGE */
@@ -9,3 +10,19 @@
     margin-left: 11%;
     margin-right: 16.3%;
 }
+
+.profile-menu-content-flex {
+    display: flex;
+}
+
+.profile-side-content {
+    width: 100%;
+    padding-top: 35px;
+    padding-left: 10%;
+}
+
+.profile-side-content1 {
+     width: 90%;
+     padding-top: 1em;
+     padding-bottom: 13em;
+ }

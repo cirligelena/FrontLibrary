@@ -1,8 +1,10 @@
 import {categoryActions} from "../actions/category";
+import {loginActions} from "../actions/login";
 
 
 const initialState = {
-    categoryList : { }
+    categoryList : { },
+    categoryData : { }
 };
 
 export const allCategories = (state = initialState, action) => {
@@ -12,7 +14,19 @@ export const allCategories = (state = initialState, action) => {
                 ...state,
                 categoryList : action.payload
             };
-
+        case categoryActions.GET_CATEGORY_BY_ID:
+            return {
+                ...state,
+                categoryData : action.payload
+            };
+        case categoryActions.ASSIGN_BOOK_TO_CATEGORY:
+            return {
+                ...state,
+                categoryData : action.payload
+            };
+        case loginActions.LOGOUT:
+        case loginActions.FINISH_SESSION:
+            return initialState;
         default:
             return state;
     }

@@ -1,21 +1,21 @@
-import { profileActions } from "../actions/profile"
+import {clientActions} from "../actions/client";
 import {loginActions} from "../actions/login";
 
 const initialState = {
-    profileData : { }
+    client: {}
 }
 
-export const userProfileData = (state = initialState, action) => {
+export const clientData = (state = initialState, action) => {
     switch (action.type) {
-        case profileActions.GET_PROFILE_DATA:
+        case clientActions.GET_CLIENT_DATA:
             return {
                 ...state,
-                profileData : action.payload
+                client: action.payload
             }
         case loginActions.LOGOUT:
         case loginActions.FINISH_SESSION:
             return initialState;
         default:
-            return state;    
+            return state;
     }
 }

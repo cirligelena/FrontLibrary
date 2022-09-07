@@ -1,38 +1,21 @@
-import { getUserData } from "../../redux/selectors/login";
-import { useSelector } from "react-redux/es/exports";
-import logoutIcon from '../../assets/images/icons/profile/logout.svg'
-
-
-
-
+import {logout} from "../../redux/actions/login";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import logoutIcon from "../../assets/images/icons/profile/logout.svg";
 
 
 const LogoutComponent = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
-    let userData = useSelector(getUserData);
-
-
-
-    const logout = () => {
-
-      userData = { };
-
-      localStorage.clear();
-
-      window.location.href = '/';
-
-    }
-
-
-
-
-   return (
-    <>
-      <img src={logoutIcon} onClick={logout} alt="Logout Icon"/>
-    </>
-   )
-
-
+    return (<>
+        <div type="submit" onClick={() => {
+            dispatch(logout())
+            navigate("/")
+        }}>
+            <img src={logoutIcon} alt="Logout Icon"/>
+        </div>
+    </>)
 
 }
 

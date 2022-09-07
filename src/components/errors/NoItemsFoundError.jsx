@@ -3,7 +3,7 @@
 const NoItemsFoundErrorComponent = () => {
     return (
         <div>
-            No items found!asdadadasd
+            No items found!
         </div>
     );
 }

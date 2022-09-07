@@ -1,5 +1,6 @@
 
 import {authorActions} from "../actions/author";
+import {loginActions} from "../actions/login";
 
 const initialState = {
     authorList : { },
@@ -13,6 +14,9 @@ export const allAuthors = (state = initialState, action) => {
                 ...state,
                 authorList : action.payload
             };
+        case loginActions.LOGOUT:
+        case loginActions.FINISH_SESSION:
+            return initialState;
         default:
             return state;
     }

@@ -4,15 +4,15 @@ import { getUserData } from "../../redux/selectors/login";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 
 const LoginFormComponent = () => {
-
+    const [loaded, setLoaded] = useState(false);
     const userInfo = useSelector(getUserData);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
 
     const dispatch = useDispatch();
@@ -25,14 +25,30 @@ const LoginFormComponent = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+
+        verifyError();
         const userData = {
             'email': email,
             'password': password
         };
-        dispatch(loginUser(userData));
-
-        navigate(from, {replace: true});
+        dispatch(loginUser(userData)).then(() => {
+            setTimeout(() => {
+                verifyError();
+                setLoaded(true);
+            }, 1000);
+        })
     }
+    const verifyError = () => {
+        if (userInfo === 403) {
+            setError("Invalid email or password!");
+        } else if (userInfo.email) {
+            navigate(from, {replace: true});
+        }
+    }
+
+    useEffect(() => {
+        verifyError();
+    }, [loaded])
 
     return (
         <div className="login-container">
@@ -52,6 +68,10 @@ const LoginFormComponent = () => {
                                    aria-describedby="password-constraints" required
                                    onChange={event => setPassword(event.target.value)}/>
                         </section>
+                        {loaded? <div className="error-message">
+                                <p>{error}</p>
+                            </div>
+                            :<></>}
                         <div className="login-form__login-btn">
                             <button type="submit">
                                 Login

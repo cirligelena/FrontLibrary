@@ -1,15 +1,15 @@
 /* PROFILE SIDE MENU */
-div h5 {
+.profile-side-menu div h5 {
     cursor: pointer;
     padding-left: 10%;
     padding-top: 10px;
 }
 
-div h6 {
+.profile-side-menu div h6 {
     padding-top: 15px;
 }
 
-div img {
+.profile-side-menu div img {
     cursor: pointer;
 }
 
@@ -23,7 +23,10 @@ div img {
     display: flex;
     flex-direction: column;
 }
-
+.header-with-img {
+    display: flex;
+    flex-direction: row;
+}
 .profile-side-menu__user div {
     display: flex;
     padding-top: 10px;

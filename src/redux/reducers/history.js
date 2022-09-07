@@ -1,21 +1,24 @@
-import { profileActions } from "../actions/profile"
+import {historyActions} from "../actions/history";
 import {loginActions} from "../actions/login";
 
-const initialState = {
-    profileData : { }
-}
 
-export const userProfileData = (state = initialState, action) => {
+const initialState = {
+    historyList: {},
+};
+
+export const history = (state = initialState, action) => {
     switch (action.type) {
-        case profileActions.GET_PROFILE_DATA:
+        case historyActions.GET_USER_HISTORY:
             return {
                 ...state,
-                profileData : action.payload
-            }
+                historyList: action.payload
+            };
         case loginActions.LOGOUT:
         case loginActions.FINISH_SESSION:
             return initialState;
+
         default:
-            return state;    
+            return state;
     }
+
 }

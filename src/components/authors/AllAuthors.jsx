@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchAuthorList} from "../../redux/actions/author";
 import {getAuthorList} from "../../redux/selectors/author";
 import AuthorsList from "./AuthorsList";
-import { PulseLoader } from "react-spinners";
+import {PulseLoader} from "react-spinners";
+import NavigationComponent from "../navigation/Navigation";
 
 const AllAuthorsComponent = () => {
     const [loaded, setLoaded] = useState(false);
@@ -21,12 +22,15 @@ const AllAuthorsComponent = () => {
     return (
         <>
             {loaded ?
-                <AuthorsList authors={authors}/>
+                <>
+                    <NavigationComponent/>
+                    <AuthorsList authors={authors}/>
+                </>
                 :
                 <PulseLoader cssOverride={{
                     textAlign: "center",
                     paddingTop: "20%"
-                }} size={25} />
+                }} size={25}/>
             }
         </>
     );

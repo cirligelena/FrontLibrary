@@ -2,7 +2,7 @@ import {Provider} from 'react-redux';
 import {store, persistor} from './store';
 import { Routes, Route } from 'react-router-dom';
 import {PersistGate} from 'redux-persist/integration/react';
-import RefreshToken from './components/auth/RefreshToken';
+import SessionFinished from './components/auth/SessionFinished';
 import RequireAuth from './components/auth/RequireAuth';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/Home';
@@ -23,14 +23,19 @@ import ProfileAuthComponent from './components/profile/ProfileAuth';
 import BookByCategoryComponent from "./components/books/BooksByCategory";
 import BookByAuthorComponent from "./components/books/BooksByAuthor";
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
+import ManageBooksComponent from "./components/books/BookAdminTable";
+import ProfileInfoComponent from "./components/profile/ProfileInfo";
+import ChangePasswordNotification from "./components/auth/ChangePasswordNotification";
 
+import ResetPasswordComponent from "./components/login/ResetPassword";
+import ForgotPasswordComponent from "./components/login/ForgotPassword";
 
 
 function App() {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <RefreshToken>
+                <SessionFinished>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
                             <Route exact path="/" element={<HomePage/>}/>
@@ -42,14 +47,21 @@ function App() {
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/registration" element={<RegistrationPage/>}/>
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
+                            <Route path="/forgot-password" element={<ForgotPasswordComponent/>}/>
+
+
 
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
 
+
+                            <Route path="/resetPassword/:userId/:email" element={<ResetPasswordComponent />}/>
+
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
-                                <Route path="/profile" element={<ProfilePage/>}/>
+                                <Route path="/profile" element={<ProfilePage renderComponent={<ProfileInfoComponent/>}/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>
+
                                 <Route path="/profile/myhistory" element={<ProfilePage renderComponent={<HistoryComponent/>}/>}/>
                                 <Route path="/profile/mybooks" element={<ProfilePage renderComponent={<ProfileBooksComponent/>}/>}/>
                                 <Route path="/profile/authorization" element={<ProfilePage renderComponent={<ProfileAuthComponent/>}/>}/>
@@ -58,13 +70,13 @@ function App() {
                             <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
                                 <Route path="/profile/admin" element={<ProfilePage renderComponent={<AdminComponent/>}/>}/>
                                 <Route path="/users" element={<UsersComponent/>}/>
+                                <Route path="/manage-book" element={<ManageBooksComponent/>}/>
                             </Route>
 
-                            
                             <Route path="*" element={<PageNotFoundPage/>}/>
                         </Route>
                     </Routes>
-                </RefreshToken>
+                </SessionFinished>
             </PersistGate>
         </Provider>
 

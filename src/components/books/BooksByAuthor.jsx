@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import { getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
 import {useParams} from "react-router-dom";
 import {getBooksByAuthor} from "../../redux/actions/book";
+import NavigationComponent from "../navigation/Navigation";
+import {PulseLoader} from "react-spinners";
 
 function BookByAuthorComponent ()  {
     const [loaded, setLoaded] = useState(false)
@@ -20,8 +22,18 @@ function BookByAuthorComponent ()  {
 
     return (
         <>
-            {loaded? <BookList books = {books}/>
-                : <div></div>}
+
+            {loaded?
+                <div>
+                    <NavigationComponent/>
+                <BookList books = {books}/>
+                </div>
+                :  <PulseLoader cssOverride={{
+                    textAlign: "center",
+                    paddingTop: "20%"
+                }} size={25} />
+            }
+
         </>
     );
 
