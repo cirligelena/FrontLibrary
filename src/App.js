@@ -2,7 +2,7 @@ import {Provider} from 'react-redux';
 import {store, persistor} from './store';
 import { Routes, Route } from 'react-router-dom';
 import {PersistGate} from 'redux-persist/integration/react';
-import RefreshToken from './components/auth/RefreshToken';
+import SessionFinished from './components/auth/SessionFinished';
 import RequireAuth from './components/auth/RequireAuth';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/Home';
@@ -35,8 +35,7 @@ function App() {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <RefreshToken>
-                    <ChangePasswordNotification>
+                <SessionFinished>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
                             <Route exact path="/" element={<HomePage/>}/>
@@ -74,13 +73,10 @@ function App() {
                                 <Route path="/manage-book" element={<ManageBooksComponent/>}/>
                             </Route>
 
-
-
                             <Route path="*" element={<PageNotFoundPage/>}/>
                         </Route>
                     </Routes>
-                    </ChangePasswordNotification>
-                </RefreshToken>
+                </SessionFinished>
             </PersistGate>
         </Provider>
 

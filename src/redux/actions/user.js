@@ -57,6 +57,7 @@ export const createUser = (userData) => (dispatch) => {
             payload: response
         });
     });
+
 };
 export const searchUsers = (criteria) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.GET_USERS_BY_CRITERIA + "/" + criteria;
@@ -77,4 +78,5 @@ export const updatePassword = (id, userData) => (dispatch) => {
             payload: response
         });
     });
+
 };
