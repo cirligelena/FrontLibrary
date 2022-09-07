@@ -7,6 +7,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import React, {useEffect, useState} from "react";
 import {updateUser} from "../../redux/actions/user";
 import {getUserData} from "../../redux/selectors/login";
+import {getUpdatedUserData} from "../../redux/selectors/user";
 
 
 const ProfileInfoComponent = () => {
@@ -17,7 +18,7 @@ const ProfileInfoComponent = () => {
     const [lastName, setLastName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [loaded, setLoaded] = useState(false);
-    const [message, setMessage] = useState('');
+    const updatedData = useSelector(getUpdatedUserData)
 
     const updateUserFields = (id) => {
         const userDetails = {
@@ -52,6 +53,7 @@ const ProfileInfoComponent = () => {
                 trigger="click"
                 key='right'
                 placement='right'
+                rootClose={true}
                 overlay={
                     <Popover>
                         <Popover.Header
@@ -79,6 +81,14 @@ const ProfileInfoComponent = () => {
                                     onClick={() => updateUserFields(profileData.id)}>
                                 Submit
                             </button>
+                            {loaded ?
+                                (updatedData.email ?
+                                    <div className="error-message">
+                                        <p>Successfully updated, you can now refresh the page!</p>
+                                    </div>
+                                    : <div>an error occurred</div>)
+                                : <></>
+                            }
                         </Popover.Body>
                     </Popover>
                 }
@@ -91,12 +101,6 @@ const ProfileInfoComponent = () => {
 
             </OverlayTrigger>
 
-            {loaded ?
-                <div className="error-message">
-                    <p>Successfully updated, you can now refresh the page!</p>
-                </div>
-                : <></>
-            }
 
         </div>
     )

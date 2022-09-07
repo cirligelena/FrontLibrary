@@ -4,7 +4,8 @@ import {loginActions} from "../actions/login";
 
 const initialState = {
     userList : { },
-    newUser: { }
+    newUser: { },
+    updatedUserData : { }
 };
 
 export const user = (state = initialState, action) => {
@@ -21,6 +22,7 @@ export const user = (state = initialState, action) => {
         case userActions.UPDATE_USER:
             return {
                 ...state,
+                updatedUserData: action.payload
             }
         case userActions.USERS_BY_CRITERIA:
             return {

@@ -4,7 +4,8 @@ import React, {useEffect, useState} from "react";
 import {Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {changePassword} from "../../redux/actions/login";
-import {validatePassword} from "../../util/validateInfo";
+import validatePassword from "../../util/passwordValid";
+
 
 const ChangePasswordNotification = ({children}) => {
     const userInfo = useSelector(getUserData);
