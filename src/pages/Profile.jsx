@@ -36,7 +36,6 @@ const ProfilePage = (props) => {
                     <div className="profile-page">
                         <HeaderProfileComponent userFullName = {userFullName} />
                         <ProfileSideMenuComponent rightSideComponent = {props.renderComponent}/>
-
                     </div>
                 </>
                 : 

@@ -14,7 +14,9 @@ const ProfileHeaderComponent = (props) => {
                         <h3>{props.userFullName}</h3>
                         <p><small>Your personal account</small></p>
                     </div>
-
+                    <div className="logout">
+                        <LogoutComponent/>
+                    </div>
                 </div>
                 <div className="profile-header__buttons">
                     <div className="edit-profile btn-blue">

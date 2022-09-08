@@ -49,19 +49,19 @@ const ProfileSideMenuComponent = (props) => {
                         <h5>Authorization</h5>
                     </div>
                 </div>
-                <div className="profile-side-menu__break-horizontal-line "></div>
-
-
                 {admin ?
-                    <div className="profile-side-menu__administration">
-                        <div className="section-name">
-                            <h6>Administration</h6>
+                    <>
+                        <div className="profile-side-menu__break-horizontal-line "></div>
+                        <div className="profile-side-menu__administration">
+                            <div className="section-name">
+                                <h6>Administration</h6>
+                            </div>
+                            <div className="admin-panel" onClick={() => navigate("/profile/admin")}>
+                                <img src={adminIcon} alt="Admin Icon"/>
+                                <h5>Admin Panel</h5>
+                            </div>
                         </div>
-                        <div className="admin-panel" onClick={() => navigate("/profile/admin")}>
-                            <img src={adminIcon} alt="Admin Icon"/>
-                            <h5>Admin Panel</h5>
-                        </div>
-                    </div>
+                    </>
                     : <></>
                 }
 

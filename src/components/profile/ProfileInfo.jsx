@@ -2,9 +2,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getUserProfileData} from "../../redux/selectors/profile";
 import Popover from "react-bootstrap/Popover";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {updateUser} from "../../redux/actions/user";
 import {getUserData} from "../../redux/selectors/login";
 import {getUpdatedUserData} from "../../redux/selectors/user";
@@ -38,16 +37,15 @@ const ProfileInfoComponent = () => {
 
     return (
         <div className="profile-side-content__user-info" key={profileData.id}>
-
-            <div className="page__title">
-                <h1>Profile Info:</h1>
+            <div className="profile-side-content">
+                <div className="profile-side-content__name">
+                    <h5>First name: {profileData.firstName}</h5>
+                    <h5>Last name: {profileData.lastName}</h5>
+                </div>
+                <div className="user-info__phone-number">
+                    <h5>Phone number: {profileData.phoneNumber}</h5>
+                </div>
             </div>
-            <div className="page__horizontal-line"></div>
-
-            <div className="profile-side-content1">
-                <h5>First name: {profileData.firstName}</h5>
-                <h5>Last name: {profileData.lastName}</h5>
-                <h5>Phone number: {profileData.phoneNumber}</h5></div>
 
             <OverlayTrigger
                 trigger="click"

@@ -1,9 +1,9 @@
-.user-info__name {
+.profile-side-content__name {
     display: flex;
     padding-top: 20px;
 }
 
-.user-info__name h5:last-child {
+.profile-side-content__name h5:last-child {
     padding-left: 20%;
 }
 
