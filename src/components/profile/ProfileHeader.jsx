@@ -18,13 +18,6 @@ const ProfileHeaderComponent = (props) => {
                         <LogoutComponent/>
                     </div>
                 </div>
-                <div className="profile-header__buttons">
-                    <div className="edit-profile btn-blue">
-                        <button>
-                            Edit Profile
-                        </button>
-                    </div>
-                </div>
             </div>
             <div className="profile-header__underline"></div>
         </>
