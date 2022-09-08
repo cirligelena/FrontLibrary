@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getUserData} from "../redux/selectors/registration";
+import {getUserData} from "../redux/selectors/login";
 import {getUserProfileData} from "../redux/selectors/profile";
 import {profileData} from "../redux/actions/profile";
 import NavigationComponent from "../components/navigation/Navigation";

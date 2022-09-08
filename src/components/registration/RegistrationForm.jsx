@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import 'react-phone-input-2/lib/style.css';
 import validateInfo from "../../util/validateInfo";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {getUserData} from "../../redux/selectors/registration";
 import {ClipLoader} from "react-spinners";
+import {getUserData} from "../../redux/selectors/login";
 import {loginUser} from "../../redux/actions/login";
 import {registerUser} from "../../redux/actions/login";
 
