@@ -4,17 +4,21 @@ import {getUserData} from "../../redux/selectors/login";
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {ClipLoader} from "react-spinners";
 
 const LoginFormComponent = () => {
+    const [displayError, setDisplayError] = useState(false);
     const [loaded, setLoaded] = useState(false);
-    let userInfo = useSelector(getUserData);
+    const userInfo = useSelector(getUserData);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+
     const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
@@ -23,23 +27,21 @@ const LoginFormComponent = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+
         setLoaded(true);
+        verifyError();
         const userData = {
             'email': email,
             'password': password
         };
-
         dispatch(loginUser(userData)).then(() => {
             setTimeout(() => {
                 verifyError();
                 setLoaded(false);
-                if (userInfo !== 403) {
-                    navigate(from, {replace: true})
-                }
+                setDisplayError(true);
             }, 1000);
         })
     }
-
     const verifyError = () => {
         if (userInfo === 403) {
             setError("Invalid email or password!");
@@ -47,6 +49,10 @@ const LoginFormComponent = () => {
             navigate(from, {replace: true});
         }
     }
+
+    useEffect(() => {
+        verifyError();
+    }, [loaded])
 
     return (
         <div className="login-container">
@@ -58,39 +64,32 @@ const LoginFormComponent = () => {
                 <form onSubmit={handleSubmit}>
                     <section className="login-form__email-section">
                         <input id="email" name="email" type="email" placeholder="Email address"
-                               required onChange={event => setEmail(event.target.value)}
-                               onFocus={() => setError('')}
-                        />
+                               required onChange={event => setEmail(event.target.value)}/>
                     </section>
                     <section className="login-form__password-section">
                         <input id="current-password" name="current-password" type="password"
                                placeholder="Password"
                                aria-describedby="password-constraints" required
-                               onChange={event => setPassword(event.target.value)}
-                               onFocus={() => setError('')}
-                        />
+                               onChange={event => setPassword(event.target.value)}/>
                     </section>
-                    <div className="error-message">
-                        {
-                            userInfo ?
-                            <p>{error}</p>
+                    {
+                        displayError ?
+                            <div className="error-message">
+                                <p>{error}</p>
+                            </div>
                             :
                             <></>
-                        }
-                    </div>
+                    }
                     <div className="login-form__login-btn">
                         <button type="submit">
                             {
                                 loaded ?
-                                    <>
-                                        <ClipLoader
-                                            color="#ffffff"
-                                            size={28}
-                                            speedMultiplier={0.6}
-                                        />
-                                    </>
-                                    :
-                                    <>Login</>
+                                    <ClipLoader
+                                        color="#ffffff"
+                                        size={30}
+                                        speedMultiplier={0.6}
+                                    />
+                                    : <>Login</>
                             }
                         </button>
                     </div>
