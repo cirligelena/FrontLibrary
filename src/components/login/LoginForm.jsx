@@ -31,8 +31,8 @@ const LoginFormComponent = () => {
 
         dispatch(loginUser(userData)).then(() => {
             setTimeout(() => {
-                setLoaded(false);
                 verifyError();
+                setLoaded(false);
             }, 1000);
         })
     }
