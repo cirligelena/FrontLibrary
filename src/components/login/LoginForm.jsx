@@ -33,6 +33,9 @@ const LoginFormComponent = () => {
             setTimeout(() => {
                 verifyError();
                 setLoaded(false);
+                if (userInfo !== 403) {
+                    navigate(from, {replace: true})
+                }
             }, 1000);
         })
     }
