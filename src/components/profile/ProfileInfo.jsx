@@ -7,6 +7,7 @@ import React, {useState} from "react";
 import {updateUser} from "../../redux/actions/user";
 import {getUserData} from "../../redux/selectors/login";
 import {getUpdatedUserData} from "../../redux/selectors/user";
+import {ClipLoader} from "react-spinners";
 
 
 const ProfileInfoComponent = () => {
@@ -31,6 +32,10 @@ const ProfileInfoComponent = () => {
 
         dispatch(updateUser(id, userDetails)).then(() => {
             setLoaded(true);
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 500)
         });
     }
 
@@ -76,16 +81,25 @@ const ProfileInfoComponent = () => {
 
                                     <button className="card-btn100__buttons"
                                             onClick={() => updateUserFields(profileData.id)}>
-                                        Save
+                                        {
+                                            loaded ?
+                                                <ClipLoader
+                                                    color="black"
+                                                    size={25}
+                                                    speedMultiplier={0.6}
+                                                />
+                                                :
+                                                <>Save</>
+                                        }
                                     </button>
                                     {
                                         loaded ?
                                         (
                                             updatedData.email ?
                                             <div className="error-message">
-                                                <p>Successfully updated, you can now refresh the page!</p>
+                                               <></>
                                             </div>
-                                            : <div>an error occurred</div>
+                                            : <div>Failed to update</div>
                                         )
                                         : <></>
                                     }

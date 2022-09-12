@@ -3,6 +3,9 @@
 @import url("./profile/sidemenu.css");
 @import url("./profile/profileinfo.css");
 @import url("./profile/auth.css");
+@import url("./profile/mybooks.css");
+@import url("./profile/history.css");
+@import url("./profile/users.css");
 
 /* PAGE */
 .profile-page {

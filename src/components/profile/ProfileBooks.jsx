@@ -1,11 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
 import {getUserData} from "../../redux/selectors/login";
 import {getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
-import BookList from "../books/BookList";
 import {PulseLoader} from "react-spinners";
 import React, {useEffect, useState} from "react";
 import {getUserBooks} from "../../redux/actions/book";
 import {Table} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 
 const ProfileBooksComponent = () => {
@@ -16,35 +16,44 @@ const ProfileBooksComponent = () => {
     const lastModified = useSelector(getLastModifiedBook)
 
 
-
     const showAuthors = (authors) => {
-        return (<div>
-            {Array.isArray(authors)
-                ? authors.map(result => {
-                    return(  <div key={result.id}>
-                        <td>{result.firstName} {result.lastName}</td>
-                    </div>)
+        return (
+            <div>
+                {
+                    Array.isArray(authors) ?
+                        authors.map(result => {
+                            return (
+                                <div key={result.id}>
+                                    <td>{result.firstName} {result.lastName}</td>
+                                </div>
+                            )
 
-                }) : <></>
-            }
-        </div>)
+                        })
+                        :
+                        <></>
+                }
+            </div>
+        )
     }
-
 
 
     const showCategory = (categories) => {
-        return (<div>
-            {Array.isArray(categories)
-                ? categories.map(result => {
-                    return(  <div key={result.id}>
-                        <td>{result.title}</td>
-                    </div>)
-
-                }) : <></>
-            }
-        </div>)
+        return (
+            <div>
+                {
+                    Array.isArray(categories) ?
+                        categories.map(result => {
+                            return (
+                                <div key={result.id}>
+                                    <td>{result.title}</td>
+                                </div>
+                            )
+                        })
+                        :
+                        <></>
+                }
+            </div>)
     }
-
 
 
     useEffect(() => {
@@ -53,44 +62,60 @@ const ProfileBooksComponent = () => {
             setLoaded(true)
         })
     }, [lastModified]);
+
     return (
         <>
-            {loaded ? <div>
-                    <Table>
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Author</th>
-                            <th>Category</th>
-                        </tr>
-                        </thead>
-                        {Array.isArray(books)
-                            ? books.map(result => {
-
-                                return (
-                                    <tbody key={result.id}>
-                                    <tr>
-                                        <td>{result.id}</td>
-                                        <td>{result.title}</td>
-                                        <td>{result.description}</td>
-                                        <td>{showAuthors(result.authors)}</td>
-                                        <td>{showCategory(result.categories)}</td>
-
-
-                                    </tr>
-                                    </tbody>
-                                )
-                            })
-                            : <></>
+            {
+                loaded ?
+                    <div className="my-books-page">
+                        {
+                            Array.isArray(books) && books.length >= 1 ?
+                                <>
+                                    <Table>
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Author</th>
+                                            <th>Category</th>
+                                        </tr>
+                                        </thead>
+                                        {
+                                            books.map(result => {
+                                            return (
+                                                <tbody key={result.id}>
+                                                <tr>
+                                                    <td>{result.id}</td>
+                                                    <td>{result.title}</td>
+                                                    <td>{result.description}</td>
+                                                    <td>{showAuthors(result.authors)}</td>
+                                                    <td>{showCategory(result.categories)}</td>
+                                                </tr>
+                                                </tbody>
+                                            )
+                                        })}
+                                    </Table>
+                                </>
+                                :
+                                <>
+                                    <div className="no-books-error-message">
+                                        <h3>You have no books for now</h3>
+                                        <p>Go <Link to={"/books"}>here</Link> if you want to reserve any book <br/>
+                                            <small>If you know you have a book and it is not visible here, contact the
+                                                librarian
+                                            </small>
+                                        </p>
+                                    </div>
+                                </>
                         }
-                    </Table>
-                </div>
-                : <PulseLoader cssOverride={{
-                    textAlign: "center",
-                    paddingTop: "20%"
-                }} size={25}/>}
+                    </div>
+                    :
+                    <PulseLoader cssOverride={{
+                        textAlign: "center",
+                        paddingTop: "20%"
+                    }} size={25}/>
+            }
         </>
     )
 }
