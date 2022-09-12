@@ -58,19 +58,19 @@ const ProfileInfoComponent = () => {
                                 <Popover.Body>
 
                                     <Form.Group className="mb-3" controlId="formFirstName">
-                                        <Form.Label>FirstName</Form.Label>
-                                        <Form.Control type="text" placeholder="FirstName"
+                                        <Form.Label>First Name</Form.Label>
+                                        <Form.Control type="text" placeholder="First name"
                                                       onChange={e => setFirstName(e.target.value)}/>
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formLastName">
-                                        <Form.Label>LastName</Form.Label>
-                                        <Form.Control type="text" placeholder="LastName"
+                                        <Form.Label>Last Mame</Form.Label>
+                                        <Form.Control type="text" placeholder="Last name"
                                                       onChange={e => setLastName(e.target.value)}/>
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="formLastName">
-                                        <Form.Label>PhoneNumber</Form.Label>
-                                        <Form.Control type="text" placeholder="phoneNumber"
+                                        <Form.Label>Phone Number</Form.Label>
+                                        <Form.Control type="text" placeholder="Phone number"
                                                       onChange={e => setPhoneNumber(e.target.value)}/>
                                     </Form.Group>
 
