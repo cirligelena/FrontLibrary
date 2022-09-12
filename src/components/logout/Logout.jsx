@@ -12,7 +12,7 @@ const LogoutComponent = () => {
         <>
             <img src={logoutIcon} onClick={() => {
                 dispatch(logout())
-                navigate("/")
+                navigate("/login")
             }} alt="Logout icon"/>
         </>
     )

@@ -1,8 +1,15 @@
+.background-image {
+    background-image: url("../images/library-photo.jpg");
+    height: 85vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .home-page {
-    padding-top: 150px;
-    margin-left: 11%;
-    margin-right: 16.3%;
-    display: flex;
+    color: white;
+    padding-top: 12%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .photo-container img {
@@ -10,25 +17,26 @@
     height: 430px;
 }
 
-.content-container {
-    padding-left: 10%;
+.main-info__title {
+    text-align: center;
 }
 
-.content-container__title {
-    text-align: left;
-}
-
-.content-container__description {
-    text-align: left;
-    font-size: 17px;
+.main-info__description {
+    padding-top: 1.5em;
+    text-align: center;
+    font-size: 24px;
 }
 
 .content-container__button {
     padding-top: 25px;
 }
 
-.open-library__btn {
-    width: 100%;
+.home-page__explore-books-button {
+    padding-top: 4em;
+    text-align: center;
+}
+.home-page__explore-books-button button {
+    width: 50%;
     height: 45px;
     color: black;
     text-align: center;
@@ -37,8 +45,18 @@
     border-radius: 10px;
 }
 
-.open-library__btn:hover {
+.home-page__explore-books-button button:hover {
     color: white;
     background: #444444;
     border: #444444 3px solid;
+}
+
+.logout-secret {
+    position: absolute;
+    bottom: 10px;
+    right: 1%;
+}
+
+.logout-secret:hover {
+    cursor: pointer;
 }

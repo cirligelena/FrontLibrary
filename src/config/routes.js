@@ -29,5 +29,6 @@ export const routes = {
     CHANGE_PASSWORD : "user/change-password/",
     FORGOT_PASSWORD: "user/forgotPassword",
     GET_USERS_BY_CRITERIA: "user/find_users_by_criteria",
-    UPDATE_PASSWORD: "user/forgotPassword/changePassword/"
+    UPDATE_PASSWORD: "user/forgotPassword/changePassword/",
+    SEND_NEW_CONFIRMATION_TOKEN: "email-confirmation/send-new-token/"
 }

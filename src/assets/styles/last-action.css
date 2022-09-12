@@ -1,0 +1,20 @@
+.last-action-top-left {
+    color: white;
+    position: absolute;
+    bottom: 20px;
+    left: 2%;
+    font-size: 18px;
+}
+
+.last-action-top-left__message {
+    background: #444444;
+    width: 300px;
+    height: 40px;
+    border: black 1px solid;
+    border-radius: 10px;
+}
+
+.last-action-top-left__message p {
+    text-align: center;
+    padding-top: 5px;
+}

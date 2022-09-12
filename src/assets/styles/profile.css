@@ -2,7 +2,7 @@
 @import url("./profile/header.css");
 @import url("./profile/sidemenu.css");
 @import url("./profile/profileinfo.css");
-
+@import url("./profile/auth.css");
 
 /* PAGE */
 .profile-page {

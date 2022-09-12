@@ -45,60 +45,60 @@ const ProfileInfoComponent = () => {
                 <div className="user-info__phone-number">
                     <h5>Phone number: {profileData.phoneNumber}</h5>
                 </div>
+                <div className="user-info__update-info">
+                    <OverlayTrigger
+                        trigger="click"
+                        key='right'
+                        placement='right'
+                        rootClose={true}
+                        overlay={
+                            <Popover>
+                                <Popover.Header
+                                    as="h3">{`Edit profile info`}</Popover.Header>
+                                <Popover.Body>
+
+                                    <Form.Group className="mb-3" controlId="formFirstName">
+                                        <Form.Label>FirstName</Form.Label>
+                                        <Form.Control type="text" placeholder="FirstName"
+                                                      onChange={e => setFirstName(e.target.value)}/>
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-3" controlId="formLastName">
+                                        <Form.Label>LastName</Form.Label>
+                                        <Form.Control type="text" placeholder="LastName"
+                                                      onChange={e => setLastName(e.target.value)}/>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formLastName">
+                                        <Form.Label>PhoneNumber</Form.Label>
+                                        <Form.Control type="text" placeholder="phoneNumber"
+                                                      onChange={e => setPhoneNumber(e.target.value)}/>
+                                    </Form.Group>
+
+                                    <button className="card-btn100__buttons"
+                                            onClick={() => updateUserFields(profileData.id)}>
+                                        Save
+                                    </button>
+                                    {
+                                        loaded ?
+                                        (
+                                            updatedData.email ?
+                                            <div className="error-message">
+                                                <p>Successfully updated, you can now refresh the page!</p>
+                                            </div>
+                                            : <div>an error occurred</div>
+                                        )
+                                        : <></>
+                                    }
+                                </Popover.Body>
+                            </Popover>
+                        }
+                    >
+                        <button className="card-btn-updateProfile__buttons">
+                            Edit
+                        </button>
+                    </OverlayTrigger>
+                </div>
             </div>
-
-            <OverlayTrigger
-                trigger="click"
-                key='right'
-                placement='right'
-                rootClose={true}
-                overlay={
-                    <Popover>
-                        <Popover.Header
-                            as="h3">{`Change user details`}</Popover.Header>
-                        <Popover.Body>
-
-                            <Form.Group className="mb-3" controlId="formFirstName">
-                                <Form.Label>FirstName</Form.Label>
-                                <Form.Control type="text" placeholder="FirstName"
-                                              onChange={e => setFirstName(e.target.value)}/>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3" controlId="formLastName">
-                                <Form.Label>LastName</Form.Label>
-                                <Form.Control type="text" placeholder="LastName"
-                                              onChange={e => setLastName(e.target.value)}/>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formLastName">
-                                <Form.Label>PhoneNumber</Form.Label>
-                                <Form.Control type="text" placeholder="phoneNumber"
-                                              onChange={e => setPhoneNumber(e.target.value)}/>
-                            </Form.Group>
-
-                            <button className="card-btn100__buttons"
-                                    onClick={() => updateUserFields(profileData.id)}>
-                                Submit
-                            </button>
-                            {loaded ?
-                                (updatedData.email ?
-                                    <div className="error-message">
-                                        <p>Successfully updated, you can now refresh the page!</p>
-                                    </div>
-                                    : <div>an error occurred</div>)
-                                : <></>
-                            }
-                        </Popover.Body>
-                    </Popover>
-                }
-            >
-
-                <button className="card-btn-updateProfile__buttons">
-                    Update Profile
-                </button>
-
-
-            </OverlayTrigger>
-
 
         </div>
     )

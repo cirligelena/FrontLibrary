@@ -12,6 +12,11 @@ export const emailConfirmationToken = (state = initialState, action) => {
                 ...state,
                 confirmationToken: action.payload,
             }
+        case emailConfirmationActions.SEND_NEW_CONFIRMATION_TOKEN:
+            return {
+                ...state,
+                confirmationToken: action.payload,
+            }
         default:
             return state;
     }
