@@ -67,7 +67,7 @@ function App() {
                                 <Route path="/profile/authorization" element={<ProfilePage renderComponent={<ProfileAuthComponent/>}/>}/>
                             </Route>
 
-                            <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
+                            <Route element={<RequireAuth allowedRoles={['ADMIN', 'LIBRARIAN']}/>}>
                                 <Route path="/profile/admin" element={<ProfilePage renderComponent={<AdminComponent/>}/>}/>
                                 <Route path="/users" element={<UsersComponent/>}/>
                                 <Route path="/manage-book" element={<ManageBooksComponent/>}/>

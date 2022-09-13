@@ -19,7 +19,6 @@ const ProfileSideMenuComponent = (props) => {
         if (userData?.roles?.find(role => allowedRoles?.includes(role))) {
             setAdmin(true);
         }
-
     }, []);
 
     return (
