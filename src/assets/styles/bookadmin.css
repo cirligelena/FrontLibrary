@@ -1,0 +1,10 @@
+.book-admin-header-page {
+    display: flex;
+}
+
+.book-admin-header-page .card-btn50__buttons {
+    margin: 10px 2% 5px 75%!important;
+    width: 100px;
+    font-size: 90%;
+    text-align: center;
+}

@@ -74,23 +74,23 @@ const ProfileBooksComponent = () => {
                                     <Table>
                                         <thead>
                                         <tr>
-                                            <th>Id</th>
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th>Author</th>
                                             <th>Category</th>
+                                            <th>Status</th>
                                         </tr>
                                         </thead>
                                         {
                                             books.map(result => {
                                             return (
-                                                <tbody key={result.id}>
+                                                <tbody key={result.status}>
                                                 <tr>
-                                                    <td>{result.id}</td>
                                                     <td>{result.title}</td>
                                                     <td>{result.description}</td>
                                                     <td>{showAuthors(result.authors)}</td>
                                                     <td>{showCategory(result.categories)}</td>
+                                                    <td>{result.status}</td>
                                                 </tr>
                                                 </tbody>
                                             )
