@@ -37,7 +37,7 @@ const ForgotPasswordComponent = () => {
         if (userInfo === 403) {
             setMessage("No user with this email!");
         } else if (userInfo.email) {
-            setMessage("Email sent to "+email+"!");
+            setMessage("Email sent to " + email + "!");
         }
     }
 
@@ -64,13 +64,13 @@ const ForgotPasswordComponent = () => {
             <Form.Control type="text" placeholder="email"
                           onChange={event => setEmail(event.target.value)}/>
         </Form.Group>
-        {loaded? <div className="error-message">
-            <p>{message}</p>
-        </div>
-        :<></>}
+        {loaded ? <div className="error-message">
+                <p>{message}</p>
+            </div>
+            : <></>}
         <div className="login-form__login-btn">
             <button type="button" onClick={handleSubmit}>
-                send!
+                Send link
             </button>
         </div>
 

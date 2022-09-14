@@ -1,0 +1,11 @@
+.all-books-page-header {
+    display: flex;
+}
+
+.all-books-page-header .input-group {
+    padding: 10px 2% 5px 50%!important;
+}
+
+.all-books-page-header .input-group img {
+    padding-left: 2%;
+}

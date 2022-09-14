@@ -1,5 +1,5 @@
 import AllCategoriesComponent from "../components/categories/AllCategories"
-
+import '../assets/styles/categories.css';
 
 const CategoriesPage = () => {
     return (

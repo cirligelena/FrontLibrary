@@ -12,6 +12,7 @@ export const loginActions = {
     FINISH_SESSION : "FINISH_SESSION",
     CHANGE_USER_PASSWORD : "CHANGE_USER_PASSWORD",
     FORGOT_PASSWORD: "FORGOT_PASSWORD",
+    SET_LAST_USER_ACTION: "SET_LAST_USER_ACTION"
     
 };
 
@@ -83,5 +84,12 @@ export const registerUser = (userData) => (dispatch) => {
             type: loginActions.RECEIVE_USER_REGISTER,
             payload: response
         });
+    });
+}
+
+export const setLastUserAction = (action) => (dispatch) => {
+    return dispatch({
+        type: loginActions.SET_LAST_USER_ACTION,
+        payload: action
     });
 }

@@ -8,14 +8,14 @@ import {getShowModalState} from "../../redux/selectors/flagSelectors";
 const SessionFinished = ({children}) => {
     const showModal = useSelector(getShowModalState);
     const navigate = useNavigate();
-    const [showpopup, setShowpopup] = useState(false)
+    const [showpopup, setShowpopup] = useState(false);
     const handlePopUp = (e) => {
-        setShowpopup(!showpopup)
+        setShowpopup(!showpopup);
     };
     useEffect(() => {
         if (showModal) {
-            setShowpopup(true)
             navigate("/");
+            setShowpopup(true);
         }
     }, [showModal])
 

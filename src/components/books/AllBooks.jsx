@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react";
-import { useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
 import {fetchBookList, searchBooks} from "../../redux/actions/book";
 import BookList from "./BookList";
-import { PulseLoader } from "react-spinners";
+import {PulseLoader} from "react-spinners";
 import {useNavigate} from "react-router-dom";
 import NavigationComponent from "../navigation/Navigation";
+
+import searchIcon from '../../assets/images/icons/profile/search.svg';
+import '../../assets/styles/allbooks.css';
 
 
 const AllBooksComponent = () => {
@@ -27,23 +30,31 @@ const AllBooksComponent = () => {
     return (
         <>
             {
-                loaded ? 
+                loaded ?
                     <div>
                         <NavigationComponent/>
-                        <div className="input-group">
-                            <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search"
-                                aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>
-                            <button type="button" className="btn btn-outline-primary" onClick={() => {
-                                dispatch(searchBooks(criteria))
-                                navigate(url)}}>search</button>
+                        <div className="page">
+                            <div className="all-books-page-header">
+                                <div><h1>Books</h1></div>
+                                <div className="input-group">
+                                    <input type="search" className="form-control rounded" placeholder="Search"
+                                           aria-label="Search"
+                                           aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>
+                                        <img src={searchIcon} alt="Search Icon" onClick={() => {
+                                            dispatch(searchBooks(criteria))
+                                            navigate(url)
+                                        }}/>
+                                </div>
+                            </div>
+                            <div className="page__horizontal-line"></div>
+                            <BookList books={books}/>
                         </div>
-                        <BookList books = {books}/>
                     </div>
-                    : 
+                    :
                     <PulseLoader cssOverride={{
                         textAlign: "center",
                         paddingTop: "20%"
-                    }} size={25} />
+                    }} size={25}/>
             }
         </>
     );

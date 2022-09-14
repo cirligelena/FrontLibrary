@@ -25,10 +25,11 @@ import BookByAuthorComponent from "./components/books/BooksByAuthor";
 import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
 import ProfileInfoComponent from "./components/profile/ProfileInfo";
-import ChangePasswordNotification from "./components/auth/ChangePasswordNotification";
+import WelcomePage from "./pages/Welcome";
 
 import ResetPasswordComponent from "./components/login/ResetPassword";
 import ForgotPasswordComponent from "./components/login/ForgotPassword";
+import EmailConfirmationPage from "./pages/EmailConfirmation";
 
 
 function App() {
@@ -49,25 +50,24 @@ function App() {
                             <Route path="/unauthorized" element={<UnauthorizedPage/>}/>
                             <Route path="/forgot-password" element={<ForgotPasswordComponent/>}/>
 
-
-
                             <Route path="/books-by-category/:categoryId" element={<BookByCategoryComponent />}/>
                             <Route path="/books-by-author/:authorId" element={<BookByAuthorComponent />}/>
                             <Route path="/books/search_result/:criteria" element={<BooksByCriteriaComponent />}/>
+                            <Route path="/email-confirmation/:token" element={<EmailConfirmationPage />}/>
 
 
                             <Route path="/resetPassword/:userId/:email" element={<ResetPasswordComponent />}/>
 
                             <Route element={<RequireAuth allowedRoles={['USER']}/>}>
+                                <Route exact path="/welcome" element={<WelcomePage/>}/>
                                 <Route path="/profile" element={<ProfilePage renderComponent={<ProfileInfoComponent/>}/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>
-
                                 <Route path="/profile/myhistory" element={<ProfilePage renderComponent={<HistoryComponent/>}/>}/>
                                 <Route path="/profile/mybooks" element={<ProfilePage renderComponent={<ProfileBooksComponent/>}/>}/>
                                 <Route path="/profile/authorization" element={<ProfilePage renderComponent={<ProfileAuthComponent/>}/>}/>
                             </Route>
 
-                            <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
+                            <Route element={<RequireAuth allowedRoles={['ADMIN', 'LIBRARIAN']}/>}>
                                 <Route path="/profile/admin" element={<ProfilePage renderComponent={<AdminComponent/>}/>}/>
                                 <Route path="/users" element={<UsersComponent/>}/>
                                 <Route path="/manage-book" element={<ManageBooksComponent/>}/>

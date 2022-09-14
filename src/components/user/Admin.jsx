@@ -12,7 +12,7 @@ import {getBookData} from "../../redux/selectors/allBooks";
 
 
 const AdminComponent = () => {
-    const nav = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [title, setTitle] = useState('')
@@ -55,7 +55,6 @@ const AdminComponent = () => {
     }
 
 
-
     const createNewUser = () => {
 
         const userDetails = {
@@ -64,7 +63,7 @@ const AdminComponent = () => {
             "profile": {
                 "firstName": firstName,
                 "lastName": lastName,
-                "phoneNumber" : phoneNumber
+                "phoneNumber": phoneNumber
             }
         };
         dispatch(createUser(userDetails)).then(() => {
@@ -75,15 +74,14 @@ const AdminComponent = () => {
 
     return (
         // <article style={{padding: "100px"}}className="page">
-        <article>
+        <div>
             <div>
                 <h3 style={{textAlign: "center"}}>Admin Panel</h3>
                 <div className="page__cards">
                     <div className="card__body">
                         <p>When clicked this button will show a list of users witch can be deleted and updated by
                             admin</p>
-
-                        <button className="card-btn100__buttons"  onClick={() => nav("/users")}>Users</button>
+                        <button className="card-btn100__buttons" onClick={() => navigate("/users")}>Users</button>
                     </div>
 
                     <div className="card__body">
@@ -98,7 +96,7 @@ const AdminComponent = () => {
                                     <Popover.Header
                                         as="h3">{`New Book`}</Popover.Header>
                                     <Popover.Body>
-                                        <Form.Group className="mb-3" controlId="formBook" >
+                                        <Form.Group className="mb-3" controlId="formBook">
                                             <Form.Label>Title</Form.Label>
                                             <Form.Control type="text" placeholder="Title"
                                                           onChange={e => setTitle(e.target.value)}/>
@@ -130,12 +128,12 @@ const AdminComponent = () => {
                                                           onChange={e => setCategoryTitle(e.target.value)}/>
                                         </Form.Group>
 
-                                        <Button className="card-btn100__buttons"  type="submit"
+                                        <Button className="card-btn100__buttons" type="submit"
                                                 onClick={createBook}>
                                             Insert
                                         </Button>
                                         {loaded ? (
-                                            newBookData.title?
+                                            newBookData.title ?
                                                 <div> New book {newBookData.title} was
                                                     added to library </div>
                                                 : <div> an error occurred </div>
@@ -153,7 +151,8 @@ const AdminComponent = () => {
 
                         </OverlayTrigger>
 
-                        <button className="card-btn50__buttons" onClick={() => nav("/manage-book")}>Manage Books</button>
+                        <button className="card-btn50__buttons" onClick={() => navigate("/manage-book")}>Manage Books
+                        </button>
 
                     </div>
 
@@ -196,10 +195,11 @@ const AdminComponent = () => {
                                             Save user
                                         </Button>
                                         {loaded ? (
-                                            newUserData.email?
-                                                <div> New user {newUserData.profile.firstName} {newUserData.profile.lastName} was
+                                            newUserData.email ?
+                                                <div> New
+                                                    user {newUserData.profile.firstName} {newUserData.profile.lastName} was
                                                     created! A temporary password was sent to {newUserData.email}</div>
-                                                : <div> an error occurred </div>
+                                                : <div>Failed to create new user</div>
                                         ) : <div></div>
                                         }
                                     </Popover.Body>
@@ -216,8 +216,8 @@ const AdminComponent = () => {
                 </div>
 
             </div>
-        </article>
+        </div>
     )
 }
 
-export default AdminComponent
+export default AdminComponent;

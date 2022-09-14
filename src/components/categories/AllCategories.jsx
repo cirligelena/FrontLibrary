@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import { PulseLoader } from "react-spinners";
 import {fetchCategoryList} from "../../redux/actions/category";
 import {getCategoryList} from "../../redux/selectors/category";
-import ServerNotRespondingErrorComponent from "../errors/ServerNotRespondingError";
 import CategoriesList from "./CategoriesList";
 import NavigationComponent from "../navigation/Navigation";
 
