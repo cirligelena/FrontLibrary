@@ -54,7 +54,7 @@ function BookItem(props) {
     };
     return (
         <>
-            {userInfo?.roles?.includes("ADMIN" || "LIBRARIAN") ?
+            {userInfo?.roles?.includes("ADMIN") || userInfo?.roles?.includes("LIBRARIAN") ?
                 <div className="card">
                     <div className="card__name">
                         <h3>{props.title}</h3>
@@ -108,7 +108,7 @@ function BookItem(props) {
             }
 
             <Modal show={showpopup} onHide={handlePopUp}>
-                {userInfo?.roles?.includes("ADMIN" || "LIBRARIAN") ?
+                {userInfo?.roles?.includes("ADMIN") || userInfo?.roles?.includes("LIBRARIAN") ?
                     <>
                         <Modal.Header closeButton>
                             <Modal.Title> Please introduce the email of client </Modal.Title>
