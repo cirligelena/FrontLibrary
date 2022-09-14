@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import { getUserData} from "../../redux/selectors/login";
+import {getUserData} from "../../redux/selectors/login";
 import React, {useEffect, useState} from "react";
 import {Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -14,8 +14,12 @@ const ChangePasswordNotification = ({children}) => {
     const [errors, setErrors] = useState({});
     const [showpopup, setShowpopup] = useState(false);
     const dispatch = useDispatch();
-    const handleShowPopUp = () => {setShowpopup(true)};
-    const handleHidePopUp = () => {setShowpopup(false)};
+    const handleShowPopUp = () => {
+        setShowpopup(true)
+    };
+    const handleHidePopUp = () => {
+        setShowpopup(false)
+    };
 
     useEffect(() => {
         if (userInfo.hasTemporaryPassword) {
@@ -28,20 +32,20 @@ const ChangePasswordNotification = ({children}) => {
         setErrors((validatePassword({password, confirmedPassword})));
     }
     const changeTemporaryPassword = () => {
-            const newUserData = {
-                'password': password
-            };
+        const newUserData = {
+            'password': password
+        };
         dispatch(changePassword(userInfo.id, newUserData))
         console.log(newUserData)
     }
 
-    return  (
+    return (
         <>
             <div>
                 {children}
             </div>
 
-            <Modal show={showpopup} >
+            <Modal show={showpopup}>
                 <Modal.Header>
                     <Modal.Title>You've been signed in with a temporary password </Modal.Title>
                 </Modal.Header>
@@ -75,7 +79,10 @@ const ChangePasswordNotification = ({children}) => {
                         <p className="error-message">{errors.confirmedPassword}<i>*</i></p>}
                 </section>
                 <Modal.Footer>
-                    <Button variant="primary" disabled={errors} onClick={() => {changeTemporaryPassword();  handleHidePopUp()}}>Save new password</Button>
+                    <Button variant="primary" disabled={errors} onClick={() => {
+                        changeTemporaryPassword();
+                        handleHidePopUp()
+                    }}>Save new password</Button>
                 </Modal.Footer>
             </Modal>
         </>
