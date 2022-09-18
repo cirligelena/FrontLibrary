@@ -44,7 +44,8 @@ export const checkAccessToken = (userData) => (dispatch) => {
 export const logout = () => (dispatch) => {
     return dispatch({
         type: loginActions.LOGOUT,
-        payload: {}
+        payload: {},
+        emailConfirmationToken: {}
     });
 };
 export const finishSession = () => (dispatch) => {

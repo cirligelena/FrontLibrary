@@ -8,6 +8,7 @@ import {updateUser} from "../../redux/actions/user";
 import {getUserData} from "../../redux/selectors/login";
 import {getUpdatedUserData} from "../../redux/selectors/user";
 import {ClipLoader} from "react-spinners";
+import {setLastUserAction} from "../../redux/actions/login";
 
 
 const ProfileInfoComponent = () => {
@@ -94,14 +95,14 @@ const ProfileInfoComponent = () => {
                                     </button>
                                     {
                                         loaded ?
-                                        (
-                                            updatedData.email ?
-                                            <div className="error-message">
-                                               <></>
-                                            </div>
-                                            : <div>Failed to update</div>
-                                        )
-                                        : <></>
+                                            (
+                                                updatedData.email ?
+                                                    <div className="error-message">
+                                                        <></>
+                                                    </div>
+                                                    : <div>Failed to update</div>
+                                            )
+                                            : <></>
                                     }
                                 </Popover.Body>
                             </Popover>

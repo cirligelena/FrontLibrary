@@ -6,6 +6,8 @@ import {useNavigate} from "react-router-dom";
 import {Modal} from "react-bootstrap";
 import {searchClientData} from "../../redux/actions/client";
 import {getClientData} from "../../redux/selectors/client";
+import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
+import {setLastUserAction} from "../../redux/actions/login";
 
 
 function BookItem(props) {
@@ -20,7 +22,12 @@ function BookItem(props) {
     const [action, setAction] = useState("");
 
     const reserveBook = (bookId) => {
-        dispatch(reserveTheBook(bookId, userId));
+        if (userInfo.confirmedByEmail === true) {
+            dispatch(reserveTheBook(bookId, userId));
+            dispatch(setLastUserAction("Book was reserved"));
+        } else {
+            dispatch(setLastUserAction("You cant reserve books. Email is not confirmed"));
+        }
     }
 
     const searchClient = (email) => {
@@ -32,21 +39,33 @@ function BookItem(props) {
     const reserveBookForClient = (bookId) => {
         dispatch(reserveTheBook(bookId, clientInfo.id)).then(() => {
             setLoaded(false);
+            dispatch(setLastUserAction(
+                "Book with id " + bookId + " was reserved for the client with id " + clientInfo.id
+            ));
         })
         console.log(bookId);
     }
     const giveBookToClient = (bookId) => {
         dispatch(giveTheBook(bookId, clientInfo.id)).then(() => {
             setLoaded(false);
+            dispatch(setLastUserAction(
+                "Book with id " + bookId + " was given to the client with id " + clientInfo.id
+            ));
         })
         console.log(bookId);
     }
     const giveBook = (bookId) => {
-        dispatch(giveTheBook(bookId, userId));
+        dispatch(giveTheBook(bookId, userId))
+            .then(() => {
+                dispatch(setLastUserAction("Book was given"));
+            })
     }
 
     const returnBook = (bookId) => {
-        dispatch(returnTheBook(bookId));
+        dispatch(returnTheBook(bookId))
+            .then(() => {
+                dispatch(setLastUserAction("Book was returned"));
+            })
     }
     const handlePopUp = (e) => {
         setShowpopup(!showpopup)
@@ -98,8 +117,8 @@ function BookItem(props) {
                                 <button disabled={props.status === "BOOKED" || props.status === "TAKEN"}
                                         className="card-btn100__buttons"
                                         onClick={() => userInfo?.roles ? reserveBook(props.id) : handlePopUp()}
-                                >Reserve
-                                    the book
+                                >
+                                    Reserve the book
                                 </button>
                             </div>
                         </div>

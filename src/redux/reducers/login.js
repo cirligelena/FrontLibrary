@@ -23,7 +23,7 @@ export const login = (state = initialState, action) => {
                     access_token: action.payload.access_token,
                     refresh_token: action.payload.refresh_token,
                     roles: state.userData.roles,
-                    isConfirmedByEmail: state.userData.isConfirmedByEmail
+                    confirmedByEmail: state.userData.confirmedByEmail
                 },
                 tokenValid: true
             };
@@ -48,6 +48,7 @@ export const login = (state = initialState, action) => {
                     email: state.userData.email,
                     access_token: state.userData.access_token,
                     refresh_token: state.userData.refresh_token,
+                    confirmedByEmail: state.userData.confirmedByEmail,
                     roles: state.userData.roles,
                     hasTemporaryPassword: false
                 },

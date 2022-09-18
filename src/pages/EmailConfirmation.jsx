@@ -20,7 +20,7 @@ const EmailConfirmationPage = () => {
         dispatch(confirmEmailByToken(params.token)).then(() => {
             setLoaded(true);
         })
-    }, [emailConfirmationToken, params])
+    }, [])
 
     return (
         <>

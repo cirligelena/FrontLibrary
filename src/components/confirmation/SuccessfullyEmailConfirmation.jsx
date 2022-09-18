@@ -13,12 +13,12 @@ const SuccessfullyEmailConfirmationComponent = () => {
     const confirmationToken = useSelector(getConfirmationToken);
 
     useEffect(() => {
-        if (JSON.stringify(userData) !== JSON.stringify({})) {
+        if (userData.email) {
             setUserLoggedIn(true);
         } else {
             setUserLoggedIn(false);
         }
-    }, []);
+    }, [userData.email]);
 
     return (
         <div className="email-confirmation-page">

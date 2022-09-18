@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {loginUser} from "../../redux/actions/login";
+import {loginUser, setLastUserAction} from "../../redux/actions/login";
 import {getUserData} from "../../redux/selectors/login";
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
@@ -34,6 +34,7 @@ const LoginFormComponent = () => {
             'email': email,
             'password': password
         };
+
         dispatch(loginUser(userData)).then(() => {
             setTimeout(() => {
                 verifyError();
@@ -46,7 +47,8 @@ const LoginFormComponent = () => {
         if (userInfo === 403) {
             setError("Invalid email or password!");
         } else if (userInfo.email) {
-            navigate(from, {replace: true});
+            dispatch(setLastUserAction("You are logged"));
+            navigate(from, {replace: true})
         }
     }
 

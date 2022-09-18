@@ -14,12 +14,17 @@ import {useNavigate} from "react-router-dom";
 import searchIcon from '../../assets/images/icons/profile/search.svg';
 import deleteIcon from '../../assets/images/icons/profile/trash.svg';
 import updateIcon from '../../assets/images/icons/profile/pencil.svg';
+import {getUserData} from "../../redux/selectors/login";
 
 
 const UsersComponent = () => {
     const users = useSelector(getUserList);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userData = useSelector(getUserData);
+    const allowedRoleToDeleteAndUpdateUsers = 'ADMIN';
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const [criteria, setCriteria] = useState('');
     const [loaded, setLoaded] = useState(false)
@@ -28,7 +33,8 @@ const UsersComponent = () => {
     const [lastName, setLastName] = useState('');
 
     const url = "/user/search_result/" + criteria
-    const heading = ['Id', 'Email', 'First Name', 'Last Name', 'Role', 'Delete', 'Update'];
+    const adminHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role', 'Delete', 'Update'];
+    const librarianHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role'];
 
     const deleteUserById = (id) => {
         dispatch(deleteUser(id)).then(() => {
@@ -54,20 +60,30 @@ const UsersComponent = () => {
     const getUserMainRole = (array) => {
         let userRole = "USER";
 
-        if (array[1] === "LIBRARIAN") {
+        if (array?.find(userRole => userRole === 'LIBRARIAN')) {
             userRole = "LIBRARIAN";
         }
 
-        if (array[2] === "ADMIN") {
-                userRole = "ADMIN";
+        if (array?.find(userRole => userRole === 'ADMIN')) {
+            userRole = "ADMIN";
         }
 
         return userRole;
     }
 
     useEffect(() => {
+        if (userData?.roles?.find(role => allowedRoleToDeleteAndUpdateUsers?.includes(role))) {
+            setIsAdmin(true);
+        }
+
         dispatch(userList()).then(() => {
             setLoaded(true)
+
+            const indexOfCurrentUser = users.findIndex(user => {
+                return user.id === userData.id
+            })
+
+            users.slice(indexOfCurrentUser);
         })
     }, [loaded]);
 
@@ -93,79 +109,111 @@ const UsersComponent = () => {
                 {
                     loaded ?
 
-                        <Table heading={heading}>
+                        <Table heading={adminHeading}>
                             <thead>
                             <tr>
-                                {heading.map(head => <th>{head}</th>)}
+                                {
+                                    isAdmin ?
+                                        <>
+                                            {adminHeading.map(head => <th>{head}</th>)}
+                                        </>
+                                        :
+                                        <>
+                                            {librarianHeading.map(head => <th>{head}</th>)}
+                                        </>
+                                }
                             </tr>
                             </thead>
                             {
-                                Array.isArray(users) ?
+                                Array.isArray(users) && users.length >= 1 ?
                                     users.map(result => {
                                         return (
-                                            <tbody key={result.id}>
-                                            <tr>
-                                                <td>{result.id}</td>
-                                                <td>{result.email}</td>
-                                                <td>{result.profile.firstName}</td>
-                                                <td>{result.profile.lastName}</td>
-                                                <td>{getUserMainRole(result.roles)}</td>
-                                                <td>
-                                                    <img src={deleteIcon} alt="Delete Icon"
-                                                         onClick={() => deleteUserById(result.id)}/>
-                                                </td>
-                                                <td>
-                                                    <OverlayTrigger
-                                                        trigger="click"
-                                                        key='right'
-                                                        placement='right'
-                                                        rootClose={true}
-                                                        overlay={
-                                                            <Popover>
-                                                                <Popover.Header
-                                                                    as="h3">{`Edit user`}</Popover.Header>
-                                                                <Popover.Body>
-                                                                    <Form.Group className="mb-3" controlId="formEmail">
-                                                                        <Form.Label>Email</Form.Label>
-                                                                        <Form.Control type="text" placeholder="Email"
-                                                                                      onChange={e => setEmail(e.target.value)}/>
-                                                                    </Form.Group>
-                                                                    <Form.Group className="mb-3"
-                                                                                controlId="formFirstName">
-                                                                        <Form.Label>First Name</Form.Label>
-                                                                        <Form.Control type="text"
-                                                                                      placeholder="First name"
-                                                                                      onChange={e => setFirstName(e.target.value)}/>
-                                                                    </Form.Group>
+                                            <>
+                                                <tbody key={result.id}>
+                                                <tr>
+                                                    <td>{result.id}</td>
+                                                    <td>{result.email}</td>
+                                                    <td>{result.profile.firstName}</td>
+                                                    <td>{result.profile.lastName}</td>
+                                                    <td>{getUserMainRole(result.roles)}</td>
+                                                    {
+                                                        isAdmin ?
+                                                            <>
+                                                                <td>
+                                                                    <img src={deleteIcon}
+                                                                         alt="Delete Icon"
+                                                                         onClick={() => deleteUserById(result.id)}/>
+                                                                </td>
+                                                                <td>
+                                                                    <OverlayTrigger
+                                                                        trigger="click"
+                                                                        key='right'
+                                                                        placement='right'
+                                                                        rootClose={true}
+                                                                        overlay={
+                                                                            <Popover>
+                                                                                <Popover.Header
+                                                                                    as="h3">{`Edit user`}</Popover.Header>
+                                                                                <Popover.Body>
+                                                                                    <Form.Group
+                                                                                        className="mb-3"
+                                                                                        controlId="formEmail">
+                                                                                        <Form.Label>Email</Form.Label>
+                                                                                        <Form.Control
+                                                                                            type="text"
+                                                                                            placeholder="Email"
+                                                                                            onChange={e => setEmail(e.target.value)}/>
+                                                                                    </Form.Group>
+                                                                                    <Form.Group
+                                                                                        className="mb-3"
+                                                                                        controlId="formFirstName">
+                                                                                        <Form.Label>First
+                                                                                            Name</Form.Label>
+                                                                                        <Form.Control
+                                                                                            type="text"
+                                                                                            placeholder="First name"
+                                                                                            onChange={e => setFirstName(e.target.value)}/>
+                                                                                    </Form.Group>
 
-                                                                    <Form.Group className="mb-3"
-                                                                                controlId="formLastName">
-                                                                        <Form.Label>Last Name</Form.Label>
-                                                                        <Form.Control type="text"
-                                                                                      placeholder="Last name"
-                                                                                      onChange={e => setLastName(e.target.value)}/>
-                                                                    </Form.Group>
+                                                                                    <Form.Group
+                                                                                        className="mb-3"
+                                                                                        controlId="formLastName">
+                                                                                        <Form.Label>Last
+                                                                                            Name</Form.Label>
+                                                                                        <Form.Control
+                                                                                            type="text"
+                                                                                            placeholder="Last name"
+                                                                                            onChange={e => setLastName(e.target.value)}/>
+                                                                                    </Form.Group>
 
-                                                                    <button className="card-btn100__buttons"
-                                                                            type="submit"
-                                                                            onClick={() => updateUserFields(result.id)}>
-                                                                        Save
-                                                                    </button>
-                                                                </Popover.Body>
-                                                            </Popover>
-                                                        }
-                                                    >
-                                                        <img src={updateIcon} alt="Update icon"/>
+                                                                                    <button
+                                                                                        className="card-btn100__buttons"
+                                                                                        type="submit"
+                                                                                        onClick={() => updateUserFields(result.id)}>
+                                                                                        Save
+                                                                                    </button>
+                                                                                </Popover.Body>
+                                                                            </Popover>
+                                                                        }
+                                                                    >
+                                                                        <img src={updateIcon}
+                                                                             alt="Update icon"/>
 
-                                                    </OverlayTrigger>
-                                                </td>
-                                            </tr>
-                                            </tbody>
+                                                                    </OverlayTrigger>
+                                                                </td>
+                                                            </>
+                                                            :
+                                                            <></>
+                                                    }
+                                                </tr>
+                                                </tbody>
+                                            </>
                                         )
                                     })
                                     :
                                     <></>
-                            } </Table>
+                            }
+                        </Table>
 
                         :
                         <PulseLoader cssOverride={{
@@ -176,6 +224,7 @@ const UsersComponent = () => {
             </div>
         </>
     );
+
 
 };
 
