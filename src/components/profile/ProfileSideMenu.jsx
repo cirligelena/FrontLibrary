@@ -12,7 +12,7 @@ import {useEffect, useState} from "react";
 const ProfileSideMenuComponent = (props) => {
     const navigate = useNavigate();
     const userData = useSelector(getUserData)
-    const allowedRoles = 'ADMIN';
+    const allowedRoles = ['ADMIN', 'LIBRARIAN'];
     const [admin, setAdmin] = useState(false);
 
     useEffect(() => {
@@ -48,7 +48,8 @@ const ProfileSideMenuComponent = (props) => {
                         <h5>Authorization</h5>
                     </div>
                 </div>
-                {admin ?
+                {
+                    admin ?
                     <>
                         <div className="profile-side-menu__break-horizontal-line "></div>
                         <div className="profile-side-menu__administration">

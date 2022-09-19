@@ -8,6 +8,14 @@
     text-align: center;
 }
 
+.email-confirmation-page__message h2 {
+    text-align: center;
+}
+
+.email-confirmation-page__message h3 {
+    text-align: center;
+}
+
 .email-confirmation-page__message p {
     padding-top: 2em;
     text-align: center;
