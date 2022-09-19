@@ -1,5 +1,5 @@
-import {bookActions} from "../actions/book";
-import {loginActions} from "../actions/login";
+import { bookActions } from "../actions/book";
+import { loginActions } from "../actions/login";
 
 
 const initialState = {
@@ -65,6 +65,11 @@ export const allBooks = (state = initialState, action) => {
                 ...state,
                 lastModified: action.payload
 
+            };
+        case bookActions.INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA:
+            return {
+                ...state,
+                bookData: action.payload
             };
         case loginActions.LOGOUT:
         case loginActions.FINISH_SESSION:

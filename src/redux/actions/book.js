@@ -1,19 +1,20 @@
-import {routes} from "../../config/routes";
-import {HttpService} from "../../services/httpService";
+import { routes } from "../../config/routes";
+import { HttpService } from "../../services/httpService";
 
 
 
 export const bookActions = {
-    BOOK_LIST : "BOOK_LIST",
-    RESERVED_BOOK : "RESERVED_BOOK",
-    BOOKS_BY_CRITERIA : "BOOKS_BY_CRITERIA",
-    GET_BOOKS_BY_CATEGORY:"GET_BOOKS_BY_CATEGORY",
-    GET_BOOKS_BY_AUTHOR :"GET_BOOKS_BY_AUTHOR",
+    BOOK_LIST: "BOOK_LIST",
+    RESERVED_BOOK: "RESERVED_BOOK",
+    BOOKS_BY_CRITERIA: "BOOKS_BY_CRITERIA",
+    GET_BOOKS_BY_CATEGORY: "GET_BOOKS_BY_CATEGORY",
+    GET_BOOKS_BY_AUTHOR: "GET_BOOKS_BY_AUTHOR",
     DELETE_BOOK: "DELETE_BOOK",
     INSERT_BOOK: "INSERT_BOOK",
-    GET_USER_BOOKS:"GET_USER_BOOKS",
-    GIVE_BOOK : "GIVE_BOOK",
-    RETURN_BOOK : "RETURN_BOOK"
+    GET_USER_BOOKS: "GET_USER_BOOKS",
+    GIVE_BOOK: "GIVE_BOOK",
+    RETURN_BOOK: "RETURN_BOOK",
+    INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA: "INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA"
 
 };
 
@@ -22,8 +23,8 @@ export const fetchBookList = () => (dispatch) => {
 
     return HttpService.get(url).then(response => {
         return dispatch({
-            type : bookActions.BOOK_LIST,
-            payload : response
+            type: bookActions.BOOK_LIST,
+            payload: response
         });
     });
 };
@@ -53,14 +54,14 @@ export const searchBooks = (criteria) => (dispatch) => {
     });
 }
 
-export const getBooksByCategory = ( categoryId) => (dispatch) => {
+export const getBooksByCategory = (categoryId) => (dispatch) => {
 
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.GET_BOOKS_BY_CATEGORY + "/" + categoryId;
 
     return HttpService.get(url).then(response => {
         return dispatch({
-            type : bookActions.GET_BOOKS_BY_CATEGORY,
-            payload : response
+            type: bookActions.GET_BOOKS_BY_CATEGORY,
+            payload: response
         });
     });
 };
@@ -70,13 +71,13 @@ export const getBooksByAuthor = (authorId) => (dispatch) => {
 
     return HttpService.get(url).then(response => {
         return dispatch({
-            type : bookActions.GET_BOOKS_BY_AUTHOR,
-            payload : response
+            type: bookActions.GET_BOOKS_BY_AUTHOR,
+            payload: response
         });
     });
 };
 
-export const deleteBook  = (id) => (dispatch) => {
+export const deleteBook = (id) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.DELETE_BOOK + id;
 
     return HttpService.delete(url).then(response => {
@@ -88,8 +89,8 @@ export const deleteBook  = (id) => (dispatch) => {
     });
 
 };
-export const insertBook  = (bookData) => (dispatch) => {
-    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.INSERT_BOOK ;
+export const insertBook = (bookData) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.INSERT_BOOK;
 
     return HttpService.post(url, bookData).then(response => {
         return dispatch({
@@ -99,14 +100,25 @@ export const insertBook  = (bookData) => (dispatch) => {
     });
 
 };
+export const insertBookWithExistingCategoryAndAuthor = (bookData, categoryId, authorId) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA + "/" + categoryId + "/" + authorId;
+
+    return HttpService.post(url, bookData).then(response => {
+        return dispatch({
+            type: bookActions.INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA,
+            payload: response
+        });
+    });
+
+};
 export const getUserBooks = (userId) => (dispatch) => {
 
-    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.GET_USER_BOOKS  + userId;
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.GET_USER_BOOKS + userId;
 
     return HttpService.get(url).then(response => {
         return dispatch({
-            type : bookActions.GET_USER_BOOKS,
-            payload : response
+            type: bookActions.GET_USER_BOOKS,
+            payload: response
         });
     });
 };
@@ -119,8 +131,8 @@ export const giveTheBook = (bookId, userId) => (dispatch) => {
 
     return HttpService.put(url).then(response => {
         return dispatch({
-            type : bookActions.GIVE_BOOK,
-            payload : response
+            type: bookActions.GIVE_BOOK,
+            payload: response
         });
     });
 };
@@ -131,8 +143,8 @@ export const returnTheBook = (bookId) => (dispatch) => {
 
     return HttpService.put(url).then(response => {
         return dispatch({
-            type : bookActions.RETURN_BOOK,
-            payload : response
+            type: bookActions.RETURN_BOOK,
+            payload: response
         });
     });
 };
