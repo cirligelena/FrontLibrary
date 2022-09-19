@@ -55,11 +55,11 @@ const RegistrationFormComponent = () => {
                         setBadEmail(email);
                         setLoaded(false);
                     } else {
-                        dispatch(loginUser(userData)).then(() => {
+//                         dispatch(loginUser(userData)).then(() => {
                             dispatch(setLastUserAction("You have successfully registered and logged into your account"));
                             setLoaded(false);
                             navigate(from, {replace: true});
-                        });
+//                         });
                     }
                 }, 1000);
             });
