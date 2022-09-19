@@ -6,7 +6,7 @@ import validateInfo from "../../util/validateInfo";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {ClipLoader} from "react-spinners";
 import {getUserData} from "../../redux/selectors/login";
-import {loginUser} from "../../redux/actions/login";
+import {loginUser, setLastUserAction} from "../../redux/actions/login";
 import {registerUser} from "../../redux/actions/login";
 
 const RegistrationFormComponent = () => {
@@ -56,6 +56,7 @@ const RegistrationFormComponent = () => {
                         setLoaded(false);
                     } else {
                         dispatch(loginUser(userData)).then(() => {
+                            dispatch(setLastUserAction("You have successfully registered and logged into your account"));
                             setLoaded(false);
                             navigate(from, {replace: true});
                         });

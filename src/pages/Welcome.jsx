@@ -7,6 +7,7 @@ import {getUserProfileData} from "../redux/selectors/profile";
 import {profileData} from "../redux/actions/profile";
 import NavigationComponent from "../components/navigation/Navigation";
 import {ClipLoader, PulseLoader} from "react-spinners";
+import UserLastActionMessageComponent from "../components/useraction/UserLastActionMessage";
 
 
 const WelcomePage = () => {
@@ -69,6 +70,7 @@ const WelcomePage = () => {
                                 </div>
                             </div>
                         </div>
+                        <UserLastActionMessageComponent/>
                     </>
                     :
                     <>

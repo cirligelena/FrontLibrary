@@ -15,7 +15,6 @@ const HomeContentComponent = () => {
         <>
             <div className="background-image">
                 <div className="home-page">
-                    <UserLastActionMessage/>
                     <div className="home-page__content-container">
                         <div className="home-page__main-info">
                             <div className="main-info__title">

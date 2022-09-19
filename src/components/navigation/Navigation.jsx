@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../../assets/styles/navigation.css";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {getUserData} from "../../redux/selectors/login";
 
@@ -9,10 +9,10 @@ const NavigationComponent = () => {
     const [logged, setLogged] = useState(false);
 
     useEffect(() => {
-        if (JSON.stringify(userData) !== JSON.stringify({})) {
+        if (userData.email) {
             setLogged(true);
         }
-    }, []);
+    }, [userData.email]);
 
     return (
         <header>
@@ -31,15 +31,16 @@ const NavigationComponent = () => {
                 </div>
 
 
-                {logged ? 
-                    <div className="nav-link">
-                        <NavLink to={"/profile"}>Profile</NavLink>
-                    </div> 
-                    : 
-                    <div className="nav-link auth-link">
-                        <NavLink to={"/login"}>Login /</NavLink>
-                        <NavLink to={"/registration"}>Sign-Up</NavLink>
-                    </div>
+                {
+                    logged ?
+                        <div className="nav-link">
+                            <NavLink to={"/profile"}>Profile</NavLink>
+                        </div>
+                        :
+                        <div className="nav-link auth-link">
+                            <NavLink to={"/login"}>Login /</NavLink>
+                            <NavLink to={"/registration"}>Sign-Up</NavLink>
+                        </div>
                 }
 
 

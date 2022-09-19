@@ -8,6 +8,7 @@ import HeaderProfileComponent from "../components/profile/ProfileHeader";
 import { PulseLoader } from "react-spinners";
 import '../assets/styles/profile.css';
 import ProfileSideMenuComponent from "../components/profile/ProfileSideMenu";
+import UserLastActionMessageComponent from "../components/useraction/UserLastActionMessage";
 
 
 
@@ -37,6 +38,7 @@ const ProfilePage = (props) => {
                         <HeaderProfileComponent userFullName = {userFullName} />
                         <ProfileSideMenuComponent rightSideComponent = {props.renderComponent}/>
                     </div>
+                    <UserLastActionMessageComponent/>
                 </>
                 : 
                 <>

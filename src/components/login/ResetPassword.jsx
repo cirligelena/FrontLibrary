@@ -7,6 +7,7 @@ import {PulseLoader} from "react-spinners";
 import {updatePassword, updateUser} from "../../redux/actions/user";
 import validatePassword from "../../util/passwordValid";
 import passwordIcon from "../../assets/images/icons/profile/password.svg";
+import {setLastUserAction} from "../../redux/actions/login";
 
 
 function ResetPasswordComponent() {
@@ -32,11 +33,13 @@ function ResetPasswordComponent() {
             "email": params.email,
             "password": password,
         };
+
         console.log("in the update function")
         console.log(params.userId)
-        dispatch(updatePassword(params.userId, userDetails)).then(() => {
-            navigate("/login");
 
+        dispatch(updatePassword(params.userId, userDetails)).then(() => {
+            dispatch(setLastUserAction("The password has been changed"));
+            navigate("/login");
         });
     }
 
