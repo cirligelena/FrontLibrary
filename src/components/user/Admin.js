@@ -231,7 +231,7 @@ const AdminComponent = () => {
                                 </Popover>
                             }
                         >
-                            <button>
+                            <button className="card-btn100__buttons">
                                 Add new user
                             </button>
 
