@@ -33,7 +33,7 @@ function ResetPasswordComponent() {
             "password": password,
         };
         console.log("in the update function")
-        console.log(params.userId)
+console.log(params.userId)
         dispatch(updatePassword(params.userId, userDetails)).then(() => {
             navigate("/login");
 

@@ -1,11 +1,8 @@
 import { userActions } from "../actions/user";
-import {loginActions} from "../actions/login";
 
 
 const initialState = {
     userList : { },
-    newUser: { },
-    updatedUserData : { }
 };
 
 export const user = (state = initialState, action) => {
@@ -22,8 +19,11 @@ export const user = (state = initialState, action) => {
         case userActions.UPDATE_USER:
             return {
                 ...state,
-                updatedUserData: action.payload
-            }
+            };
+        case userActions.CREATE_NEW_USER:
+            return {
+                ...state,
+            };
         case userActions.USERS_BY_CRITERIA:
             return {
                 ...state,
@@ -33,14 +33,6 @@ export const user = (state = initialState, action) => {
             return {
                 ...state,
             };
-        case userActions.CREATE_NEW_USER:
-            return {
-                ...state,
-                newUser: action.payload
-            };
-        case loginActions.LOGOUT:
-        case loginActions.FINISH_SESSION:
-            return initialState;
         default:
             return state;
     }

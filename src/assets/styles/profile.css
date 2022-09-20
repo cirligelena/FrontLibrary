@@ -2,10 +2,7 @@
 @import url("./profile/header.css");
 @import url("./profile/sidemenu.css");
 @import url("./profile/profileinfo.css");
-@import url("./profile/auth.css");
-@import url("./profile/mybooks.css");
-@import url("./profile/history.css");
-@import url("./profile/users.css");
+
 
 /* PAGE */
 .profile-page {
@@ -19,6 +16,12 @@
 }
 
 .profile-side-content {
+    width: 100%;
+    padding-top: 35px;
+    padding-left: 10%;
+}
+
+.profile-side-content1 {
      width: 90%;
      padding-top: 1em;
      padding-bottom: 13em;

@@ -64,7 +64,7 @@ p {
     width: 50%;
     height: 35px;
     color: #EBF2FA;
-    background: #427aa1;
+    background: #6c757d;
     text-align: center;
     border-radius: 5px;
 }
@@ -89,6 +89,7 @@ p {
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
+
 }
 .card-btn-updateProfile__buttons{
     width: 17%;

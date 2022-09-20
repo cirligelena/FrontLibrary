@@ -3,8 +3,7 @@ import {loginActions} from "../actions/login";
 
 const initialState = {
     userData: {},
-    tokenValid: true,
-    lastUserAction: '',
+    tokenValid: true
 };
 
 export const login = (state = initialState, action) => {
@@ -22,8 +21,7 @@ export const login = (state = initialState, action) => {
                     email: state.userData.email,
                     access_token: action.payload.access_token,
                     refresh_token: action.payload.refresh_token,
-                    roles: state.userData.roles,
-                    isConfirmedByEmail: state.userData.isConfirmedByEmail
+                    roles: state.userData.roles
                 },
                 tokenValid: true
             };
@@ -33,24 +31,10 @@ export const login = (state = initialState, action) => {
                 tokenValid: action.payload
             };
         case loginActions.LOGOUT:
-        case loginActions.FINISH_SESSION:
-            return initialState;
-        case loginActions.RECEIVE_USER_REGISTER:
             return {
                 ...state,
-                userData: action.payload
-            };
-        case loginActions.CHANGE_USER_PASSWORD:
-            return {
-                ...state,
-                userData: {
-                    id: state.userData.id,
-                    email: state.userData.email,
-                    access_token: state.userData.access_token,
-                    refresh_token: state.userData.refresh_token,
-                    roles: state.userData.roles,
-                    hasTemporaryPassword: false
-                },
+                userData: action.payload,
+
             };
         case loginActions.FORGOT_PASSWORD:
             return {
@@ -58,13 +42,12 @@ export const login = (state = initialState, action) => {
                 userData: action.payload,
 
             };
-        case loginActions.SET_LAST_USER_ACTION:
+        case loginActions.RECEIVE_USER_REGISTER:
             return {
                 ...state,
-                lastUserAction: action.payload,
-            }
+                userData: action.payload
+            };
         default:
             return state;
     }
-
 }
