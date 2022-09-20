@@ -1,13 +1,13 @@
-import {useDispatch, useSelector} from "react-redux";
-import {getUserData} from "../../redux/selectors/login";
-import React, {useEffect, useState} from "react";
-import {Modal} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../../redux/selectors/login";
+import React, { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import {changePassword} from "../../redux/actions/login";
+import { changePassword } from "../../redux/actions/login";
 import validatePassword from "../../util/passwordValid";
 
 
-const ChangePasswordNotification = ({children}) => {
+const ChangePasswordNotification = ({ children }) => {
     const userInfo = useSelector(getUserData);
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
@@ -29,7 +29,7 @@ const ChangePasswordNotification = ({children}) => {
 
 
     const handleOnChangeValidating = () => {
-        setErrors((validatePassword({password, confirmedPassword})));
+        setErrors((validatePassword({ password, confirmedPassword })));
     }
     const changeTemporaryPassword = () => {
         const newUserData = {
@@ -52,28 +52,28 @@ const ChangePasswordNotification = ({children}) => {
                 <Modal.Body>Please change your password to continue</Modal.Body>
                 <section className="form__password">
                     <input id="password"
-                           name="password"
-                           type="password"
-                           placeholder="Password"
-                           aria-describedby="password-constraints"
-                           onChange={event => {
-                               setPassword(event.target.value);
-                               handleOnChangeValidating();
-                           }}
-                           onFocus={handleOnChangeValidating}
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        aria-describedby="password-constraints"
+                        onChange={event => {
+                            setPassword(event.target.value);
+                            handleOnChangeValidating();
+                        }}
+                        onFocus={handleOnChangeValidating}
                     />
                     {errors.password && <p className="error-message">{errors.password}<i>*</i></p>}
                 </section>
                 <section className="form__repeat-password">
                     <input id="confirmed-password"
-                           name="confirmedPassword"
-                           type="password"
-                           placeholder="Confirm your password"
-                           onChange={event => {
-                               setConfirmedPassword(event.target.value);
-                               handleOnChangeValidating();
-                           }}
-                           onFocus={handleOnChangeValidating}
+                        name="confirmedPassword"
+                        type="password"
+                        placeholder="Confirm your password"
+                        onChange={event => {
+                            setConfirmedPassword(event.target.value);
+                            handleOnChangeValidating();
+                        }}
+                        onFocus={handleOnChangeValidating}
                     />
                     {errors.confirmedPassword &&
                         <p className="error-message">{errors.confirmedPassword}<i>*</i></p>}

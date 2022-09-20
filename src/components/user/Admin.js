@@ -2,20 +2,17 @@ import { useNavigate } from "react-router-dom";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
-import { insertBook, insertBookWIthExistingCategoryAndAuthor, fetchBookList } from "../../redux/actions/book";
+import Button from "react-bootstrap/Button"
 import { createUser } from "../../redux/actions/user";
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookList, getLastModifiedBook } from "../../redux/selectors/allBooks";
 import { getAuthorList } from "../../redux/selectors/author";
-import Select from "react-select/base";
 import { getCategoryList } from "../../redux/selectors/category";
-import { fetchCategoryList, getCategoryById } from "../../redux/actions/category";
+import { fetchCategoryList } from "../../redux/actions/category";
 import { fetchAuthorList } from "../../redux/actions/author";
-import { PopoverBody } from "react-bootstrap";
+import { insertBookWithExistingCategoryAndAuthor } from "../../redux/actions/book";
+
 
 const AdminComponent = () => {
     const nav = useNavigate();
@@ -38,31 +35,30 @@ const AdminComponent = () => {
 
     const lastModified = useSelector(getLastModifiedBook);
     const categories = useSelector(getCategoryList);
-    const books = useSelector(getBookList);
     const authors = useSelector(getAuthorList);
 
 
-    const createBook = (e) => {
-        e.preventDefault()
-
-        const bookData = {
-            "title": title,
-            "description": description,
-            "shelfNumber": shelfNumber,
-            "authors": [{
-                'firstName': firstName,
-                'lastName': lastName,
-                "birthDate": birthDate,
-                "biography": biography
-            }],
-            "categories": [{
-                "title": categoryTitle
-            }]
-
-        }
-
-        //  dispatch(insertBook(bookData))
-    }
+    //    const createBook = (e) => {
+    //        e.preventDefault()
+    //
+    //        const bookData = {
+    //            "title": title,
+    //            "description": description,
+    //            "shelfNumber": shelfNumber,
+    //            "authors": [{
+    //                'firstName': firstName,
+    //                'lastName': lastName,
+    //                "birthDate": birthDate,
+    //                "biography": biography
+    //            }],
+    //            "categories": [{
+    //                "title": categoryTitle
+    //            }]
+    //
+    //        }
+    //
+    //        //  dispatch(insertBook(bookData))
+    //    }
     const insertBookWIthExistingCategoryAndAuthor = (e) => {
         e.preventDefault()
 
@@ -71,9 +67,11 @@ const AdminComponent = () => {
             "description": description,
             "shelfNumber": shelfNumber
         }
+
         console.log("category" + category)
         console.log("author" + author)
-        dispatch(insertBookWIthExistingCategoryAndAuthor(bookData, category, author))
+
+        dispatch(insertBookWithExistingCategoryAndAuthor(bookData, category, author))
     }
 
 
@@ -170,8 +168,7 @@ const AdminComponent = () => {
                                         </Form.Group>
                                         <Form.Label></Form.Label>
                                         <Form.Group>
-                                            <Button className="card-btn100__buttons" type="submit"
-
+                                            <Button className="card-btn100__buttons"
                                                 onClick={insertBookWIthExistingCategoryAndAuthor}>
                                                 Insert
                                             </Button>

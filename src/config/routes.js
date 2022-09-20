@@ -7,7 +7,7 @@ export const routes = {
     PROFILE_DATA: "profile/get/",
     DELETE_USER: "user/delete/",
     UPDATE_USER: "user/update/",
-    CREATE_USER : "user/create",
+    CREATE_USER: "user/create",
     ALL_USERS: "user/users",
     ALL_BOOKS: "book/books",
     ALL_AUTHORS: "author/authors",
@@ -27,5 +27,6 @@ export const routes = {
     CLIENT_DATA: "user/find-by-email/",
     FORGOT_PASSWORD: "user/forgotPassword",
     GET_USERS_BY_CRITERIA: "user/find_users_by_criteria",
-    UPDATE_PASSWORD: "user/forgotPassword/changePassword/"
+    UPDATE_PASSWORD: "user/forgotPassword/changePassword/",
+    INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA: "book/addBookWithExistingCategoryAndAuthor"
 }
