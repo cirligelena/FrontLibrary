@@ -72,6 +72,7 @@ function BookItem(props) {
     };
     return (
         <>
+        <UserLastActionMessageComponent/>
             {
                 userInfo?.roles?.includes("ADMIN") || userInfo?.roles?.includes("LIBRARIAN") ?
                     <div className="card">
