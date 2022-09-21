@@ -6,11 +6,10 @@ import Button from "react-bootstrap/Button"
 import { createUser } from "../../redux/actions/user";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookList, getLastModifiedBook } from "../../redux/selectors/allBooks";
 import { getAuthorList } from "../../redux/selectors/author";
 import { getCategoryList } from "../../redux/selectors/category";
-import { fetchCategoryList } from "../../redux/actions/category";
-import { fetchAuthorList } from "../../redux/actions/author";
+import { fetchCategoryList, insertCategory } from "../../redux/actions/category";
+import { fetchAuthorList, insertAuthor } from "../../redux/actions/author";
 import { insertBookWithExistingCategoryAndAuthor } from "../../redux/actions/book";
 
 
@@ -29,36 +28,41 @@ const AdminComponent = () => {
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
 
-    const [loaded, setLoaded] = useState(false);
+    const [, setLoaded] = useState(false);
     const [category, setCategory] = useState('');
     const [author, setAuthor] = useState('');
 
-    const lastModified = useSelector(getLastModifiedBook);
     const categories = useSelector(getCategoryList);
     const authors = useSelector(getAuthorList);
 
 
-    //    const createBook = (e) => {
-    //        e.preventDefault()
-    //
-    //        const bookData = {
-    //            "title": title,
-    //            "description": description,
-    //            "shelfNumber": shelfNumber,
-    //            "authors": [{
-    //                'firstName': firstName,
-    //                'lastName': lastName,
-    //                "birthDate": birthDate,
-    //                "biography": biography
-    //            }],
-    //            "categories": [{
-    //                "title": categoryTitle
-    //            }]
-    //
-    //        }
-    //
-    //        //  dispatch(insertBook(bookData))
-    //    }
+
+    const addCategory = (e) => {
+        e.preventDefault()
+
+        const categoryData = {
+            "title": categoryTitle
+        }
+        console.log(categoryTitle)
+        dispatch(insertCategory(categoryData));
+    }
+
+
+    const addAuthor = (e) => {
+        e.preventDefault()
+
+        const authorData = {
+            "firstName": firstName,
+            "lastName": lastName,
+            "birthDate": birthDate,
+            "biography": biography
+
+        }
+
+        dispatch(insertAuthor(authorData));
+    }
+
+
     const insertBookWIthExistingCategoryAndAuthor = (e) => {
         e.preventDefault()
 
@@ -92,16 +96,11 @@ const AdminComponent = () => {
 
     useEffect(() => {
         setLoaded(false)
-        dispatch(fetchCategoryList()).then(() => {
-            setLoaded(true)
-        })
-        dispatch(fetchAuthorList()).then(() => {
-            setLoaded(true)
-        })
-    }, [lastModified]);
+        dispatch(fetchCategoryList()).then(() => setLoaded(true))
+        dispatch(fetchAuthorList()).then(() => setLoaded(true))
+    }, [dispatch]);
 
     return (
-        // <article style={{padding: "100px"}}className="page">
         <article>
             <div>
                 <h3 style={{ textAlign: "center" }}>Admin Panel</h3>
@@ -187,6 +186,74 @@ const AdminComponent = () => {
 
                         <button className="card-btn50__buttons" onClick={() => nav("/manage-book")}>Manage Books</button>
 
+                        <OverlayTrigger
+                            trigger="click"
+                            key='createAuthor'
+                            placement='right'
+                            rootClose={true}
+                            overlay={
+                                <Popover>
+                                    <Popover.Header
+                                        as="h3">{`New Author`}</Popover.Header>
+                                    <Popover.Body>
+                                        <Form.Label>Choose Author</Form.Label>
+                                        <Form.Group className="mb-3" controlId="formBook">
+                                            <Form.Label>Author Details: </Form.Label>
+                                            <Form.Control type="text" placeholder="firstName"
+                                                onChange={e => setFirstName(e.target.value)} />
+                                            <Form.Control type="text" placeholder="lastName"
+                                                onChange={e => setLastName(e.target.value)} />
+                                            <Form.Control type="text" placeholder="birthDate(yyyy-mm-dd)"
+                                                onChange={e => setBirthDate(e.target.value)} />
+                                            <Form.Control type="text" placeholder="biography"
+                                                onChange={e => setBiography(e.target.value)} />
+                                        </Form.Group>
+                                        <Form.Label></Form.Label>
+                                        <Form.Group>
+                                            <Button className="card-btn100__buttons"
+                                                onClick={addAuthor}>
+                                                Insert
+                                            </Button>
+                                        </Form.Group>
+                                    </Popover.Body>
+                                </Popover>
+                            }
+                        >
+                            <button className="card-btn50__buttons"> Create Author</button>
+
+                        </OverlayTrigger>
+
+                        <OverlayTrigger
+                            trigger="click"
+                            key='createCategory'
+                            placement='right'
+                            rootClose={true}
+                            overlay={
+                                <Popover>
+                                    <Popover.Header
+                                        as="h3">{`New Category`}</Popover.Header>
+                                    <Popover.Body>
+                                        <Form.Label>Create Category</Form.Label>
+                                        <Form.Group className="mb-3" controlId="formBook">
+
+                                            <Form.Control type="text" placeholder="title"
+                                                onChange={e => setCategoryTitle(e.target.value)} />
+
+                                        </Form.Group>
+                                        <Form.Label></Form.Label>
+                                        <Form.Group>
+                                            <Button className="card-btn100__buttons"
+                                                onClick={addCategory}>
+                                                Insert
+                                            </Button>
+                                        </Form.Group>
+                                    </Popover.Body>
+                                </Popover>
+                            }
+                        >
+                            <button className="card-btn50__buttons"> Create Category</button>
+
+                        </OverlayTrigger>
                     </div>
 
 

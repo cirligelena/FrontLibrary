@@ -28,5 +28,8 @@ export const routes = {
     FORGOT_PASSWORD: "user/forgotPassword",
     GET_USERS_BY_CRITERIA: "user/find_users_by_criteria",
     UPDATE_PASSWORD: "user/forgotPassword/changePassword/",
-    INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA: "book/addBookWithExistingCategoryAndAuthor"
+    INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA: "book/addBookWithExistingCategoryAndAuthor",
+    INSERT_AUTHOR: "author/create",
+    INSERT_CATEGORY: "category/create"
+
 }
