@@ -23,11 +23,9 @@ const UserLastActionMessageComponent = () => {
         <>
             {
                 displayAction ?
-                    <div className="last-action-top-left">
                         <div className="last-action-top-left__message">
                             <p>{lastAction}</p>
                         </div>
-                    </div>
                     :
                     <></>
             }

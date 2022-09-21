@@ -47,7 +47,7 @@ const LoginFormComponent = () => {
         if (userInfo === 403) {
             setError("Invalid email or password!");
         } else if (userInfo.email) {
-            dispatch(setLastUserAction("You are logged"));
+            dispatch(setLastUserAction("You successful logged as " + userInfo.email));
             navigate(from, {replace: true})
         }
     }
