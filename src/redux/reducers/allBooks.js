@@ -69,6 +69,11 @@ export const allBooks = (state = initialState, action) => {
         case loginActions.LOGOUT:
         case loginActions.FINISH_SESSION:
             return initialState;
+        case bookActions.INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA:
+            return {
+                ...state,
+                bookData: action.payload
+            };
 
         default:
             return state;

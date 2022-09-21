@@ -32,4 +32,7 @@ export const routes = {
     UPDATE_PASSWORD: "user/forgotPassword/changePassword/",
     SEND_NEW_CONFIRMATION_TOKEN: "email-confirmation/send-new-token/",
     BASIC_URL: "http://localhost:8080/",
+    INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA: "book/addBookWithExistingCategoryAndAuthor",
+    INSERT_AUTHOR: "author/create",
+    INSERT_CATEGORY: "category/create"
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getBookData, getBookList} from "../../redux/selectors/allBooks";
-import {deleteBook, fetchBookList, insertBook} from "../../redux/actions/book";
+import {deleteBook, fetchBookList, insertBook, insertBookWithExistingCategoryAndAuthor} from "../../redux/actions/book";
 import {PulseLoader} from "react-spinners";
 import {Table} from "react-bootstrap";
 import NavigationComponent from "../navigation/Navigation";
@@ -13,12 +13,16 @@ import Popover from "react-bootstrap/Popover";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import {fetchCategoryList, insertCategory} from "../../redux/actions/category";
+import {fetchAuthorList, insertAuthor} from "../../redux/actions/author";
+import {getCategoryData, getCategoryList} from "../../redux/selectors/category";
+import {getAuthorData, getAuthorList} from "../../redux/selectors/author";
 
 const ManageBooksComponent = () => {
     const books = useSelector(getBookList);
     const dispatch = useDispatch();
     const [loaded, setLoaded] = useState(false);
-    const [loadedSpinner, setLoadedSpinner] = useState(false);
+    const [saved, setSaved] = useState(false);
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('');
     const [shelfNumber, setShelfNumber] = useState('');
@@ -28,29 +32,58 @@ const ManageBooksComponent = () => {
     const [biography, setBiography] = useState('');
     const [categoryTitle, setCategoryTitle] = useState('');
     const newBookData = useSelector(getBookData);
+    const [category, setCategory] = useState('');
+    const [author, setAuthor] = useState('');
 
-    const createBook = (e) => {
+    const categories = useSelector(getCategoryList);
+    const authors = useSelector(getAuthorList);
+    const newCategory = useSelector(getCategoryData);
+    const newAuthor = useSelector(getAuthorData);
+    const handleSaved = () => {
+        setSaved(false)
+    };
+    const addCategory = (e) => {
         e.preventDefault()
-        setLoadedSpinner(true);
+
+        const categoryData = {
+            "title": categoryTitle
+        }
+        console.log(categoryTitle)
+        dispatch(insertCategory(categoryData)).then(() => {
+            setSaved(true)
+        });
+    }
+
+
+    const addAuthor = (e) => {
+        e.preventDefault()
+
+        const authorData = {
+            "firstName": firstName,
+            "lastName": lastName,
+            "birthDate": birthDate,
+            "biography": biography
+
+        }
+
+        dispatch(insertAuthor(authorData)).then(() => {
+            setSaved(true)
+        });
+    }
+    const insertBookWIthExistingCategoryAndAuthor = (e) => {
+        e.preventDefault()
 
         const bookData = {
             "title": title,
             "description": description,
-            "shelfNumber": shelfNumber,
-            "authors": [{
-                'firstName': firstName,
-                'lastName': lastName,
-                "birthDate": birthDate,
-                "biography": biography
-            }],
-            "categories": [{
-                "title": categoryTitle
-            }]
-
+            "shelfNumber": shelfNumber
         }
 
-        dispatch(insertBook(bookData)).then(() => {
-            setLoadedSpinner(false);
+        console.log("category" + category)
+        console.log("author" + author)
+
+        dispatch(insertBookWithExistingCategoryAndAuthor(bookData, category, author)).then(() => {
+            setSaved(true)
         })
     }
 
@@ -66,6 +99,13 @@ const ManageBooksComponent = () => {
         })
     }, [loaded]);
 
+    useEffect(() => {
+        dispatch(fetchCategoryList());
+    }, [newCategory]);
+
+    useEffect(() => {
+        dispatch(fetchAuthorList());
+    }, [newAuthor]);
 
     return (
         <>
@@ -75,9 +115,10 @@ const ManageBooksComponent = () => {
                     <h1>Books</h1>
                     <OverlayTrigger
                         trigger="click"
-                        key='right'
-                        placement='right'
+                        key='new book'
+                        placement='left'
                         rootClose={true}
+                        onExited={handleSaved}
                         overlay={
                             <Popover>
                                 <Popover.Header
@@ -98,35 +139,48 @@ const ManageBooksComponent = () => {
                                         <Form.Control type="text" placeholder="ShelfNumber"
                                                       onChange={e => setShelfNumber(e.target.value)}/>
                                     </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBook">
-                                        <Form.Label>Author Details: </Form.Label>
-                                        <Form.Control type="text" placeholder="firstName"
-                                                      onChange={e => setFirstName(e.target.value)}/>
-                                        <Form.Control type="text" placeholder="lastName"
-                                                      onChange={e => setLastName(e.target.value)}/>
-                                        <Form.Control type="text" placeholder="birthDate(yyyy-mm-dd)"
-                                                      onChange={e => setBirthDate(e.target.value)}/>
-                                        <Form.Control type="text" placeholder="biography"
-                                                      onChange={e => setBiography(e.target.value)}/>
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBook">
-                                        <Form.Label>Category Title</Form.Label>
-                                        <Form.Control type="text" placeholder="title"
-                                                      onChange={e => setCategoryTitle(e.target.value)}/>
+                                    <Form.Label>Choose Category</Form.Label>
+                                    <Form.Group>
+                                        <Form.Select name="category"
+                                                     onChange={e => setCategory(e.currentTarget.value)}>
+                                            {Array.isArray(categories)
+                                                ? categories.map(category =>
+                                                    <option key={category.id} value={category.id}>
+                                                        {category.title}
+                                                    </option>)
+                                                : <> </>}
+                                        </Form.Select>
                                     </Form.Group>
 
-                                    <Button className="card-btn100__buttons" type="submit"
-                                            onClick={createBook}>
-                                        Insert
-                                    </Button>
-                                    {
-                                        loaded ? (
+                                    <Form.Label>Choose Author</Form.Label>
+                                    <Form.Group>
+                                        <Form.Select name="authors"
+                                                     onChange={e => setAuthor(e.currentTarget.value)}>
+                                            {Array.isArray(authors)
+                                                ? authors.map(author =>
+                                                    <option key={author.id} value={author.id}>
+                                                        {author.fullName}
+                                                    </option>
+                                                )
+                                                : <> </>}
+                                        </Form.Select>
+                                    </Form.Group>
+                                    <Form.Label></Form.Label>
+                                    <Form.Group>
+
+                                        <Button className="card-btn100__buttons" type="submit"
+                                                onClick={insertBookWIthExistingCategoryAndAuthor}>
+                                            Save
+                                        </Button>
+                                    </Form.Group>
+                                    {saved ? (
                                         newBookData.title ?
                                             <div> New book {newBookData.title} was
                                                 added to library </div>
                                             : <div> an error occurred </div>
                                     ) : <div></div>
                                     }
+
                                 </Popover.Body>
                             </Popover>
                         }
@@ -138,7 +192,91 @@ const ManageBooksComponent = () => {
                         </button>
 
                     </OverlayTrigger>
+
                 </div>
+                <OverlayTrigger
+                    trigger="click"
+                    key='new author'
+                    placement='right'
+                    rootClose={true}
+                    onExited={handleSaved}
+                    overlay={
+                        <Popover>
+                            <Popover.Header
+                                as="h3">{`New Author`}</Popover.Header>
+                            <Popover.Body>
+                                <Form.Group className="mb-3" controlId="formBook">
+                                    <Form.Label>Author Details: </Form.Label>
+                                    <Form.Control type="text" placeholder="firstName"
+                                                  onChange={e => setFirstName(e.target.value)} />
+                                    <Form.Control type="text" placeholder="lastName"
+                                                  onChange={e => setLastName(e.target.value)} />
+                                    <Form.Control type="text" placeholder="birthDate(yyyy-mm-dd)"
+                                                  onChange={e => setBirthDate(e.target.value)} />
+                                    <Form.Control type="text" placeholder="biography"
+                                                  onChange={e => setBiography(e.target.value)} />
+                                </Form.Group>
+                                <Form.Label></Form.Label>
+                                <Form.Group>
+                                    <Button className="card-btn100__buttons"
+                                            onClick={addAuthor}>
+                                        Save
+                                    </Button>
+                                </Form.Group>
+                                {saved ? (
+                                    newAuthor.fullName ?
+                                        <div> New author {newAuthor.fullName} was
+                                            added to library </div>
+                                        : <div> an error occurred </div>
+                                ) : <div></div>
+                                }
+                            </Popover.Body>
+                        </Popover>
+                    }
+                >
+                    <button className="card-btn50__buttons"> Create Author</button>
+
+                </OverlayTrigger>
+
+                <OverlayTrigger
+                    trigger="click"
+                    key='new category'
+                    placement='left'
+                    rootClose={true}
+                    onExited={handleSaved}
+                    overlay={
+                        <Popover>
+                            <Popover.Header
+                                as="h3">{`New Category`}</Popover.Header>
+                            <Popover.Body>
+                                <Form.Label>Create Category</Form.Label>
+                                <Form.Group className="mb-3" controlId="formBook">
+
+                                    <Form.Control type="text" placeholder="title"
+                                                  onChange={e => setCategoryTitle(e.target.value)} />
+
+                                </Form.Group>
+                                <Form.Label></Form.Label>
+                                <Form.Group>
+                                    <Button className="card-btn100__buttons"
+                                            onClick={addCategory}>
+                                        Save
+                                    </Button>
+                                </Form.Group>
+                                {saved ? (
+                                    newCategory.title ?
+                                        <div> New category {newCategory.title} was
+                                            added to library </div>
+                                        : <div> an error occurred </div>
+                                ) : <div></div>
+                                }
+                            </Popover.Body>
+                        </Popover>
+                    }
+                >
+                    <button className="card-btn50__buttons"> Create Category</button>
+
+                </OverlayTrigger>
                 <div className="page__horizontal-line"></div>
                 {
                     loaded ?
