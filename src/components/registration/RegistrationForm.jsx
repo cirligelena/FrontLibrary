@@ -8,6 +8,9 @@ import {ClipLoader} from "react-spinners";
 import {getUserData} from "../../redux/selectors/login";
 import {loginUser, setLastUserAction} from "../../redux/actions/login";
 import {registerUser} from "../../redux/actions/login";
+import {logout} from "../../redux/actions/login";
+import {getProcessState} from "../../redux/selectors/flagSelectors";
+import {retryRegistration} from "../../redux/actions/flagActions";
 
 const RegistrationFormComponent = () => {
     const [loaded, setLoaded] = useState(false);
@@ -23,7 +26,7 @@ const RegistrationFormComponent = () => {
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
     const [badEmail, setBadEmail] = useState('');
-
+    const processFinished = useSelector(getProcessState);
     const [errors, setErrors] = useState({})
 
     const dispatch = useDispatch();
@@ -48,27 +51,29 @@ const RegistrationFormComponent = () => {
                 'phoneNumber': phoneNumber
             };
 
-            dispatch(registerUser(userData)).then(() => {
-                setTimeout(() => {
-                    if (userInfo === 403) {
-                        setEmailTakenError("Email already taken");
-                        setBadEmail(email);
-                        setLoaded(false);
-                    } else {
-                        dispatch(loginUser(userData)).then(() => {
-                            dispatch(setLastUserAction("You have successfully registered and logged into your account"));
-                            setLoaded(false);
-                            navigate(from, {replace: true});
-                        });
-                    }
-                }, 1000);
-            });
+            dispatch(registerUser(userData));
         }
     }
     useEffect(() => {
         handleOnChangeValidating();
     }, [email, firstName, lastName, password, confirmedPassword, phoneNumber, emailTakenError])
 
+    useEffect(() => {
+        if (processFinished) {
+            if (userInfo === 403) {
+                setEmailTakenError("Email already taken");
+                setBadEmail(email);
+                dispatch(logout());
+                setLoaded(false);
+                dispatch(retryRegistration());
+            } else if (userInfo.email){
+                dispatch(setLastUserAction("You have successfully registered and logged into your account"));
+                setLoaded(false);
+                navigate(from, {replace: true});
+                dispatch(retryRegistration());
+            }
+        }
+    }, [processFinished])
     return (
         <div className="registration-page__form-container">
             <div className="form-container__container">

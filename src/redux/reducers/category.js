@@ -27,6 +27,11 @@ export const allCategories = (state = initialState, action) => {
         case loginActions.LOGOUT:
         case loginActions.FINISH_SESSION:
             return initialState;
+        case categoryActions.INSERT_CATEGORY:
+            return {
+                ...state,
+                categoryData: action.payload
+            };
         default:
             return state;
     }

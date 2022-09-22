@@ -1,9 +1,12 @@
 
 import {loginActions} from "../actions/login";
+import {flagActions} from "../actions/flagActions";
 
 
 const initialState = {
-    showModalSessionFinished: false
+    showModalSessionFinished: false,
+    processFinished: false,
+
 }
 
 export const flag = (state = initialState, action) => {
@@ -13,6 +16,16 @@ export const flag = (state = initialState, action) => {
                 ...state,
                 showModalSessionFinished: true,
             };
+            case loginActions.RECEIVE_USER_REGISTER:
+                        return {
+                            ...state,
+                            processFinished: true,
+                        };
+            case flagActions.RETRY_REGISTER_PROCESS:
+                  return {
+                      ...state,
+                       processFinished: false,
+                        };
         default:
             return state;
     }
