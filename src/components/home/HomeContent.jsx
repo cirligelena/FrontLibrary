@@ -42,9 +42,6 @@ const HomeContentComponent = () => {
                                 Explore books
                             </button>
                         </div>
-                        <div className="logout-secret">
-                            <LogoutComponent/>
-                        </div>
                     </div>
                 </div>
                 <ChangePasswordNotification/>

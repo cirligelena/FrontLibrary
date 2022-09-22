@@ -16,7 +16,7 @@ const UserLastActionMessageComponent = () => {
             setTimeout(() => {
                 setDisplayAction(false);
                 dispatch(setLastUserAction(''));
-            }, 4000)
+            }, 3000)
         }
     }, [lastAction])
     return (
