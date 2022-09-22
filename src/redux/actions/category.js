@@ -4,7 +4,8 @@ import {HttpService} from "../../services/httpService";
 export const categoryActions = {
     CATEGORY_LIST : "CATEGORY_LIST",
     GET_CATEGORY_BY_ID :"GET_CATEGORY_BY_ID",
-    ASSIGN_BOOK_TO_CATEGORY: "ASSIGN_BOOK_TO_CATEGORY"
+    ASSIGN_BOOK_TO_CATEGORY: "ASSIGN_BOOK_TO_CATEGORY",
+    INSERT_CATEGORY: "INSERT_CATEGORY"
 };
 
 export const fetchCategoryList = () => (dispatch) => {
@@ -35,6 +36,16 @@ export const assignBookToACategory = (bookId, categoryId) => (dispatch) => {
         return dispatch({
             type : categoryActions.ASSIGN_BOOK_TO_CATEGORY,
             payload : response
+        });
+    });
+};
+export const insertCategory = (categoryData) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.INSERT_CATEGORY;
+
+    return HttpService.post(url, categoryData).then(response => {
+        return dispatch({
+            type: categoryActions.INSERT_CATEGORY,
+            payload: response
         });
     });
 };

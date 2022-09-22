@@ -13,7 +13,8 @@ export const bookActions = {
     INSERT_BOOK: "INSERT_BOOK",
     GET_USER_BOOKS:"GET_USER_BOOKS",
     GIVE_BOOK : "GIVE_BOOK",
-    RETURN_BOOK : "RETURN_BOOK"
+    RETURN_BOOK : "RETURN_BOOK",
+    INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA: "INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA"
 
 };
 
@@ -135,4 +136,15 @@ export const returnTheBook = (bookId) => (dispatch) => {
             payload : response
         });
     });
+};
+export const insertBookWithExistingCategoryAndAuthor = (bookData, categoryId, authorId) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA + "/" + categoryId + "/" + authorId;
+
+    return HttpService.post(url, bookData).then(response => {
+        return dispatch({
+            type: bookActions.INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA,
+            payload: response
+        });
+    });
+
 };

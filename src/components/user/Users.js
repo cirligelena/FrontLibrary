@@ -129,20 +129,22 @@ const UsersComponent = () => {
                                     users.map(result => {
                                         return (
                                             <>
-                                                <tbody key={result.id}>
-                                                <tr>
+                                                <tbody>
+                                                <tr key={result.id}>
                                                     <td>{result.id}</td>
                                                     <td>{result.email}</td>
                                                     <td>{result.profile.firstName}</td>
                                                     <td>{result.profile.lastName}</td>
                                                     <td>{getUserMainRole(result.roles)}</td>
                                                     {
-                                                        isAdmin ?
+                                                        isAdmin?
                                                             <>
                                                                 <td>
+                                                               {result.email !== userData.email ?
                                                                     <img src={deleteIcon}
                                                                          alt="Delete Icon"
                                                                          onClick={() => deleteUserById(result.id)}/>
+                                                                         :<></>}
                                                                 </td>
                                                                 <td>
                                                                     <OverlayTrigger

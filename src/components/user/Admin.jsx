@@ -1,60 +1,31 @@
 import {useNavigate} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {insertBook} from "../../redux/actions/book";
 import {createUser} from "../../redux/actions/user";
 import {getNewUserData} from "../../redux/selectors/user";
-import {getBookData} from "../../redux/selectors/allBooks";
+import {getUserData} from "../../redux/selectors/login";
 
 
 const AdminComponent = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('');
-    const [shelfNumber, setShelfNumber] = useState('');
+    const userInfo = useSelector(getUserData);
     const [firstName, setFirstName] = useState('');
-    const [birthDate, setBirthDate] = useState('');
     const [lastName, setLastName] = useState('');
-    const [biography, setBiography] = useState('');
-    const [categoryTitle, setCategoryTitle] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [role, setRole] = useState('');
     const newUserData = useSelector(getNewUserData);
-    const newBookData = useSelector(getBookData);
-    const [loaded, setLoaded] = useState(false);
+    const [saved, setSaved] = useState(false);
 
-
-    const createBook = (e) => {
-        e.preventDefault()
-
-        const bookData = {
-            "title": title,
-            "description": description,
-            "shelfNumber": shelfNumber,
-            "authors": [{
-                'firstName': firstName,
-                'lastName': lastName,
-                "birthDate": birthDate,
-                "biography": biography
-            }],
-            "categories": [{
-                "title": categoryTitle
-            }]
-
-        }
-
-        dispatch(insertBook(bookData)).then(() => {
-            setLoaded(true)
-        })
-    }
-
-
+    const roles = ['USER', 'ADMIN', 'LIBRARIAN'];
+    const handleSaved = () => {
+        setSaved(false)
+    };
     const createNewUser = () => {
 
         const userDetails = {
@@ -63,11 +34,14 @@ const AdminComponent = () => {
             "profile": {
                 "firstName": firstName,
                 "lastName": lastName,
-                "phoneNumber": phoneNumber
-            }
+                "phoneNumber": phoneNumber,
+                "roles": {
+                    role,
+                }
+            },
         };
         dispatch(createUser(userDetails)).then(() => {
-            setLoaded(true)
+            setSaved(true)
         })
     }
 
@@ -86,76 +60,12 @@ const AdminComponent = () => {
 
                     <div className="card__body">
                         <p>When clicked, the librarian or admin can insert/delete a book</p>
-                        <OverlayTrigger
-                            trigger="click"
-                            key='right'
-                            placement='right'
-                            rootClose={true}
-                            overlay={
-                                <Popover>
-                                    <Popover.Header
-                                        as="h3">{`New Book`}</Popover.Header>
-                                    <Popover.Body>
-                                        <Form.Group className="mb-3" controlId="formBook">
-                                            <Form.Label>Title</Form.Label>
-                                            <Form.Control type="text" placeholder="Title"
-                                                          onChange={e => setTitle(e.target.value)}/>
-                                        </Form.Group>
-                                        <Form.Group className="mb-3" controlId="formBook">
-                                            <Form.Label>Description</Form.Label>
-                                            <Form.Control type="text" placeholder="Description"
-                                                          onChange={e => setDescription(e.target.value)}/>
-                                        </Form.Group>
-                                        <Form.Group className="mb-3" controlId="formBook">
-                                            <Form.Label>ShelfNumber</Form.Label>
-                                            <Form.Control type="text" placeholder="ShelfNumber"
-                                                          onChange={e => setShelfNumber(e.target.value)}/>
-                                        </Form.Group>
-                                        <Form.Group className="mb-3" controlId="formBook">
-                                            <Form.Label>Author Details: </Form.Label>
-                                            <Form.Control type="text" placeholder="firstName"
-                                                          onChange={e => setFirstName(e.target.value)}/>
-                                            <Form.Control type="text" placeholder="lastName"
-                                                          onChange={e => setLastName(e.target.value)}/>
-                                            <Form.Control type="text" placeholder="birthDate(yyyy-mm-dd)"
-                                                          onChange={e => setBirthDate(e.target.value)}/>
-                                            <Form.Control type="text" placeholder="biography"
-                                                          onChange={e => setBiography(e.target.value)}/>
-                                        </Form.Group>
-                                        <Form.Group className="mb-3" controlId="formBook">
-                                            <Form.Label>Category Title</Form.Label>
-                                            <Form.Control type="text" placeholder="title"
-                                                          onChange={e => setCategoryTitle(e.target.value)}/>
-                                        </Form.Group>
 
-                                        <Button className="card-btn100__buttons" type="submit"
-                                                onClick={createBook}>
-                                            Insert
-                                        </Button>
-                                        {loaded ? (
-                                            newBookData.title ?
-                                                <div> New book {newBookData.title} was
-                                                    added to library </div>
-                                                : <div> an error occurred </div>
-                                        ) : <div></div>
-                                        }
-                                    </Popover.Body>
-                                </Popover>
-                            }
-                        >
-
-                            <button className="card-btn50__buttons">
-
-                                Add Book
-                            </button>
-
-                        </OverlayTrigger>
 
                         <button className="card-btn50__buttons" onClick={() => navigate("/manage-book")}>Manage Books
                         </button>
 
                     </div>
-
 
                     <div className="card__body">
                         <p>When clicked, the admin can add a user</p>
@@ -165,6 +75,7 @@ const AdminComponent = () => {
                             key='right'
                             placement='left'
                             rootClose={true}
+                            onExited={handleSaved}
                             overlay={
                                 <Popover>
                                     <Popover.Header as="h3">{`Create new user`}</Popover.Header>
@@ -190,11 +101,25 @@ const AdminComponent = () => {
                                             <Form.Control type="text" placeholder="PhoneNumber"
                                                           onChange={e => setPhoneNumber(e.target.value)}/>
                                         </Form.Group>
+                                        {userInfo?.roles?.includes("ADMIN") ?
+                                            <>
+                                                <Form.Label>Choose role</Form.Label>
+                                                <Form.Group>
+                                                    <Form.Select name="category"
+                                                                 onChange={e => setRole(e.currentTarget.value)}>
+                                                        {roles.map(role =>
+                                                            <option key={role} value={role}>
+                                                                {role}
+                                                            </option>)}
+                                                    </Form.Select>
+                                                </Form.Group>
+                                            </>
+                                            : <> </>}
                                         <Button variant="primary" type="submit"
                                                 onClick={() => createNewUser()}>
                                             Save user
                                         </Button>
-                                        {loaded ? (
+                                        {saved ? (
                                             newUserData.email ?
                                                 <div> New
                                                     user {newUserData.profile.firstName} {newUserData.profile.lastName} was
@@ -217,6 +142,7 @@ const AdminComponent = () => {
 
             </div>
         </div>
+
     )
 }
 

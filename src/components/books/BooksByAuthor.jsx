@@ -3,9 +3,10 @@ import BookList from "./BookList";
 import {useDispatch, useSelector} from "react-redux";
 import { getBookList, getLastModifiedBook} from "../../redux/selectors/allBooks";
 import {useParams} from "react-router-dom";
-import {getBooksByAuthor} from "../../redux/actions/book";
+import {getBooksByAuthor, searchBooks} from "../../redux/actions/book";
 import NavigationComponent from "../navigation/Navigation";
 import {PulseLoader} from "react-spinners";
+import searchIcon from "../../assets/images/icons/profile/search.svg";
 
 function BookByAuthorComponent ()  {
     const [loaded, setLoaded] = useState(false)
@@ -26,7 +27,13 @@ function BookByAuthorComponent ()  {
             {loaded?
                 <div>
                     <NavigationComponent/>
-                <BookList books = {books}/>
+                    <div className="page">
+                        <div className="all-books-page-header">
+                            <div><h1>Books</h1></div>
+                        </div>
+                        <div className="page__horizontal-line"></div>
+                        <BookList books={books}/>
+                    </div>
                 </div>
                 :  <PulseLoader cssOverride={{
                     textAlign: "center",
