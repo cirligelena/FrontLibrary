@@ -1,5 +1,5 @@
 export const routes = {
-//    BASIC_URL: process.env.REACT_APP_API_BASE_URL,
+    BASIC_URL: process.env.REACT_APP_API_BASE_URL,
     BASIC_PATH: "api/",
     LOGIN_URL: "login",
     REGISTRATION_URL: "sign-up",
@@ -31,7 +31,6 @@ export const routes = {
     GET_USERS_BY_CRITERIA: "user/find_users_by_criteria",
     UPDATE_PASSWORD: "user/forgotPassword/changePassword/",
     SEND_NEW_CONFIRMATION_TOKEN: "email-confirmation/send-new-token/",
-    BASIC_URL: "http://localhost:8080/",
     INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA: "book/addBookWithExistingCategoryAndAuthor",
     INSERT_AUTHOR: "author/create",
     INSERT_CATEGORY: "category/create"

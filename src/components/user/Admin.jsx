@@ -20,10 +20,12 @@ const AdminComponent = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [role, setRole] = useState('');
     const newUserData = useSelector(getNewUserData);
-    const [loaded, setLoaded] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     const roles = ['USER', 'ADMIN', 'LIBRARIAN'];
-
+    const handleSaved = () => {
+        setSaved(false)
+    };
     const createNewUser = () => {
 
         const userDetails = {
@@ -39,7 +41,7 @@ const AdminComponent = () => {
             },
         };
         dispatch(createUser(userDetails)).then(() => {
-            setLoaded(true)
+            setSaved(true)
         })
     }
 
@@ -73,6 +75,7 @@ const AdminComponent = () => {
                             key='right'
                             placement='left'
                             rootClose={true}
+                            onExited={handleSaved}
                             overlay={
                                 <Popover>
                                     <Popover.Header as="h3">{`Create new user`}</Popover.Header>
@@ -116,7 +119,7 @@ const AdminComponent = () => {
                                                 onClick={() => createNewUser()}>
                                             Save user
                                         </Button>
-                                        {loaded ? (
+                                        {saved ? (
                                             newUserData.email ?
                                                 <div> New
                                                     user {newUserData.profile.firstName} {newUserData.profile.lastName} was
