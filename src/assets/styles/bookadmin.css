@@ -10,9 +10,9 @@
 .manage-button .manage-button__item {
     padding-left: 5%;
     width: auto;
-    height: 60px;
+    height: auto;
 }
 .manage-button .manage-button__item .card-btn100__buttons {
     width: auto!important;
-    height: 60px;
+    height: auto!important;
 }
