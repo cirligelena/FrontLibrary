@@ -6,7 +6,7 @@ import {finishSession, receiveRefreshToken} from "../redux/actions/login";
 export function checkIfTokenValid(token) {
     if (token) {
         let parsedToken = parseJwt(token);
-        return parsedToken.exp * 1000 > new Date().getTime() + 1000 * 30;
+        return parsedToken.exp * 1000 > new Date().getTime() + 1000;
     }
 }
 

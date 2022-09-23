@@ -16,3 +16,22 @@
     padding-right: 15px;
     padding-top: 8px;
 }
+
+.last-action-top-left__message_top {
+    width: 100%;
+    color: white;
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    background: #00755E;
+    height: 50px;
+    border: #00755E 1px solid;
+}
+
+.last-action-top-left__message_top p {
+    font-size: 18px;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 15px;
+    padding-top: 8px;
+}
