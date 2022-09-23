@@ -1,23 +1,37 @@
-.last-action-top-left {
-    color: white;
-    position: absolute;
-    bottom: 25px;
-    left: 2%;
-    font-size: 16px;
-    z-index: 9;
-}
-
 .last-action-top-left__message {
-    background: #444444;
-    width: 350px;
+    width: 100%;
+    color: white;
+    position: fixed;
+    top: 60px;
+    z-index: 9;
+    background: #00755E;
     height: 50px;
-    border: black 1px solid;
-    border-radius: 10px;
+    border: #00755E 1px solid;
 }
 
 .last-action-top-left__message p {
-    text-align: center;
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 2%;
+    font-size: 18px;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 15px;
+    padding-top: 8px;
+}
+
+.last-action-top-left__message_top {
+    width: 100%;
+    color: white;
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    background: #00755E;
+    height: 50px;
+    border: #00755E 1px solid;
+}
+
+.last-action-top-left__message_top p {
+    font-size: 18px;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 15px;
+    padding-top: 8px;
 }

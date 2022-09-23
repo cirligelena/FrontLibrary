@@ -17,8 +17,17 @@ table tbody tr td img {
     display: flex;
 }
 
+.users-page__header .users-page__header__buttons {
+    padding: 10px 2% 5px 40%;
+}
+
+.users-page__header .users-page__header__buttons .card-btn100__buttons {
+    width: auto !important;
+    height: 60px !important;
+}
+
 .users-page__header .input-group {
-    padding: 10px 2% 5px 50%;
+    padding: 10px 2% 5px 5%;
 }
 
 .users-page__header .input-group img {

@@ -6,6 +6,7 @@ const BooksPage = () => {
     return (
         <div className="books-page">
             <AllBooksComponent />
+            <UserLastActionMessageComponent/>
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {deleteUser, searchUsers, updateUser, userList} from "../../redux/actions/user";
+import {createUser, deleteUser, searchUsers, updateUser, userList} from "../../redux/actions/user";
 import {useDispatch, useSelector} from "react-redux";
-import {getUserList} from "../../redux/selectors/user";
+import {getNewUserData, getUserList} from "../../redux/selectors/user";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from "react-bootstrap/Form";
@@ -15,6 +15,10 @@ import searchIcon from '../../assets/images/icons/profile/search.svg';
 import deleteIcon from '../../assets/images/icons/profile/trash.svg';
 import updateIcon from '../../assets/images/icons/profile/pencil.svg';
 import {getUserData} from "../../redux/selectors/login";
+import Button from "react-bootstrap/Button";
+import {setLastUserAction} from "../../redux/actions/login";
+import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
+
 
 
 const UsersComponent = () => {
@@ -25,13 +29,19 @@ const UsersComponent = () => {
     const userData = useSelector(getUserData);
     const allowedRoleToDeleteAndUpdateUsers = 'ADMIN';
     const [isAdmin, setIsAdmin] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [role, setRole] = useState('');
+    const userInfo = useSelector(getUserData);
 
     const [criteria, setCriteria] = useState('');
     const [loaded, setLoaded] = useState(false)
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [saved, setSaved] = useState(false);
+    const newUserData = useSelector(getNewUserData);
 
+    const roles = ['USER', 'ADMIN', 'LIBRARIAN'];
     const url = "/user/search_result/" + criteria
     const adminHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role', 'Delete', 'Update'];
     const librarianHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role'];
@@ -71,6 +81,29 @@ const UsersComponent = () => {
         return userRole;
     }
 
+    const handleSaved = () => {
+        setSaved(false)
+    };
+    const createNewUser = () => {
+
+        const userDetails = {
+            "email": email,
+            "password": "",
+            "profile": {
+                "firstName": firstName,
+                "lastName": lastName,
+                "phoneNumber": phoneNumber,
+                "roles": {
+                    role,
+                }
+            },
+        };
+        dispatch(createUser(userDetails)).then(() => {
+            dispatch(setLastUserAction("New user {newUserData.profile.firstName} {newUserData.profile.lastName} was created! A temporary password was sent to {newUserData.email}"))
+            setSaved(true)
+        })
+    }
+
     useEffect(() => {
         if (userData?.roles?.find(role => allowedRoleToDeleteAndUpdateUsers?.includes(role))) {
             setIsAdmin(true);
@@ -85,15 +118,76 @@ const UsersComponent = () => {
 
             users.slice(indexOfCurrentUser);
         })
-    }, [loaded]);
+    }, [loaded, newUserData]);
 
 
     return (
         <>
             <NavigationComponent/>
             <div className="users-page">
+                <UserLastActionMessageComponent/>
                 <div className="users-page__header">
                     <h1>Users</h1>
+                    <div className="users-page__header__buttons">
+                        <OverlayTrigger
+                            trigger="click"
+                            key='right'
+                            placement='left'
+                            rootClose={true}
+                            onExited={handleSaved}
+                            overlay={
+                                <Popover>
+                                    <Popover.Header as="h3">{`Create new user`}</Popover.Header>
+                                    <Popover.Body>
+                                        <Form.Group className="mb-3" controlId="formEmail">
+                                            <Form.Label>Email</Form.Label>
+                                            <Form.Control type="text" placeholder="Email"
+                                                          onChange={e => setEmail(e.target.value)}/>
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="formFirstName">
+                                            <Form.Label>FirstName</Form.Label>
+                                            <Form.Control type="text" placeholder="FirstName"
+                                                          onChange={e => setFirstName(e.target.value)}/>
+                                        </Form.Group>
+
+                                        <Form.Group className="mb-3" controlId="formLastName">
+                                            <Form.Label>LastName</Form.Label>
+                                            <Form.Control type="text" placeholder="LastName"
+                                                          onChange={e => setLastName(e.target.value)}/>
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="formPhoneNumber">
+                                            <Form.Label>PhoneNumber</Form.Label>
+                                            <Form.Control type="text" placeholder="PhoneNumber"
+                                                          onChange={e => setPhoneNumber(e.target.value)}/>
+                                        </Form.Group>
+                                        {userInfo?.roles?.includes("ADMIN") ?
+                                            <>
+                                                <Form.Label>Choose role</Form.Label>
+                                                <Form.Group>
+                                                    <Form.Select name="category"
+                                                                 onChange={e => setRole(e.currentTarget.value)}>
+                                                        {roles.map(role =>
+                                                            <option key={role} value={role}>
+                                                                {role}
+                                                            </option>)}
+                                                    </Form.Select>
+                                                </Form.Group>
+                                            </>
+                                            : <> </>}
+                                        <Button variant="primary" type="submit"
+                                                onClick={() => createNewUser()}>
+                                            Save
+                                        </Button>
+                                    </Popover.Body>
+                                </Popover>
+                            }
+                        >
+                            <button className="card-btn100__buttons">
+                                Add user
+                            </button>
+
+                        </OverlayTrigger>
+                    </div>
                     <div className="input-group">
                         <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search"
                                aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>

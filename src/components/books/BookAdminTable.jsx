@@ -113,170 +113,177 @@ const ManageBooksComponent = () => {
             <div className="page">
                 <div className="book-admin-header-page">
                     <h1>Books</h1>
-                    <OverlayTrigger
-                        trigger="click"
-                        key='new book'
-                        placement='left'
-                        rootClose={true}
-                        onExited={handleSaved}
-                        overlay={
-                            <Popover>
-                                <Popover.Header
-                                    as="h3">{`New Book`}</Popover.Header>
-                                <Popover.Body>
-                                    <Form.Group className="mb-3" controlId="formBook">
-                                        <Form.Label>Title</Form.Label>
-                                        <Form.Control type="text" placeholder="Title"
-                                                      onChange={e => setTitle(e.target.value)}/>
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBook">
-                                        <Form.Label>Description</Form.Label>
-                                        <Form.Control type="text" placeholder="Description"
-                                                      onChange={e => setDescription(e.target.value)}/>
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBook">
-                                        <Form.Label>ShelfNumber</Form.Label>
-                                        <Form.Control type="text" placeholder="ShelfNumber"
-                                                      onChange={e => setShelfNumber(e.target.value)}/>
-                                    </Form.Group>
-                                    <Form.Label>Choose Category</Form.Label>
-                                    <Form.Group>
-                                        <Form.Select name="category"
-                                                     onChange={e => setCategory(e.currentTarget.value)}>
-                                            {Array.isArray(categories)
-                                                ? categories.map(category =>
-                                                    <option key={category.id} value={category.id}>
-                                                        {category.title}
-                                                    </option>)
-                                                : <> </>}
-                                        </Form.Select>
-                                    </Form.Group>
+                    <div className="manage-button">
+                        <div className="manage-button__item">
+                            <OverlayTrigger
+                                trigger="click"
+                                key='new book'
+                                placement='left'
+                                rootClose={true}
+                                onExited={handleSaved}
+                                overlay={
+                                    <Popover>
+                                        <Popover.Header
+                                            as="h3">{`New Book`}</Popover.Header>
+                                        <Popover.Body>
+                                            <Form.Group className="mb-3" controlId="formBook">
+                                                <Form.Label>Title</Form.Label>
+                                                <Form.Control type="text" placeholder="Title"
+                                                              onChange={e => setTitle(e.target.value)}/>
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="formBook">
+                                                <Form.Label>Description</Form.Label>
+                                                <Form.Control type="text" placeholder="Description"
+                                                              onChange={e => setDescription(e.target.value)}/>
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="formBook">
+                                                <Form.Label>ShelfNumber</Form.Label>
+                                                <Form.Control type="text" placeholder="ShelfNumber"
+                                                              onChange={e => setShelfNumber(e.target.value)}/>
+                                            </Form.Group>
+                                            <Form.Label>Choose Category</Form.Label>
+                                            <Form.Group>
+                                                <Form.Select name="category"
+                                                             onChange={e => setCategory(e.currentTarget.value)}>
+                                                    {Array.isArray(categories)
+                                                        ? categories.map(category =>
+                                                            <option key={category.id} value={category.id}>
+                                                                {category.title}
+                                                            </option>)
+                                                        : <> </>}
+                                                </Form.Select>
+                                            </Form.Group>
 
-                                    <Form.Label>Choose Author</Form.Label>
-                                    <Form.Group>
-                                        <Form.Select name="authors"
-                                                     onChange={e => setAuthor(e.currentTarget.value)}>
-                                            {Array.isArray(authors)
-                                                ? authors.map(author =>
-                                                    <option key={author.id} value={author.id}>
-                                                        {author.fullName}
-                                                    </option>
-                                                )
-                                                : <> </>}
-                                        </Form.Select>
-                                    </Form.Group>
-                                    <Form.Label></Form.Label>
-                                    <Form.Group>
+                                            <Form.Label>Choose Author</Form.Label>
+                                            <Form.Group>
+                                                <Form.Select name="authors"
+                                                             onChange={e => setAuthor(e.currentTarget.value)}>
+                                                    {Array.isArray(authors)
+                                                        ? authors.map(author =>
+                                                            <option key={author.id} value={author.id}>
+                                                                {author.fullName}
+                                                            </option>
+                                                        )
+                                                        : <> </>}
+                                                </Form.Select>
+                                            </Form.Group>
+                                            <Form.Label></Form.Label>
+                                            <Form.Group>
 
-                                        <Button className="card-btn100__buttons" type="submit"
-                                                onClick={insertBookWIthExistingCategoryAndAuthor}>
-                                            Save
-                                        </Button>
-                                    </Form.Group>
-                                    {saved ? (
-                                        newBookData.title ?
-                                            <div> New book {newBookData.title} was
-                                                added to library </div>
-                                            : <div> an error occurred </div>
-                                    ) : <div></div>
-                                    }
+                                                <Button className="card-btn100__buttons" type="submit"
+                                                        onClick={insertBookWIthExistingCategoryAndAuthor}>
+                                                    Save
+                                                </Button>
+                                            </Form.Group>
+                                            {saved ? (
+                                                newBookData.title ?
+                                                    <div> New book {newBookData.title} was
+                                                        added to library </div>
+                                                    : <div> an error occurred </div>
+                                            ) : <div></div>
+                                            }
 
-                                </Popover.Body>
-                            </Popover>
-                        }
-                    >
+                                        </Popover.Body>
+                                    </Popover>
+                                }
+                            >
 
-                        <button className="card-btn50__buttons">
+                                <button className="card-btn100__buttons">
+                                    Add Book
+                                </button>
 
-                            Add Book
-                        </button>
+                            </OverlayTrigger>
+                        </div>
 
-                    </OverlayTrigger>
+                        <div className="manage-button__item">
+                            <OverlayTrigger
+                                trigger="click"
+                                key='new author'
+                                placement='right'
+                                rootClose={true}
+                                onExited={handleSaved}
+                                overlay={
+                                    <Popover>
+                                        <Popover.Header
+                                            as="h3">{`New Author`}</Popover.Header>
+                                        <Popover.Body>
+                                            <Form.Group className="mb-3" controlId="formBook">
+                                                <Form.Label>Author Details: </Form.Label>
+                                                <Form.Control type="text" placeholder="firstName"
+                                                              onChange={e => setFirstName(e.target.value)}/>
+                                                <Form.Control type="text" placeholder="lastName"
+                                                              onChange={e => setLastName(e.target.value)}/>
+                                                <Form.Control type="text" placeholder="birthDate(yyyy-mm-dd)"
+                                                              onChange={e => setBirthDate(e.target.value)}/>
+                                                <Form.Control type="text" placeholder="biography"
+                                                              onChange={e => setBiography(e.target.value)}/>
+                                            </Form.Group>
+                                            <Form.Label></Form.Label>
+                                            <Form.Group>
+                                                <Button className="card-btn100__buttons"
+                                                        onClick={addAuthor}>
+                                                    Save
+                                                </Button>
+                                            </Form.Group>
+                                            {saved ? (
+                                                newAuthor.fullName ?
+                                                    <div> New author {newAuthor.fullName} was
+                                                        added to library </div>
+                                                    : <div> an error occurred </div>
+                                            ) : <div></div>
+                                            }
+                                        </Popover.Body>
+                                    </Popover>
+                                }
+                            >
+                                <button className="card-btn100__buttons"> Add Author</button>
 
+                            </OverlayTrigger>
+                        </div>
+
+                        <div className="manage-button__item">
+                            <OverlayTrigger
+                                trigger="click"
+                                key='new category'
+                                placement='left'
+                                rootClose={true}
+                                onExited={handleSaved}
+                                overlay={
+                                    <Popover>
+                                        <Popover.Header
+                                            as="h3">{`New Category`}</Popover.Header>
+                                        <Popover.Body>
+                                            <Form.Label>Create Category</Form.Label>
+                                            <Form.Group className="mb-3" controlId="formBook">
+
+                                                <Form.Control type="text" placeholder="title"
+                                                              onChange={e => setCategoryTitle(e.target.value)}/>
+
+                                            </Form.Group>
+                                            <Form.Label></Form.Label>
+                                            <Form.Group>
+                                                <Button className="card-btn100__buttons"
+                                                        onClick={addCategory}>
+                                                    Save
+                                                </Button>
+                                            </Form.Group>
+                                            {saved ? (
+                                                newCategory.title ?
+                                                    <div> New category {newCategory.title} was
+                                                        added to library </div>
+                                                    : <div> an error occurred </div>
+                                            ) : <div></div>
+                                            }
+                                        </Popover.Body>
+                                    </Popover>
+                                }
+                            >
+                                <button className="card-btn100__buttons"> Add Category</button>
+
+                            </OverlayTrigger>
+                        </div>
+                    </div>
                 </div>
-                <OverlayTrigger
-                    trigger="click"
-                    key='new author'
-                    placement='right'
-                    rootClose={true}
-                    onExited={handleSaved}
-                    overlay={
-                        <Popover>
-                            <Popover.Header
-                                as="h3">{`New Author`}</Popover.Header>
-                            <Popover.Body>
-                                <Form.Group className="mb-3" controlId="formBook">
-                                    <Form.Label>Author Details: </Form.Label>
-                                    <Form.Control type="text" placeholder="firstName"
-                                                  onChange={e => setFirstName(e.target.value)} />
-                                    <Form.Control type="text" placeholder="lastName"
-                                                  onChange={e => setLastName(e.target.value)} />
-                                    <Form.Control type="text" placeholder="birthDate(yyyy-mm-dd)"
-                                                  onChange={e => setBirthDate(e.target.value)} />
-                                    <Form.Control type="text" placeholder="biography"
-                                                  onChange={e => setBiography(e.target.value)} />
-                                </Form.Group>
-                                <Form.Label></Form.Label>
-                                <Form.Group>
-                                    <Button className="card-btn100__buttons"
-                                            onClick={addAuthor}>
-                                        Save
-                                    </Button>
-                                </Form.Group>
-                                {saved ? (
-                                    newAuthor.fullName ?
-                                        <div> New author {newAuthor.fullName} was
-                                            added to library </div>
-                                        : <div> an error occurred </div>
-                                ) : <div></div>
-                                }
-                            </Popover.Body>
-                        </Popover>
-                    }
-                >
-                    <button className="card-btn50__buttons"> Create Author</button>
-
-                </OverlayTrigger>
-
-                <OverlayTrigger
-                    trigger="click"
-                    key='new category'
-                    placement='left'
-                    rootClose={true}
-                    onExited={handleSaved}
-                    overlay={
-                        <Popover>
-                            <Popover.Header
-                                as="h3">{`New Category`}</Popover.Header>
-                            <Popover.Body>
-                                <Form.Label>Create Category</Form.Label>
-                                <Form.Group className="mb-3" controlId="formBook">
-
-                                    <Form.Control type="text" placeholder="title"
-                                                  onChange={e => setCategoryTitle(e.target.value)} />
-
-                                </Form.Group>
-                                <Form.Label></Form.Label>
-                                <Form.Group>
-                                    <Button className="card-btn100__buttons"
-                                            onClick={addCategory}>
-                                        Save
-                                    </Button>
-                                </Form.Group>
-                                {saved ? (
-                                    newCategory.title ?
-                                        <div> New category {newCategory.title} was
-                                            added to library </div>
-                                        : <div> an error occurred </div>
-                                ) : <div></div>
-                                }
-                            </Popover.Body>
-                        </Popover>
-                    }
-                >
-                    <button className="card-btn50__buttons"> Create Category</button>
-
-                </OverlayTrigger>
                 <div className="page__horizontal-line"></div>
                 {
                     loaded ?
@@ -295,7 +302,6 @@ const ManageBooksComponent = () => {
                                 Array.isArray(books) && books.length >= 1 ?
                                     books.map(result => {
                                         return (
-
                                             <tbody key={result.id}>
                                             <tr>
                                                 <td>{result.id}</td>
@@ -311,7 +317,7 @@ const ManageBooksComponent = () => {
                                             </tbody>
                                         )
                                     })
-                                    : <NoItemsFoundErrorComponent itemName={"book"}/>
+                                    : <></>
                             }
                         </Table>
 
