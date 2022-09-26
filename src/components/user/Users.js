@@ -126,7 +126,7 @@ const UsersComponent = () => {
             <NavigationComponent/>
             <div className="users-page">
                 <UserLastActionMessageComponent/>
-                <div className="users-page__header">
+                <div className="page__header">
                     <h1>Users</h1>
                     <div className="users-page__header__buttons">
                         <OverlayTrigger
