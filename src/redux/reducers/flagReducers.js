@@ -16,6 +16,11 @@ export const flag = (state = initialState, action) => {
                 ...state,
                 showModalSessionFinished: true,
             };
+        case flagActions.HIDE_MODAL_SESSION_FINISHED:
+            return {
+                ...state,
+                showModalSessionFinished: false,
+            };
             case loginActions.RECEIVE_USER_REGISTER:
                         return {
                             ...state,

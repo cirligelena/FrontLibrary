@@ -9,3 +9,19 @@
 .all-books-page-header .input-group img {
     padding-left: 2%;
 }
+
+.book-status-color-available {
+    color: #679436;
+    font-weight: bold;
+    display: inline
+}
+.book-status-color-booked {
+    color: #05668D;
+    font-weight: bold;
+    display: inline
+}
+.book-status-color-taken {
+    color: #f07492;
+    font-weight: bold;
+    display: inline
+}

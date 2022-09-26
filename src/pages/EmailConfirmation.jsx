@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import {confirmEmailByToken} from "../redux/actions/emailConfirmation";
 import SuccessfullyEmailConfirmationComponent from "../components/confirmation/SuccessfullyEmailConfirmation";
 import FailedEmailConfirmationComponent from "../components/confirmation/FailedEmailConfirmation";
+import {getUserData} from "../redux/selectors/login";
 
 
 const EmailConfirmationPage = () => {
@@ -15,6 +16,7 @@ const EmailConfirmationPage = () => {
     const emailConfirmationToken = useSelector(getConfirmationToken);
     const dispatch = useDispatch();
     const params = useParams();
+
 
     useEffect(() => {
         dispatch(confirmEmailByToken(params.token)).then(() => {
