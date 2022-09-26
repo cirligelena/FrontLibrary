@@ -29,7 +29,13 @@ const BooksByCriteriaComponent = () => {
             {loaded?
                 <div>
                     <NavigationComponent/>
-                    <BookList books = {books}/>
+                    <div className="page">
+                        <div className="all-books-page-header">
+                            <div><h1>Books</h1></div>
+                        </div>
+                        <div className="page__horizontal-line"></div>
+                        <BookList books={books}/>
+                    </div>
                 </div>
                 :  <PulseLoader cssOverride={{
                     textAlign: "center",

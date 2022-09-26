@@ -1,21 +1,22 @@
 import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {Modal} from "react-bootstrap";
 import {getShowModalState} from "../../redux/selectors/flagSelectors";
+import {hideModalSessionFinished} from "../../redux/actions/flagActions";
 
 
 const SessionFinished = ({children}) => {
     const showModal = useSelector(getShowModalState);
     const navigate = useNavigate();
-    const [showpopup, setShowpopup] = useState(false);
-    const handlePopUp = (e) => {
-        setShowpopup(!showpopup);
+    const dispatch = useDispatch();
+    const handlePopUp = () => {
+        dispatch(hideModalSessionFinished());
     };
     useEffect(() => {
         if (showModal) {
             navigate("/");
-            setShowpopup(true);
+            // setShowpopup(true);
         }
     }, [showModal])
 
@@ -24,7 +25,7 @@ const SessionFinished = ({children}) => {
             <div>
                 {children}
             </div>
-            <Modal show={showpopup} onHide={handlePopUp}>
+            <Modal show={showModal} onHide={handlePopUp}>
                 <Modal.Header closeButton>
                     <Modal.Title>Session finished </Modal.Title>
                 </Modal.Header>
