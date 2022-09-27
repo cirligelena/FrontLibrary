@@ -13,23 +13,27 @@ table tbody tr td img {
     margin-right: 16.3%;
 }
 
-.users-page__header {
+.page__header {
     display: flex;
 }
 
-.users-page__header .users-page__header__buttons {
-    padding: 10px 2% 5px 40%;
+.page__header .users-page__header__buttons {
+    margin-left: 25%;
+    display: inline-flex;
+}
+.users-page__header__buttons{
+    padding-top: 10px;
+    padding-left: 2px;
+    float: right;
+    width: 243px;
+    height: 35px;
 }
 
-.users-page__header .users-page__header__buttons .card-btn100__buttons {
-    width: auto !important;
-    height: 60px !important;
-}
 
-.users-page__header .input-group {
+.page__header .input-group {
     padding: 10px 2% 5px 5%;
 }
 
-.users-page__header .input-group img {
+.page__header .input-group img {
     padding-left: 2%;
 }

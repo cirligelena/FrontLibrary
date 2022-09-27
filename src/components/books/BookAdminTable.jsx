@@ -1,7 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getBookData, getBookList} from "../../redux/selectors/allBooks";
-import {deleteBook, fetchBookList, insertBook, insertBookWithExistingCategoryAndAuthor} from "../../redux/actions/book";
+import {
+    deleteBook,
+    fetchBookList,
+    insertBook,
+    insertBookWithExistingCategoryAndAuthor,
+    searchBooks
+} from "../../redux/actions/book";
 import {PulseLoader} from "react-spinners";
 import {Table} from "react-bootstrap";
 import NavigationComponent from "../navigation/Navigation";
@@ -17,6 +23,9 @@ import {fetchCategoryList, insertCategory} from "../../redux/actions/category";
 import {fetchAuthorList, insertAuthor} from "../../redux/actions/author";
 import {getCategoryData, getCategoryList} from "../../redux/selectors/category";
 import {getAuthorData, getAuthorList} from "../../redux/selectors/author";
+import searchIcon from "../../assets/images/icons/profile/search.svg";
+import {useNavigate} from "react-router-dom";
+import {searchUsers} from "../../redux/actions/user";
 
 const ManageBooksComponent = () => {
     const books = useSelector(getBookList);
@@ -39,6 +48,11 @@ const ManageBooksComponent = () => {
     const authors = useSelector(getAuthorList);
     const newCategory = useSelector(getCategoryData);
     const newAuthor = useSelector(getAuthorData);
+
+    const navigate = useNavigate();
+    const [criteria, setCriteria] = useState('');
+    const url = "/books/search_result/" + criteria;
+
     const handleSaved = () => {
         setSaved(false)
     };
@@ -110,10 +124,12 @@ const ManageBooksComponent = () => {
     return (
         <>
             <NavigationComponent/>
-            <div className="page">
-                <div className="book-admin-header-page">
+            <div className="book-admin-page">
+                <div className="page__header">
                     <h1>Books</h1>
                     <div className="manage-button">
+
+
                         <div className="manage-button__item">
                             <OverlayTrigger
                                 trigger="click"
@@ -282,6 +298,19 @@ const ManageBooksComponent = () => {
 
                             </OverlayTrigger>
                         </div>
+
+                            <div className="input-group">
+                                <input type="search" className="form-control rounded" placeholder="Search"
+                                       aria-label="Search"
+                                       aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>
+                                <img src={searchIcon} alt="Search Icon" onClick={() => {
+                                    dispatch(searchBooks(criteria)).then(() => {
+                                        console.log(criteria)
+                                        setLoaded(true)
+                                    })
+                                }}/>
+                            </div>
+
                     </div>
                 </div>
                 <div className="page__horizontal-line"></div>
