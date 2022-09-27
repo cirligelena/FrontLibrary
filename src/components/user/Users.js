@@ -15,17 +15,13 @@ import searchIcon from '../../assets/images/icons/profile/search.svg';
 import deleteIcon from '../../assets/images/icons/profile/trash.svg';
 import updateIcon from '../../assets/images/icons/profile/pencil.svg';
 import {getUserData} from "../../redux/selectors/login";
-import Button from "react-bootstrap/Button";
-import {logout, setLastUserAction} from "../../redux/actions/login";
 import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
 import validateUserAdminCreates from "../../util/validateUserAdminCreates";
-import {retryRegistration} from "../../redux/actions/flagActions";
-import {getProcessState} from "../../redux/selectors/flagSelectors";
+import {setLastUserAction} from "../../redux/actions/login";
 
 
 const UsersComponent = () => {
     const users = useSelector(getUserList);
-    const [filteredUsers, setFilteredUsers] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userData = useSelector(getUserData);
@@ -34,7 +30,8 @@ const UsersComponent = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [role, setRole] = useState('');
     const userInfo = useSelector(getUserData);
-
+    const [emailTakenError, setEmailTakenError] = useState('');
+    const [errors, setErrors] = useState({})
     const [criteria, setCriteria] = useState('');
     const [loaded, setLoaded] = useState(false)
     const [email, setEmail] = useState('');
@@ -42,7 +39,12 @@ const UsersComponent = () => {
     const [lastName, setLastName] = useState('');
     const [saved, setSaved] = useState(false);
     const newUserData = useSelector(getNewUserData);
-    const roles = ['USER', 'ADMIN', 'LIBRARIAN'];
+    const roles = [
+        {id: 0, role: 'Choose a role'},
+        {id: 1, role: "USER"},
+        {id: 2, role: "ADMIN"},
+        {id: 3, role: "LIBRARIAN"}
+    ];
 
 
     const deleteUserById = (id) => {
@@ -82,6 +84,7 @@ const UsersComponent = () => {
         setSaved(false)
     };
     const createNewUser = () => {
+
         if (!errors) {
             const userDetails = {
                 "email": email,
@@ -91,25 +94,20 @@ const UsersComponent = () => {
                     "lastName": lastName,
                     "phoneNumber": phoneNumber,
                 },
-
                 "roles": [
-                    "USER",
                     role
                 ]
-
             };
-            console.log(role)
+
             dispatch(createUser(userDetails)).then(() => {
                 dispatch(setLastUserAction("New user " + userDetails.profile.firstName
                     + " " + userDetails.profile.lastName + " was created! A temporary password was sent to " + userDetails.email))
                 setSaved(true)
+                window.location.reload();
+
             })
         }
     }
-    const [badEmail, setBadEmail] = useState('');
-    const [emailTakenError, setEmailTakenError] = useState('');
-    const [errors, setErrors] = useState({})
-
 
     const handleOnChangeValidating = () => {
         setErrors(validateUserAdminCreates({firstName, lastName, email, phoneNumber}));
@@ -124,12 +122,11 @@ const UsersComponent = () => {
             setLoaded(true)
         })
 
-    }, [loaded, newUserData]);
+    }, [loaded]);
 
     useEffect(() => {
         handleOnChangeValidating();
-    }, [email, firstName, lastName, phoneNumber, emailTakenError, loaded])
-
+    }, [email, firstName, lastName, phoneNumber, emailTakenError])
 
     return (
         <>
@@ -205,12 +202,16 @@ const UsersComponent = () => {
                                                     <Form.Label><b>Choose role</b></Form.Label>
                                                     <Form.Group>
                                                         <Form.Select name="roles"
-                                                                     onChange={e => setRole(e.currentTarget.value)}>
-                                                            {roles.map(role =>
-                                                                <option key={role} value={role.role}>
+                                                                     id="select-roles"
+                                                                     onChange={e => {
+                                                                         setRole(e.target.value)
+                                                                     }}>
+                                                            {roles.map((role, index) => (
 
-                                                                    {role}
-                                                                </option>)}
+                                                                <option key={index} value={role.role}>
+                                                                    {role.role}
+                                                                </option>
+                                                            ))}
                                                         </Form.Select>
                                                     </Form.Group>
                                                 </>
@@ -309,8 +310,11 @@ const UsersComponent = () => {
                                                                                         }}
                                                                                         onFocus={handleOnChangeValidating}/>
                                                                                     {emailTakenError &&
-                                                                                        <p className="error-message">{emailTakenError}<i>*</i></p>}
-                                                                                    {errors.email && <p className="error-message">{errors.email}<i>*</i></p>}
+                                                                                        <p className="error-message">{emailTakenError}<i>*</i>
+                                                                                        </p>}
+                                                                                    {errors.email &&
+                                                                                        <p className="error-message">{errors.email}<i>*</i>
+                                                                                        </p>}
                                                                                 </Form.Group>
                                                                                 <Form.Group
                                                                                     className="mb-3"
@@ -326,7 +330,8 @@ const UsersComponent = () => {
                                                                                         }}
                                                                                         onFocus={handleOnChangeValidating}/>
                                                                                     {errors.firstName &&
-                                                                                        <p className="error-message">{errors.firstName}<i>*</i></p>}
+                                                                                        <p className="error-message">{errors.firstName}<i>*</i>
+                                                                                        </p>}
                                                                                 </Form.Group>
 
                                                                                 <Form.Group
@@ -341,9 +346,10 @@ const UsersComponent = () => {
                                                                                             setLastName(e.target.value);
                                                                                             handleOnChangeValidating();
                                                                                         }}
-                                                                                    onFocus={handleOnChangeValidating}/>
+                                                                                        onFocus={handleOnChangeValidating}/>
                                                                                     {errors.lastName &&
-                                                                                        <p className="error-message">{errors.lastName}<i>*</i></p>}
+                                                                                        <p className="error-message">{errors.lastName}<i>*</i>
+                                                                                        </p>}
                                                                                 </Form.Group>
 
                                                                                 <button

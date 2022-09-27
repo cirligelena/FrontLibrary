@@ -6,7 +6,7 @@ import validateInfo from "../../util/validateInfo";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {ClipLoader} from "react-spinners";
 import {getUserData} from "../../redux/selectors/login";
-import {loginUser, setLastUserAction} from "../../redux/actions/login";
+import { setLastUserAction} from "../../redux/actions/login";
 import {registerUser} from "../../redux/actions/login";
 import {logout} from "../../redux/actions/login";
 import {getProcessState} from "../../redux/selectors/flagSelectors";
