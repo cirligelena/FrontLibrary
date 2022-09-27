@@ -4,9 +4,7 @@ import './index.css';
 import App from './App';
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {AuthProvider} from "./context/AuthContext";
 import reportWebVitals from "./reportWebVitals";
-import SessionFinished, {RefreshTokenProvider} from "./components/auth/SessionFinished";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
