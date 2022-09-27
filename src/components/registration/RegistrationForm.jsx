@@ -42,7 +42,7 @@ const RegistrationFormComponent = () => {
         event.preventDefault();
         setLoaded(true);
 
-        if (errors !== null) {
+        if (!errors) {
             const userData = {
                 'email': email,
                 'password': password,

@@ -26,14 +26,20 @@ export default function validateInfo(values) {
 
     if (!values.email.trim()) {
         errors.email = "Email required";
-    } else if (!EMAIL_VALIDATOR_REGEX_CODE.test(values.email)) {
+    }  else if (!EMAIL_VALIDATOR_REGEX_CODE.test(values.email)) {
         if (values.email.toString().charAt(0) === "@") {
             errors.email = "Email address must contain characters before '@'";
+        }else if (values.email.toString().indexOf( "@" ) > (values.email.toString().indexOf( "." ) )) {
+            errors.email = "Email address must contain '@' before '.'";
+        }else if (values.email.toString() !== "@") {
+            errors.email = "Email address must contain '@'";
+        }else if (values.email.toString() !== ".") {
+            errors.email = "Email address must contain '.'";
         }
     }
 
     if (!values.phoneNumber.trim()) {
-        errors.phoneNumber = "Phone numbers required";
+        errors.phoneNumber = "Phone number required";
     }
 
 

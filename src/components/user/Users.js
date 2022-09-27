@@ -6,7 +6,7 @@ import {getNewUserData, getUserList} from "../../redux/selectors/user";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from "react-bootstrap/Form";
-import {PulseLoader} from "react-spinners";
+import {ClipLoader, PulseLoader} from "react-spinners";
 import {Table} from "react-bootstrap";
 import NavigationComponent from "../navigation/Navigation";
 import {useNavigate} from "react-router-dom";
@@ -16,9 +16,11 @@ import deleteIcon from '../../assets/images/icons/profile/trash.svg';
 import updateIcon from '../../assets/images/icons/profile/pencil.svg';
 import {getUserData} from "../../redux/selectors/login";
 import Button from "react-bootstrap/Button";
-import {setLastUserAction} from "../../redux/actions/login";
+import {logout, setLastUserAction} from "../../redux/actions/login";
 import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
-
+import validateUserAdminCreates from "../../util/validateUserAdminCreates";
+import {retryRegistration} from "../../redux/actions/flagActions";
+import {getProcessState} from "../../redux/selectors/flagSelectors";
 
 
 const UsersComponent = () => {
@@ -40,11 +42,8 @@ const UsersComponent = () => {
     const [lastName, setLastName] = useState('');
     const [saved, setSaved] = useState(false);
     const newUserData = useSelector(getNewUserData);
-
     const roles = ['USER', 'ADMIN', 'LIBRARIAN'];
-    const url = "/user/search_result/" + criteria
-    const adminHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role', 'Delete', 'Update'];
-    const librarianHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role'];
+
 
     const deleteUserById = (id) => {
         dispatch(deleteUser(id)).then(() => {
@@ -72,9 +71,7 @@ const UsersComponent = () => {
 
         if (array?.find(userRole => userRole === 'LIBRARIAN')) {
             userRole = "LIBRARIAN";
-        }
-
-        if (array?.find(userRole => userRole === 'ADMIN')) {
+        } else if (array?.find(userRole => userRole === 'ADMIN')) {
             userRole = "ADMIN";
         }
 
@@ -85,23 +82,37 @@ const UsersComponent = () => {
         setSaved(false)
     };
     const createNewUser = () => {
+        if (!errors) {
+            const userDetails = {
+                "email": email,
+                "password": "",
+                "profile": {
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "phoneNumber": phoneNumber,
+                },
 
-        const userDetails = {
-            "email": email,
-            "password": "",
-            "profile": {
-                "firstName": firstName,
-                "lastName": lastName,
-                "phoneNumber": phoneNumber,
-                "roles": {
-                    role,
-                }
-            },
-        };
-        dispatch(createUser(userDetails)).then(() => {
-            dispatch(setLastUserAction("New user {newUserData.profile.firstName} {newUserData.profile.lastName} was created! A temporary password was sent to {newUserData.email}"))
-            setSaved(true)
-        })
+                "roles": [
+                    "USER",
+                    role
+                ]
+
+            };
+            console.log(role)
+            dispatch(createUser(userDetails)).then(() => {
+                dispatch(setLastUserAction("New user " + userDetails.profile.firstName
+                    + " " + userDetails.profile.lastName + " was created! A temporary password was sent to " + userDetails.email))
+                setSaved(true)
+            })
+        }
+    }
+    const [badEmail, setBadEmail] = useState('');
+    const [emailTakenError, setEmailTakenError] = useState('');
+    const [errors, setErrors] = useState({})
+
+
+    const handleOnChangeValidating = () => {
+        setErrors(validateUserAdminCreates({firstName, lastName, email, phoneNumber}));
     }
 
     useEffect(() => {
@@ -111,14 +122,13 @@ const UsersComponent = () => {
 
         dispatch(userList()).then(() => {
             setLoaded(true)
-
-            const indexOfCurrentUser = users.findIndex(user => {
-                return user.id === userData.id
-            })
-
-            users.slice(indexOfCurrentUser);
         })
+
     }, [loaded, newUserData]);
+
+    useEffect(() => {
+        handleOnChangeValidating();
+    }, [email, firstName, lastName, phoneNumber, emailTakenError, loaded])
 
 
     return (
@@ -140,44 +150,79 @@ const UsersComponent = () => {
                                     <Popover.Header as="h3">{`Create new user`}</Popover.Header>
                                     <Popover.Body>
                                         <Form.Group className="mb-3" controlId="formEmail">
-                                            <Form.Label>Email</Form.Label>
+                                            <Form.Label><b>Email</b></Form.Label>
                                             <Form.Control type="text" placeholder="Email"
-                                                          onChange={e => setEmail(e.target.value)}/>
+                                                          onChange={e => {
+                                                              setEmail(e.target.value);
+                                                              handleOnChangeValidating();
+                                                          }}
+                                                          onFocus={handleOnChangeValidating}/>
+                                            {emailTakenError &&
+                                                <p className="error-message">{emailTakenError}<i>*</i></p>}
+                                            {errors.email && <p className="error-message">{errors.email}<i>*</i></p>}
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="formFirstName">
-                                            <Form.Label>FirstName</Form.Label>
+                                            <Form.Label><b>FirstName</b></Form.Label>
                                             <Form.Control type="text" placeholder="FirstName"
-                                                          onChange={e => setFirstName(e.target.value)}/>
+                                                          onChange={e => {
+                                                              setFirstName(e.target.value);
+                                                              handleOnChangeValidating();
+                                                          }}
+                                                          onFocus={handleOnChangeValidating}
+                                            />
+                                            {errors.firstName &&
+                                                <p className="error-message">{errors.firstName}<i>*</i></p>}
                                         </Form.Group>
 
                                         <Form.Group className="mb-3" controlId="formLastName">
-                                            <Form.Label>LastName</Form.Label>
+                                            <Form.Label><b>LastName</b></Form.Label>
                                             <Form.Control type="text" placeholder="LastName"
-                                                          onChange={e => setLastName(e.target.value)}/>
+                                                          onChange={e => {
+                                                              setLastName(e.target.value);
+                                                              handleOnChangeValidating();
+                                                          }}
+                                                          onFocus={handleOnChangeValidating}
+                                            />
+                                            {errors.lastName &&
+                                                <p className="error-message">{errors.lastName}<i>*</i></p>}
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="formPhoneNumber">
-                                            <Form.Label>PhoneNumber</Form.Label>
+                                            <Form.Label><b>PhoneNumber</b></Form.Label>
                                             <Form.Control type="text" placeholder="PhoneNumber"
-                                                          onChange={e => setPhoneNumber(e.target.value)}/>
+                                                          onChange={e => {
+                                                              setPhoneNumber(e.target.value);
+                                                              handleOnChangeValidating();
+                                                          }}
+                                                          onFocus={handleOnChangeValidating}
+                                            />
+                                            {errors.phoneNumber &&
+                                                <p className="error-message">{errors.phoneNumber}<i>*</i></p>}
                                         </Form.Group>
-                                        {userInfo?.roles?.includes("ADMIN") ?
-                                            <>
-                                                <Form.Label>Choose role</Form.Label>
-                                                <Form.Group>
-                                                    <Form.Select name="category"
-                                                                 onChange={e => setRole(e.currentTarget.value)}>
-                                                        {roles.map(role =>
-                                                            <option key={role} value={role}>
-                                                                {role}
-                                                            </option>)}
-                                                    </Form.Select>
-                                                </Form.Group>
-                                            </>
-                                            : <> </>}
-                                        <Button variant="primary" type="submit"
-                                                onClick={() => createNewUser()}>
-                                            Save
-                                        </Button>
+
+                                        <section>
+                                            {userInfo?.roles?.includes("ADMIN") ?
+                                                <>
+                                                    <Form.Label><b>Choose role</b></Form.Label>
+                                                    <Form.Group>
+                                                        <Form.Select name="roles"
+                                                                     onChange={e => setRole(e.currentTarget.value)}>
+                                                            {roles.map(role =>
+                                                                <option key={role} value={role.role}>
+
+                                                                    {role}
+                                                                </option>)}
+                                                        </Form.Select>
+                                                    </Form.Group>
+                                                </>
+                                                : <> </>}
+
+                                        </section>
+                                        <div className="sign-up-btn">
+                                            <button type="submit" disabled={errors}
+                                                    onClick={() => createNewUser()}>
+                                                Save
+                                            </button>
+                                        </div>
                                     </Popover.Body>
                                 </Popover>
                             }
@@ -202,108 +247,128 @@ const UsersComponent = () => {
                 <div className="page__horizontal-line"></div>
                 {
                     loaded ?
-
-                        <Table heading={adminHeading}>
+                        <Table>
                             <thead>
                             <tr>
+                                <th>Id</th>
+                                <th>Email</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Role</th>
                                 {
                                     isAdmin ?
                                         <>
-                                            {adminHeading.map(head => <th>{head}</th>)}
+                                            <th>Delete</th>
+                                            <th>Update</th>
                                         </>
-                                        :
-                                        <>
-                                            {librarianHeading.map(head => <th>{head}</th>)}
-                                        </>
-                                }
+                                        : <></>}
                             </tr>
                             </thead>
                             {
                                 Array.isArray(users) && users.length >= 1 ?
                                     users.map(result => {
                                         return (
-                                            <>
-                                                <tbody>
-                                                <tr key={result.id}>
-                                                    <td>{result.id}</td>
-                                                    <td>{result.email}</td>
-                                                    <td>{result.profile.firstName}</td>
-                                                    <td>{result.profile.lastName}</td>
-                                                    <td>{getUserMainRole(result.roles)}</td>
-                                                    {
-                                                        isAdmin?
-                                                            <>
-                                                                <td>
-                                                               {result.email !== userData.email ?
+                                            <tbody key={result.id}>
+                                            <tr>
+                                                <td>{result.id}</td>
+                                                <td>{result.email}</td>
+                                                <td>{result.profile.firstName}</td>
+                                                <td>{result.profile.lastName}</td>
+                                                <td>{getUserMainRole(result.roles)}</td>
+                                                {
+                                                    isAdmin ?
+                                                        <>
+                                                            <td>
+                                                                {result.email !== userData.email ?
                                                                     <img src={deleteIcon}
                                                                          alt="Delete Icon"
                                                                          onClick={() => deleteUserById(result.id)}/>
-                                                                         :<></>}
-                                                                </td>
-                                                                <td>
-                                                                    <OverlayTrigger
-                                                                        trigger="click"
-                                                                        key='right'
-                                                                        placement='right'
-                                                                        rootClose={true}
-                                                                        overlay={
-                                                                            <Popover>
-                                                                                <Popover.Header
-                                                                                    as="h3">{`Edit user`}</Popover.Header>
-                                                                                <Popover.Body>
-                                                                                    <Form.Group
-                                                                                        className="mb-3"
-                                                                                        controlId="formEmail">
-                                                                                        <Form.Label>Email</Form.Label>
-                                                                                        <Form.Control
-                                                                                            type="text"
-                                                                                            placeholder="Email"
-                                                                                            onChange={e => setEmail(e.target.value)}/>
-                                                                                    </Form.Group>
-                                                                                    <Form.Group
-                                                                                        className="mb-3"
-                                                                                        controlId="formFirstName">
-                                                                                        <Form.Label>First
-                                                                                            Name</Form.Label>
-                                                                                        <Form.Control
-                                                                                            type="text"
-                                                                                            placeholder="First name"
-                                                                                            onChange={e => setFirstName(e.target.value)}/>
-                                                                                    </Form.Group>
+                                                                    : <></>}
+                                                            </td>
+                                                            <td>
+                                                                <OverlayTrigger
+                                                                    trigger="click"
+                                                                    key='editUser'
+                                                                    placement='right'
+                                                                    rootClose={true}
+                                                                    overlay={
+                                                                        <Popover>
+                                                                            <Popover.Header
+                                                                                as="h3">{`Edit user`}</Popover.Header>
+                                                                            <Popover.Body>
+                                                                                <Form.Group
+                                                                                    className="mb-3"
+                                                                                    controlId="formEmail">
+                                                                                    <Form.Label>Email</Form.Label>
+                                                                                    <Form.Control
+                                                                                        type="text"
+                                                                                        placeholder="Email"
+                                                                                        onChange={e => {
+                                                                                            setEmail(e.target.value);
+                                                                                            handleOnChangeValidating();
+                                                                                        }}
+                                                                                        onFocus={handleOnChangeValidating}/>
+                                                                                    {emailTakenError &&
+                                                                                        <p className="error-message">{emailTakenError}<i>*</i></p>}
+                                                                                    {errors.email && <p className="error-message">{errors.email}<i>*</i></p>}
+                                                                                </Form.Group>
+                                                                                <Form.Group
+                                                                                    className="mb-3"
+                                                                                    controlId="formFirstName">
+                                                                                    <Form.Label>First
+                                                                                        Name</Form.Label>
+                                                                                    <Form.Control
+                                                                                        type="text"
+                                                                                        placeholder="First name"
+                                                                                        onChange={e => {
+                                                                                            setFirstName(e.target.value);
+                                                                                            handleOnChangeValidating();
+                                                                                        }}
+                                                                                        onFocus={handleOnChangeValidating}/>
+                                                                                    {errors.firstName &&
+                                                                                        <p className="error-message">{errors.firstName}<i>*</i></p>}
+                                                                                </Form.Group>
 
-                                                                                    <Form.Group
-                                                                                        className="mb-3"
-                                                                                        controlId="formLastName">
-                                                                                        <Form.Label>Last
-                                                                                            Name</Form.Label>
-                                                                                        <Form.Control
-                                                                                            type="text"
-                                                                                            placeholder="Last name"
-                                                                                            onChange={e => setLastName(e.target.value)}/>
-                                                                                    </Form.Group>
+                                                                                <Form.Group
+                                                                                    className="mb-3"
+                                                                                    controlId="formLastName">
+                                                                                    <Form.Label>Last
+                                                                                        Name</Form.Label>
+                                                                                    <Form.Control
+                                                                                        type="text"
+                                                                                        placeholder="Last name"
+                                                                                        onChange={e => {
+                                                                                            setLastName(e.target.value);
+                                                                                            handleOnChangeValidating();
+                                                                                        }}
+                                                                                    onFocus={handleOnChangeValidating}/>
+                                                                                    {errors.lastName &&
+                                                                                        <p className="error-message">{errors.lastName}<i>*</i></p>}
+                                                                                </Form.Group>
 
-                                                                                    <button
-                                                                                        className="card-btn100__buttons"
-                                                                                        type="submit"
-                                                                                        onClick={() => updateUserFields(result.id)}>
-                                                                                        Save
-                                                                                    </button>
-                                                                                </Popover.Body>
-                                                                            </Popover>
-                                                                        }
-                                                                    >
-                                                                        <img src={updateIcon}
-                                                                             alt="Update icon"/>
+                                                                                <button
+                                                                                    className="card-btn100__buttons"
+                                                                                    type="submit"
+                                                                                    disabled={errors}
+                                                                                    onClick={() => updateUserFields(result.id)}>
+                                                                                    Save
+                                                                                </button>
+                                                                            </Popover.Body>
+                                                                        </Popover>
+                                                                    }
+                                                                >
+                                                                    <img src={updateIcon}
+                                                                         alt="Update icon"/>
 
-                                                                    </OverlayTrigger>
-                                                                </td>
-                                                            </>
-                                                            :
-                                                            <></>
-                                                    }
-                                                </tr>
-                                                </tbody>
-                                            </>
+                                                                </OverlayTrigger>
+                                                            </td>
+                                                        </>
+                                                        :
+                                                        <></>
+                                                }
+                                            </tr>
+                                            </tbody>
+
                                         )
                                     })
                                     :
