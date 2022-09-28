@@ -1,5 +1,5 @@
 export const routes = {
-    BASIC_URL: "http://localhost:8080/", // process.env.REACT_APP_API_BASE_URL
+    BASIC_URL: process.env.REACT_APP_API_BASE_URL,
     BASIC_PATH: "api/",
     LOGIN_URL: "login",
     REGISTRATION_URL: "sign-up",
