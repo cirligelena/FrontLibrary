@@ -1,5 +1,4 @@
 import {store} from "../store";
-import {checkAccessToken} from "../redux/actions/login";
 import {getToken} from "./token";
 
 

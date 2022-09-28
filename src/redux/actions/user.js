@@ -1,11 +1,12 @@
 import {routes} from "../../config/routes";
 import {HttpService} from "../../services/httpService";
 import {bookActions} from "./book";
+import {authorActions} from "./author";
 
 
 export const userActions = {
-
     USER_LIST: "USER_LIST",
+    GET_NUMBER_OF_USERS: "GET_NUMBER_OF_USERS",
     DELETE_USER: "DELETE_USER",
     UPDATE_USER: "UPDATE_USER",
     CREATE_NEW_USER : "CREATE_NEW_USER",
@@ -14,8 +15,8 @@ export const userActions = {
 };
 
 
-export const userList = () => (dispatch) => {
-    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.ALL_USERS;
+export const userList = (pageNumber, pageSize, sortBy, sortOrder) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.SORTED_AND_PAGINATED_USERS + pageNumber + "/" + pageSize + "/" + sortBy + "/" + sortOrder;
 
     return HttpService.get(url).then(response => {
         return dispatch({
@@ -23,8 +24,18 @@ export const userList = () => (dispatch) => {
             payload: response
         });
     });
-
 };
+
+export const getNumberOfUsers = () => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.GET_NUMBER_OF_USERS;
+
+    return HttpService.get(url).then(response => {
+        return dispatch({
+            type: userActions.GET_NUMBER_OF_USERS,
+            payload: response,
+        })
+    })
+}
 
 export const deleteUser = (id) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.DELETE_USER + id;

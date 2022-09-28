@@ -14,6 +14,7 @@ import {emailConfirmationToken} from "./emailConfirmation";
 import {flag} from "./flagReducers";
 import {getNumberOfBooks} from "../actions/book";
 import {getNumberOfAuthors} from "../actions/author";
+import {getNumberOfUsers} from "../actions/user";
 
 
 const persistConfig = {
@@ -25,8 +26,19 @@ const persistConfig = {
 
 
 const rootReducer = combineReducers({
-    login, user, allBooks, getNumberOfBooks, allAuthors, getNumberOfAuthors, allCategories, userProfileData,
-    history, clientData, flag, emailConfirmationToken
+    login,
+    user,
+    getNumberOfUsers,
+    allBooks,
+    getNumberOfBooks,
+    allAuthors,
+    getNumberOfAuthors,
+    allCategories,
+    userProfileData,
+    history,
+    clientData,
+    flag,
+    emailConfirmationToken
 });
 
 export default persistReducer(persistConfig, rootReducer);

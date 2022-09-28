@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {createUser, deleteUser, searchUsers, updateUser, userList} from "../../redux/actions/user";
+import {createUser, deleteUser, getNumberOfUsers, searchUsers, updateUser, userList} from "../../redux/actions/user";
 import {useDispatch, useSelector} from "react-redux";
-import {getNewUserData, getUserList} from "../../redux/selectors/user";
+import {getNewUserData, getTotalNumberOfUsers, getUserList} from "../../redux/selectors/user";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from "react-bootstrap/Form";
-import {ClipLoader, PulseLoader} from "react-spinners";
+import {PulseLoader} from "react-spinners";
 import {Table} from "react-bootstrap";
 import NavigationComponent from "../navigation/Navigation";
 import {useNavigate} from "react-router-dom";
@@ -18,6 +18,10 @@ import {getUserData} from "../../redux/selectors/login";
 import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
 import validateUserAdminCreates from "../../util/validateUserAdminCreates";
 import {setLastUserAction} from "../../redux/actions/login";
+import {fetchBookList} from "../../redux/actions/book";
+import prevPageIcon from "../../assets/images/icons/arrow-left-circle.svg";
+import nextPageIcon from "../../assets/images/icons/arrow-right-circle.svg";
+import sortIcon from "../../assets/images/icons/sorting-arrows.svg";
 
 
 const UsersComponent = () => {
@@ -27,13 +31,14 @@ const UsersComponent = () => {
     /* Users */
     const users = useSelector(getUserList);
     const userInfo = useSelector(getUserData);
+    const numberOfUsers = useSelector(getTotalNumberOfUsers);
 
     /* Logged user */
     const userData = useSelector(getUserData);
     const [isAdmin, setIsAdmin] = useState(false);
     const allowedRoleToDeleteAndUpdateUsers = 'ADMIN';
 
-    /* Update and Delete */
+    /* Create | Update | Delete */
     const [phoneNumber, setPhoneNumber] = useState('');
     const [role, setRole] = useState('');
     const [emailTakenError, setEmailTakenError] = useState('');
@@ -55,9 +60,46 @@ const UsersComponent = () => {
     const [criteria, setCriteria] = useState('');
     const url = "/user/search_result/" + criteria;
 
-    /* Table headings */
-    const adminHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role', 'Delete', 'Update'];
-    const librarianHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role'];
+    /* Sorting and Pagination */
+    const pageSize = 10;
+    const sortByTypes = ['Time Added', 'Email'];
+    const [pageCount, setPageCount] = useState(1);
+    const [maxPages, setMaxPages] = useState(1);
+    const [sortBy, setSortBy] = useState("Time Added");
+    const [sortOrder, setSortOrder] = useState("asc");
+
+    const goToTheNextPage = () => {
+        setLoaded(false);
+
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
+        dispatch(fetchBookList(pageCount + 1, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
+            setLoaded(true);
+            setPageCount(pageCount + 1);
+        })
+    }
+
+    const goToThePrevPage = () => {
+        setLoaded(false);
+
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
+        dispatch(fetchBookList(pageCount - 1, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
+            setLoaded(true);
+            setPageCount(pageCount - 1);
+        })
+    }
+
+    const switchSortOrder = () => {
+        if (sortOrder === 'asc') setSortOrder('desc');
+        if (sortOrder === 'desc') setSortOrder('asc');
+    }
 
     const deleteUserById = (id) => {
         dispatch(deleteUser(id)).then(() => {
@@ -130,11 +172,33 @@ const UsersComponent = () => {
             setIsAdmin(true);
         }
 
-        dispatch(userList()).then(() => {
-            setLoaded(true)
-        })
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        } else if (sortBy.toString() === sortByTypes.at(1).toString()) {
+            sortByConverted = "email";
+        }
 
-    }, [loaded]);
+        dispatch(getNumberOfUsers()).then(() => {
+
+            if (numberOfUsers % pageSize > 0) {
+                setMaxPages(Math.floor(numberOfUsers / pageSize + 1));
+            } else {
+                setMaxPages(Math.floor(numberOfUsers / pageSize));
+            }
+
+            console.log("Max pages: " + maxPages);
+
+            if (numberOfUsers <= pageSize) {
+                setMaxPages(1);
+            }
+
+            dispatch(userList(pageCount, pageSize, sortByConverted, sortOrder)).then(() => {
+                setLoaded(true);
+            })
+        });
+
+    }, [loaded, sortBy, sortOrder, maxPages, numberOfUsers, newUserData, pageSize]);
 
     useEffect(() => {
         handleOnChangeValidating();
@@ -147,6 +211,47 @@ const UsersComponent = () => {
                 <UserLastActionMessageComponent/>
                 <div className="page__header">
                     <h1>Users</h1>
+                    <div className="pagination-container">
+                        <div className="pagination-container__prev-btn">
+                            {
+                                pageCount === 1 ?
+                                    <></>
+                                    :
+                                    <img onClick={goToThePrevPage} src={prevPageIcon} alt="Prev Icon"/>
+                            }
+                        </div>
+                        <div className="pagination_container__page-number">
+                            <p>{pageCount}</p>
+                        </div>
+                        <div className="pagination-container__next-btn">
+                            {
+                                pageCount === maxPages ?
+                                    <></>
+                                    :
+                                    <img onClick={goToTheNextPage} src={nextPageIcon} alt="Next Icon"/>
+                            }
+                        </div>
+                    </div>
+                    <div className="sorting-container">
+                        <div className="sorting-container__sort-by-selector">
+                            <Form.Group>
+                                <Form.Select name="sort-type"
+                                             onChange={e => setSortBy(e.currentTarget.value)}>
+                                    <option disabled={true}>Sorted by: {sortBy}</option>
+                                    {
+                                        sortByTypes.map(sortType =>
+                                            <option key={sortType} value={sortType}>
+                                                Sort by {sortType}
+                                            </option>
+                                        )
+                                    }
+                                </Form.Select>
+                            </Form.Group>
+                        </div>
+                        <div className="sorting-container__sort-arrows">
+                            <img src={sortIcon} alt="Sort Arrows" onClick={switchSortOrder}/>
+                        </div>
+                    </div>
                     <div className="users-page__header__buttons">
                         <OverlayTrigger
                             trigger="click"
@@ -247,7 +352,7 @@ const UsersComponent = () => {
                         </OverlayTrigger>
                     </div>
                     <div className="input-group">
-                        <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search"
+                        <input type="search" className="form-control rounded" placeholder="Search by email" aria-label="Search"
                                aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>
                         <img src={searchIcon} alt="Search Icon" onClick={() => {
                             dispatch(searchUsers(criteria)).then(() => {

@@ -15,6 +15,7 @@ import prevPageIcon from '../../assets/images/icons/arrow-left-circle.svg';
 import '../../assets/styles/allbooks.css';
 import '../../assets/styles/pagination-sorting.css';
 import Form from "react-bootstrap/Form";
+import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
 
 
 const AllBooksComponent = () => {
@@ -28,7 +29,7 @@ const AllBooksComponent = () => {
 
     /* Sorting */
     const pageSize = 6;
-    const sortByTypes = ['Id', 'Status', 'Title'];
+    const sortByTypes = ['Time Added', 'Status', 'Title'];
     const [pageCount, setPageCount] = useState(1);
     const [maxPages, setMaxPages] = useState(1);
     const [sortBy, setSortBy] = useState("status");
@@ -43,7 +44,12 @@ const AllBooksComponent = () => {
     const goToTheNextPage = () => {
         setLoaded(false);
 
-        dispatch(fetchBookList(pageCount + 1, pageSize, sortBy.toLowerCase(), sortOrder)).then(() => {
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
+        dispatch(fetchBookList(pageCount + 1, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
             setLoaded(true);
             setPageCount(pageCount + 1);
         })
@@ -52,7 +58,12 @@ const AllBooksComponent = () => {
     const goToThePrevPage = () => {
         setLoaded(false);
 
-        dispatch(fetchBookList(pageCount - 1, pageSize, sortBy.toLowerCase(), sortOrder)).then(() => {
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
+        dispatch(fetchBookList(pageCount - 1, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
             setLoaded(true);
             setPageCount(pageCount - 1);
         })
@@ -66,17 +77,26 @@ const AllBooksComponent = () => {
     useEffect(() => {
         setLoaded(false);
 
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
         dispatch(getNumberOfBooks()).then(() => {
+
+            if (numberOfBooks % pageSize > 0) {
+                setMaxPages(Math.floor(numberOfBooks / pageSize + 1));
+            } else {
+                setMaxPages(Math.floor(numberOfBooks / pageSize));
+            }
+
+            console.log("Max pages: " + maxPages);
 
             if (numberOfBooks <= pageSize) {
                 setMaxPages(1);
-            } else if (numberOfBooks % pageSize > 0) {
-                setMaxPages(numberOfBooks / pageSize + 1);
-            } else {
-                setMaxPages(numberOfBooks / pageSize);
             }
 
-            dispatch(fetchBookList(pageCount, pageSize, sortBy.toLowerCase(), sortOrder)).then(() => {
+            dispatch(fetchBookList(pageCount, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
                 setLoaded(true);
             })
         });
@@ -88,6 +108,7 @@ const AllBooksComponent = () => {
                 loaded ?
                     <div>
                         <NavigationComponent/>
+                        <UserLastActionMessageComponent/>
                         <div className="page">
                             <div className="all-books-page-header">
                                 <div><h1>Books</h1></div>
@@ -117,7 +138,7 @@ const AllBooksComponent = () => {
                                         <Form.Group>
                                             <Form.Select name="sort-type"
                                                          onChange={e => setSortBy(e.currentTarget.value)}>
-                                                <option>Sorted by: {sortBy}</option>
+                                                <option disabled={true}>Sorted by: {sortBy}</option>
                                                 {
                                                     sortByTypes.map(sortType =>
                                                         <option key={sortType} value={sortType}>

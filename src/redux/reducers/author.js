@@ -11,7 +11,12 @@ const initialState = {
 
 export const allAuthors = (state = initialState, action) => {
     switch(action.type) {
-        case authorActions.AUTHOR_LIST:
+        case authorActions.GET_ALL_AUTHORS:
+            return {
+                ...state,
+                authorList: action.payload
+            }
+        case authorActions.GET_PAGINATED_AND_SORTED_AUTHORS:
             return {
                 ...state,
                 authorList : action.payload

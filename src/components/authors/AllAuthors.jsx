@@ -20,10 +20,10 @@ const AllAuthorsComponent = () => {
 
     /* Sorting */
     const pageSize = 6;
-    const sortByTypes = ['id', 'firstName', 'lastName', 'birthDate'];
+    const sortByTypes = ['Time Added', 'First name', 'Last name', 'Birth date'];
     const [pageCount, setPageCount] = useState(1);
     const [maxPages, setMaxPages] = useState(1);
-    const [sortBy, setSortBy] = useState("id");
+    const [sortBy, setSortBy] = useState("Time Added");
     const [sortOrder, setSortOrder] = useState("asc");
 
     /* Authors */
@@ -33,7 +33,18 @@ const AllAuthorsComponent = () => {
     const goToTheNextPage = () => {
         setLoaded(false);
 
-        dispatch(fetchAuthorList(pageCount + 1, pageSize, sortBy, sortOrder)).then(() => {
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        } else if (sortBy.toString() === sortByTypes.at(1).toString()) {
+            sortByConverted = "firstName";
+        } else if (sortBy.toString() === sortByTypes.at(2).toString()) {
+            sortByConverted = "lastName";
+        } else if (sortBy.toString() === sortByTypes.at(3).toString()) {
+            sortByConverted = "birthDate";
+        }
+
+        dispatch(fetchAuthorList(pageCount + 1, pageSize, sortByConverted, sortOrder)).then(() => {
             setLoaded(true);
             setPageCount(pageCount + 1);
         })
@@ -42,7 +53,18 @@ const AllAuthorsComponent = () => {
     const goToThePrevPage = () => {
         setLoaded(false);
 
-        dispatch(fetchAuthorList(pageCount - 1, pageSize, sortBy, sortOrder)).then(() => {
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        } else if (sortBy.toString() === sortByTypes.at(1).toString()) {
+            sortByConverted = "firstName";
+        } else if (sortBy.toString() === sortByTypes.at(2).toString()) {
+            sortByConverted = "lastName";
+        } else if (sortBy.toString() === sortByTypes.at(3).toString()) {
+            sortByConverted = "birthDate";
+        }
+
+        dispatch(fetchAuthorList(pageCount - 1, pageSize, sortByConverted, sortOrder)).then(() => {
             setLoaded(true);
             setPageCount(pageCount - 1);
         })
@@ -56,19 +78,35 @@ const AllAuthorsComponent = () => {
     useEffect(() => {
         setLoaded(false);
 
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        } else if (sortBy.toString() === sortByTypes.at(1).toString()) {
+            sortByConverted = "firstName";
+        } else if (sortBy.toString() === sortByTypes.at(2).toString()) {
+            sortByConverted = "lastName";
+        } else if (sortBy.toString() === sortByTypes.at(3).toString()) {
+            sortByConverted = "birthDate";
+        }
+
         dispatch(getNumberOfAuthors()).then(() => {
-            if (numberOfAuthors <= 6) {
-                setMaxPages(1);
-            } else if (numberOfAuthors % pageSize > 0) {
-                setMaxPages(numberOfAuthors / pageSize + 1);
+
+            if (numberOfAuthors % pageSize > 0) {
+                setMaxPages(Math.floor(numberOfAuthors / pageSize + 1));
             } else {
-                setMaxPages(numberOfAuthors / pageSize);
+                setMaxPages(Math.floor(numberOfAuthors / pageSize));
             }
 
-            dispatch(fetchAuthorList(pageCount, pageSize, sortBy, sortOrder)).then(() => {
+            console.log("Max pages: " + maxPages);
+
+            if (numberOfAuthors <= pageSize) {
+                setMaxPages(1);
+            }
+
+            dispatch(fetchAuthorList(pageCount, pageSize, sortByConverted, sortOrder)).then(() => {
                 setLoaded(true);
             })
-        })
+        });
     }, [sortBy, sortOrder, maxPages, numberOfAuthors]);
 
     return (
@@ -106,7 +144,7 @@ const AllAuthorsComponent = () => {
                                         <Form.Group>
                                             <Form.Select name="sort-type"
                                                          onChange={e => setSortBy(e.currentTarget.value)}>
-                                                <option>Sorted by: {sortBy}</option>
+                                                <option disabled={true}>Sorted by: {sortBy}</option>
                                                 {
                                                     sortByTypes.map(sortType =>
                                                         <option key={sortType} value={sortType}>

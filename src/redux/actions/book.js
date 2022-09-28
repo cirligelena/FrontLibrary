@@ -20,7 +20,7 @@ export const bookActions = {
 };
 
 export const fetchBookList = (pageNumber, pageSize, sortBy, sortOrder) => (dispatch) => {
-    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.ALL_BOOKS + pageNumber + "/" + pageSize + "/" + sortBy + "/" + sortOrder;
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.SORTED_AND_PAGINATED_BOOKS + pageNumber + "/" + pageSize + "/" + sortBy + "/" + sortOrder;
 
     return HttpService.get(url).then(response => {
         return dispatch({

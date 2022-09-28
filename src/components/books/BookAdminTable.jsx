@@ -17,7 +17,7 @@ import {PulseLoader} from "react-spinners";
 import NavigationComponent from "../navigation/Navigation";
 
 import {fetchCategoryList, insertCategory} from "../../redux/actions/category";
-import {fetchAuthorList, insertAuthor} from "../../redux/actions/author";
+import {fetchAllAuthors, fetchAuthorList, getNumberOfAuthors, insertAuthor} from "../../redux/actions/author";
 import {getCategoryData, getCategoryList} from "../../redux/selectors/category";
 import {getAuthorData, getAuthorList} from "../../redux/selectors/author";
 import searchIcon from "../../assets/images/icons/profile/search.svg";
@@ -53,11 +53,11 @@ const ManageBooksComponent = () => {
     const [author, setAuthor] = useState('');
 
     /* Sorting */
-    const pageSize = 6;
-    const sortByTypes = ['Id', 'Status', 'Title'];
+    const pageSize = 10;
+    const sortByTypes = ['Time Added', 'Status', 'Title'];
     const [pageCount, setPageCount] = useState(1);
     const [maxPages, setMaxPages] = useState(1);
-    const [sortBy, setSortBy] = useState("id");
+    const [sortBy, setSortBy] = useState("Time Added");
     const [sortOrder, setSortOrder] = useState("asc");
 
     /* Books, Authors and Categories */
@@ -72,7 +72,12 @@ const ManageBooksComponent = () => {
     const goToTheNextPage = () => {
         setLoaded(false);
 
-        dispatch(fetchBookList(pageCount + 1, pageSize, sortBy.toLowerCase(), sortOrder)).then(() => {
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
+        dispatch(fetchBookList(pageCount + 1, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
             setLoaded(true);
             setPageCount(pageCount + 1);
         })
@@ -81,7 +86,12 @@ const ManageBooksComponent = () => {
     const goToThePrevPage = () => {
         setLoaded(false);
 
-        dispatch(fetchBookList(pageCount - 1, pageSize, sortBy.toLowerCase(), sortOrder)).then(() => {
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
+        dispatch(fetchBookList(pageCount - 1, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
             setLoaded(true);
             setPageCount(pageCount - 1);
         })
@@ -151,28 +161,37 @@ const ManageBooksComponent = () => {
     useEffect(() => {
         setLoaded(false);
 
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
         dispatch(getNumberOfBooks()).then(() => {
+
+            if (numberOfBooks % pageSize > 0) {
+                setMaxPages(Math.floor(numberOfBooks / pageSize + 1));
+            } else {
+                setMaxPages(Math.floor(numberOfBooks / pageSize));
+            }
+
+            console.log("Max pages: " + maxPages);
 
             if (numberOfBooks <= pageSize) {
                 setMaxPages(1);
-            } else if (numberOfBooks % pageSize > 0) {
-                setMaxPages(numberOfBooks / pageSize + 1);
-            } else {
-                setMaxPages(numberOfBooks / pageSize);
             }
 
-            dispatch(fetchBookList(pageCount, pageSize, sortBy.toLowerCase(), sortOrder)).then(() => {
+            dispatch(fetchBookList(pageCount, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
                 setLoaded(true);
             })
-        })
-    }, [newBookData, sortBy, sortOrder, maxPages, numberOfBooks]);
+        });
+    }, [sortBy, sortOrder, maxPages, numberOfBooks]);
 
     useEffect(() => {
         dispatch(fetchCategoryList());
     }, [newCategory]);
 
     useEffect(() => {
-        dispatch(fetchAuthorList());
+        dispatch(fetchAllAuthors());
     }, [newAuthor]);
 
     return (
@@ -207,7 +226,7 @@ const ManageBooksComponent = () => {
                             <Form.Group>
                                 <Form.Select name="sort-type"
                                              onChange={e => setSortBy(e.currentTarget.value)}>
-                                    <option>Sorted by: {sortBy}</option>
+                                    <option disabled={true}>Sorted by: {sortBy}</option>
                                     {
                                         sortByTypes.map(sortType =>
                                             <option key={sortType} value={sortType}>
@@ -269,13 +288,15 @@ const ManageBooksComponent = () => {
                                             <Form.Group>
                                                 <Form.Select name="authors"
                                                              onChange={e => setAuthor(e.currentTarget.value)}>
-                                                    {Array.isArray(authors)
-                                                        ? authors.map(author =>
-                                                            <option key={author.id} value={author.id}>
-                                                                {author.fullName}
-                                                            </option>
-                                                        )
-                                                        : <> </>}
+                                                    {
+                                                        Array.isArray(authors)
+                                                            ? authors.map(author =>
+                                                                <option key={author.id} value={author.id}>
+                                                                    {author.fullName}
+                                                                </option>
+                                                            )
+                                                            : <> </>
+                                                    }
                                                 </Form.Select>
                                             </Form.Group>
                                             <Form.Label></Form.Label>
@@ -394,17 +415,17 @@ const ManageBooksComponent = () => {
                             </OverlayTrigger>
                         </div>
 
-                            <div className="input-group">
-                                <input type="search" className="form-control rounded" placeholder="Search"
-                                       aria-label="Search"
-                                       aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>
-                                <img src={searchIcon} alt="Search Icon" onClick={() => {
-                                    dispatch(searchBooks(criteria)).then(() => {
-                                        console.log(criteria)
-                                        setLoaded(true)
-                                    })
-                                }}/>
-                            </div>
+                        <div className="input-group">
+                            <input type="search" className="form-control rounded" placeholder="Search"
+                                   aria-label="Search"
+                                   aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>
+                            <img src={searchIcon} alt="Search Icon" onClick={() => {
+                                dispatch(searchBooks(criteria)).then(() => {
+                                    console.log(criteria)
+                                    setLoaded(true)
+                                })
+                            }}/>
+                        </div>
 
                     </div>
                 </div>
