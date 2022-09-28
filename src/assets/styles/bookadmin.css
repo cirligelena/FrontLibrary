@@ -1,18 +1,22 @@
-.book-admin-header-page {
-    display: flex;
+.book-admin-page {
+    padding-top: 90px;
+    margin-left: 11%;
+    margin-right: 16.3%;
 }
+
+
 
 .manage-button {
-    margin-left: 70%;
-    display: flex;
+    margin-left: 25%;
+    display: inline-flex;
 }
 
-.manage-button .manage-button__item {
-    padding-left: 5%;
-    width: auto;
-    height: auto;
+.manage-button .manage-button__item  {
+    padding-top: 10px;
+    padding-left: 2px;
+    float: right;
+    width: 243px;
+    height: 35px;
 }
-.manage-button .manage-button__item .card-btn100__buttons {
-    width: auto!important;
-    height: auto!important;
-}
+
+

@@ -10,6 +10,7 @@
     padding-left: 2%;
 }
 
+
 .all-books-page-header div h1 {
     padding-top: 10px;
 }
@@ -19,11 +20,13 @@
     font-weight: bold;
     display: inline
 }
+
 .book-status-color-booked {
     color: #05668D;
     font-weight: bold;
     display: inline
 }
+
 .book-status-color-taken {
     color: #f07492;
     font-weight: bold;

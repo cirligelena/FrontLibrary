@@ -1,4 +1,5 @@
 import {loginActions} from "../actions/login";
+import {emailConfirmationActions} from "../actions/emailConfirmation";
 
 
 const initialState = {
@@ -63,6 +64,19 @@ export const login = (state = initialState, action) => {
             return {
                 ...state,
                 lastUserAction: action.payload,
+            }
+        case emailConfirmationActions.CONFIRM_EMAIL:
+            return {
+                ...state,
+                userData: {
+                    id: state.userData.id,
+                    email: state.userData.email,
+                    access_token: state.userData.access_token,
+                    refresh_token: state.userData.refresh_token,
+                    confirmedByEmail: true,
+                    roles: state.userData.roles,
+                    hasTemporaryPassword: state.userData.hasTemporaryPassword,
+                },
             }
         default:
             return state;
