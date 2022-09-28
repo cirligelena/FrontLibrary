@@ -72,7 +72,7 @@ function BookItem(props) {
     };
     return (
         <>
-        <UserLastActionMessageComponent/>
+            <UserLastActionMessageComponent/>
             {
                 userInfo?.roles?.includes("ADMIN") || userInfo?.roles?.includes("LIBRARIAN") ?
                     <div className="card">
@@ -83,7 +83,23 @@ function BookItem(props) {
                         <div className="card__horizontal-line"></div>
                         <div className="card__body">
                             <p>shelfNumber: {props.shelfNumber}</p>
-                            <p>status: {props.status}</p>
+                            {
+                                props.status === "BOOKED" ?
+                                    <div>
+                                        <p style={{display: 'inline'}}>status: </p>
+                                        <p className={"book-status-color-booked"}>{props.status}</p>
+                                    </div>
+                                    : props.status === "TAKEN" ?
+                                        <div>
+                                            <p style={{display: 'inline'}}>status: </p>
+                                            <p className={"book-status-color-taken"}>{props.status}</p>
+                                        </div>
+                                        :
+                                        <div>
+                                            <p style={{display: 'inline'}}>status: </p>
+                                            <p className={"book-status-color-available"}>{props.status}</p>
+                                        </div>
+                            }
                         </div>
                         <div>
                             <div className="card-footer__buttons">
@@ -111,7 +127,23 @@ function BookItem(props) {
                         </div>
                         <div className="card__body">
                             <p>shelfNumber: {props.shelfNumber}</p>
-                            <p>status: {props.status}</p>
+                            {
+                                props.status === "BOOKED" ?
+                                    <div>
+                                        <p style={{display: 'inline'}}>status: </p>
+                                        <p className={"book-status-color-booked"}>{props.status}</p>
+                                    </div>
+                                    : props.status === "TAKEN" ?
+                                        <div>
+                                            <p style={{display: 'inline'}}>status: </p>
+                                            <p className={"book-status-color-taken"}>{props.status}</p>
+                                        </div>
+                                        :
+                                        <div>
+                                            <p style={{display: 'inline'}}>status: </p>
+                                            <p className={"book-status-color-available"}>{props.status}</p>
+                                        </div>
+                            }
                         </div>
                         <div>
                             <div>

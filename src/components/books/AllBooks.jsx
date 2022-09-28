@@ -79,7 +79,7 @@ const AllBooksComponent = () => {
             dispatch(fetchBookList(pageCount, pageSize, sortBy.toLowerCase(), sortOrder)).then(() => {
                 setLoaded(true);
             })
-        })
+        });
     }, [lastModified, sortBy, sortOrder, maxPages, numberOfBooks]);
 
     return (
