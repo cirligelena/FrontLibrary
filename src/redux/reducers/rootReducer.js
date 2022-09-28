@@ -12,17 +12,21 @@ import {history} from "./history";
 import {clientData} from "./client";
 import {emailConfirmationToken} from "./emailConfirmation";
 import {flag} from "./flagReducers";
+import {getNumberOfBooks} from "../actions/book";
+import {getNumberOfAuthors} from "../actions/author";
 
 
 const persistConfig = {
-     key: "root",
-     storage,
-     whitelist: [ "login"]
+    key: "root",
+    storage,
+    whitelist: ["login"]
 
- };
+};
 
 
- const rootReducer = combineReducers({ login, user, allBooks, allAuthors, allCategories, userProfileData,
-     history, clientData, flag, emailConfirmationToken});
+const rootReducer = combineReducers({
+    login, user, allBooks, getNumberOfBooks, allAuthors, getNumberOfAuthors, allCategories, userProfileData,
+    history, clientData, flag, emailConfirmationToken
+});
 
 export default persistReducer(persistConfig, rootReducer);

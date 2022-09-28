@@ -5,7 +5,8 @@ import {loginActions} from "../actions/login";
 const initialState = {
     bookList: {},
     lastModified: null,
-    bookData: {}
+    bookData: {},
+    numberOfBooks: 0
 };
 
 export const allBooks = (state = initialState, action) => {
@@ -15,6 +16,11 @@ export const allBooks = (state = initialState, action) => {
                 ...state,
                 bookList: action.payload
             };
+        case bookActions.GET_NUMBER_OF_BOOKS:
+            return  {
+                ...state,
+                numberOfBooks: action.payload
+            }
         case bookActions.RESERVED_BOOK:
             return {
                 ...state,

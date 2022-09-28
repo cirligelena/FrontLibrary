@@ -5,6 +5,7 @@ import {HttpService} from "../../services/httpService";
 
 export const bookActions = {
     BOOK_LIST : "BOOK_LIST",
+    GET_NUMBER_OF_BOOKS: "GET_NUMBER_OF_BOOKS",
     RESERVED_BOOK : "RESERVED_BOOK",
     BOOKS_BY_CRITERIA : "BOOKS_BY_CRITERIA",
     GET_BOOKS_BY_CATEGORY:"GET_BOOKS_BY_CATEGORY",
@@ -18,8 +19,8 @@ export const bookActions = {
 
 };
 
-export const fetchBookList = () => (dispatch) => {
-    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.ALL_BOOKS;
+export const fetchBookList = (pageNumber, pageSize, sortBy, sortOrder) => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.ALL_BOOKS + pageNumber + "/" + pageSize + "/" + sortBy + "/" + sortOrder;
 
     return HttpService.get(url).then(response => {
         return dispatch({
@@ -28,6 +29,17 @@ export const fetchBookList = () => (dispatch) => {
         });
     });
 };
+
+export const getNumberOfBooks = () => (dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.GET_NUMBER_OF_BOOKS;
+
+    return HttpService.get(url).then(response => {
+        return dispatch({
+            type: bookActions.GET_NUMBER_OF_BOOKS,
+            payload: response,
+        })
+    })
+}
 
 export const reserveTheBook = (bookId, userId) => (dispatch) => {
 

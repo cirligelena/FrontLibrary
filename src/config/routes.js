@@ -1,5 +1,5 @@
 export const routes = {
-    BASIC_URL: process.env.REACT_APP_API_BASE_URL,
+    BASIC_URL: "http://localhost:8080/", // process.env.REACT_APP_API_BASE_URL
     BASIC_PATH: "api/",
     LOGIN_URL: "login",
     REGISTRATION_URL: "sign-up",
@@ -8,10 +8,13 @@ export const routes = {
     DELETE_USER: "user/delete/",
     UPDATE_USER: "user/update/",
     CREATE_USER : "user/create",
-    ALL_USERS: "user/users",
-    ALL_BOOKS: "book/books",
-    ALL_AUTHORS: "author/authors",
+    ALL_USERS: "user/users/",
+    ALL_BOOKS: "book/books/",
+    ALL_AUTHORS: "author/authors/",
     ALL_CATEGORIES: "category/categories",
+    GET_NUMBER_OF_USERS: "user/numberOf",
+    GET_NUMBER_OF_BOOKS: "book/numberOf",
+    GET_NUMBER_OF_AUTHORS: "author/numberOf",
     BOOK_THE_BOOK: "book/bookTheBook",
     GET_BOOKS_BY_CRITERIA: "book/find_books_by_criteria",
     GET_BOOKS_BY_CATEGORY: "book/bookByCategory",

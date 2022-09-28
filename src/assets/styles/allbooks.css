@@ -3,9 +3,13 @@
 }
 
 .all-books-page-header .input-group {
-    padding: 10px 2% 5px 50%!important;
+    padding: 15px 2% 10px 1% !important;
 }
 
 .all-books-page-header .input-group img {
     padding-left: 2%;
+}
+
+.all-books-page-header div h1 {
+    padding-top: 10px;
 }

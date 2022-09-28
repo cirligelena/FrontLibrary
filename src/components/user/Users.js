@@ -22,27 +22,32 @@ import UserLastActionMessageComponent from "../useraction/UserLastActionMessage"
 
 
 const UsersComponent = () => {
-    const users = useSelector(getUserList);
-    const [filteredUsers, setFilteredUsers] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userData = useSelector(getUserData);
-    const allowedRoleToDeleteAndUpdateUsers = 'ADMIN';
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [role, setRole] = useState('');
+
+    /* Users */
+    const users = useSelector(getUserList);
     const userInfo = useSelector(getUserData);
 
-    const [criteria, setCriteria] = useState('');
+    /* Logged user */
+    const userData = useSelector(getUserData);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const allowedRoleToDeleteAndUpdateUsers = 'ADMIN';
+
+    /* Update and Delete */
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [role, setRole] = useState('');
     const [loaded, setLoaded] = useState(false)
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [saved, setSaved] = useState(false);
     const newUserData = useSelector(getNewUserData);
-
+    const [criteria, setCriteria] = useState('');
     const roles = ['USER', 'ADMIN', 'LIBRARIAN'];
-    const url = "/user/search_result/" + criteria
+    const url = "/user/search_result/" + criteria;
+
+    /* Table headings */
     const adminHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role', 'Delete', 'Update'];
     const librarianHeading = ['Id', 'Email', 'First Name', 'Last Name', 'Role'];
 
