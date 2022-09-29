@@ -65,17 +65,7 @@ async function request(url, method, requestParams) {
     const state = store.getState();
     const {userData} = state.login;
     const access_token = userData?.access_token;
-    // const refresh_token = userData?.refresh_token;
-    //
-    // if (token) {
-    //     await store.dispatch(checkAccessToken(userData))
-    // }
-    // if (token && url !== "http://localhost:8080/api/token/refresh") {
-    //     HEADERS[`Authorization`] = 'Bearer ' + token
-    // } else if (url === "http://localhost:8080/api/token/refresh") {
-    //     HEADERS[`Authorization`] = 'Bearer ' + refresh_token;
-    // }
-    //
+
     if (access_token) {
         const token = await getToken();
         if (token) {
@@ -89,12 +79,9 @@ async function request(url, method, requestParams) {
         config.body = JSON.stringify(requestParams);
     }
 
-
     const response = await fetch(url, config);
 
-
     if (!response.ok) {
-
         return response.status
     }
 

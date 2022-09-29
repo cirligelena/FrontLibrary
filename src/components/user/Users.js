@@ -9,8 +9,6 @@ import Form from "react-bootstrap/Form";
 import {PulseLoader} from "react-spinners";
 import {Table} from "react-bootstrap";
 import NavigationComponent from "../navigation/Navigation";
-import {useNavigate} from "react-router-dom";
-
 import searchIcon from '../../assets/images/icons/profile/search.svg';
 import deleteIcon from '../../assets/images/icons/profile/trash.svg';
 import updateIcon from '../../assets/images/icons/profile/pencil.svg';
@@ -26,7 +24,6 @@ import sortIcon from "../../assets/images/icons/sorting-arrows.svg";
 
 const UsersComponent = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     /* Users */
     const users = useSelector(getUserList);
@@ -58,7 +55,6 @@ const UsersComponent = () => {
 
     /* Search */
     const [criteria, setCriteria] = useState('');
-    const url = "/user/search_result/" + criteria;
 
     /* Sorting and Pagination */
     const pageSize = 10;
@@ -186,8 +182,6 @@ const UsersComponent = () => {
             } else {
                 setMaxPages(Math.floor(numberOfUsers / pageSize));
             }
-
-            console.log("Max pages: " + maxPages);
 
             if (numberOfUsers <= pageSize) {
                 setMaxPages(1);
