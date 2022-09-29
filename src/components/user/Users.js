@@ -93,10 +93,10 @@ const UsersComponent = () => {
                 "firstName": firstName,
                 "lastName": lastName,
                 "phoneNumber": phoneNumber,
-                "roles": {
-                    role,
-                }
             },
+            "roles": [{
+                role,
+            }]
         };
         dispatch(createUser(userDetails)).then(() => {
             dispatch(setLastUserAction("New user {newUserData.profile.firstName} {newUserData.profile.lastName} was created! A temporary password was sent to {newUserData.email}"))
@@ -166,7 +166,7 @@ const UsersComponent = () => {
                                                 <Form.Group>
                                                     <Form.Select name="category"
                                                                  onChange={e => setRole(e.currentTarget.value)}>
-                                                        {roles.map(role =>
+                                                        {roles.map(role=>
                                                             <option key={role} value={role}>
                                                                 {role}
                                                             </option>)}
