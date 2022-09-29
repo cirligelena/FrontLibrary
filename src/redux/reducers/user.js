@@ -5,7 +5,8 @@ import {loginActions} from "../actions/login";
 const initialState = {
     userList : { },
     newUser: { },
-    updatedUserData : { }
+    updatedUserData : { },
+    numberOfUsers: 0
 };
 
 export const user = (state = initialState, action) => {
@@ -15,6 +16,11 @@ export const user = (state = initialState, action) => {
                 ...state,
                 userList : action.payload
             };
+        case userActions.GET_NUMBER_OF_USERS:
+            return {
+                ...state,
+                numberOfUsers: action.payload
+            };
         case userActions.DELETE_USER:
             return {
                 ...state,
@@ -23,7 +29,7 @@ export const user = (state = initialState, action) => {
             return {
                 ...state,
                 updatedUserData: action.payload
-            }
+            };
         case userActions.USERS_BY_CRITERIA:
             return {
                 ...state,

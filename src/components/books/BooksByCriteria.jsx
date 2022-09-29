@@ -6,6 +6,7 @@ import BookList from "./BookList";
 import {useParams} from "react-router-dom";
 import NavigationComponent from "../navigation/Navigation";
 import {PulseLoader} from "react-spinners";
+import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
 
 
 
@@ -29,6 +30,7 @@ const BooksByCriteriaComponent = () => {
             {loaded?
                 <div>
                     <NavigationComponent/>
+                    <UserLastActionMessageComponent/>
                     <div className="page">
                         <div className="all-books-page-header">
                             <div><h1>Books</h1></div>

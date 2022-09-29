@@ -36,22 +36,20 @@ function BookItem(props) {
         })
         console.log(clientInfo.id);
     }
-    const reserveBookForClient = (bookId, bookTitle) => {
+    const reserveBookForClient = (bookId) => {
         dispatch(reserveTheBook(bookId, clientInfo.id)).then(() => {
             setLoaded(false);
             dispatch(setLastUserAction(
-                "Book: " + bookTitle + " was reserved for " + clientInfo.profile.firstName + " "
-                + clientInfo.profile.lastName
+                "Book with id " + bookId + " was reserved for the client with id " + clientInfo.id
             ));
         })
         console.log(bookId);
     }
-    const giveBookToClient = (bookId, bookTitle) => {
+    const giveBookToClient = (bookId) => {
         dispatch(giveTheBook(bookId, clientInfo.id)).then(() => {
             setLoaded(false);
             dispatch(setLastUserAction(
-                "Book: " + bookTitle + " was given to " + clientInfo.profile.firstName + " "
-                + clientInfo.profile.lastName
+                "Book with id " + bookId + " was given to the client with id " + clientInfo.id
             ));
         })
         console.log(bookId);
@@ -74,7 +72,6 @@ function BookItem(props) {
     };
     return (
         <>
-            <UserLastActionMessageComponent/>
             {
                 userInfo?.roles?.includes("ADMIN") || userInfo?.roles?.includes("LIBRARIAN") ?
                     <div className="card">
@@ -85,19 +82,22 @@ function BookItem(props) {
                         <div className="card__horizontal-line"></div>
                         <div className="card__body">
                             <p>shelfNumber: {props.shelfNumber}</p>
-                            {props.status === "BOOKED" ?
-                                <div>
-                                    <p style={{display: 'inline'}}>status: </p>
-                                    <p className={"book-status-color-booked"}>{props.status}</p>
-                                </div>
-                                : props.status === "TAKEN" ?
-                                    <div><p style={{display: 'inline'}}>status: </p>
-                                        <p className={"book-status-color-taken"}>{props.status}</p>
+                            {
+                                props.status === "BOOKED" ?
+                                    <div>
+                                        <p style={{display: 'inline'}}>status: </p>
+                                        <p className={"book-status-color-booked"}>{props.status}</p>
                                     </div>
-                                    :
-                                    <div><p style={{display: 'inline'}}>status: </p>
-                                        <p className={"book-status-color-available"}>{props.status}</p>
-                                    </div>
+                                    : props.status === "TAKEN" ?
+                                        <div>
+                                            <p style={{display: 'inline'}}>status: </p>
+                                            <p className={"book-status-color-taken"}>{props.status}</p>
+                                        </div>
+                                        :
+                                        <div>
+                                            <p style={{display: 'inline'}}>status: </p>
+                                            <p className={"book-status-color-available"}>{props.status}</p>
+                                        </div>
                             }
                         </div>
                         <div>
@@ -126,19 +126,22 @@ function BookItem(props) {
                         </div>
                         <div className="card__body">
                             <p>shelfNumber: {props.shelfNumber}</p>
-                            {props.status === "BOOKED" ?
-                                <div>
-                                    <p style={{display: 'inline'}}>status: </p>
-                                    <p className={"book-status-color-booked"}>{props.status}</p>
-                                </div>
-                                : props.status === "TAKEN" ?
-                                    <div><p style={{display: 'inline'}}>status: </p>
-                                        <p className={"book-status-color-taken"}>{props.status}</p>
+                            {
+                                props.status === "BOOKED" ?
+                                    <div>
+                                        <p style={{display: 'inline'}}>status: </p>
+                                        <p className={"book-status-color-booked"}>{props.status}</p>
                                     </div>
-                                    :
-                                    <div><p style={{display: 'inline'}}>status: </p>
-                                        <p className={"book-status-color-available"}>{props.status}</p>
-                                    </div>
+                                    : props.status === "TAKEN" ?
+                                        <div>
+                                            <p style={{display: 'inline'}}>status: </p>
+                                            <p className={"book-status-color-taken"}>{props.status}</p>
+                                        </div>
+                                        :
+                                        <div>
+                                            <p style={{display: 'inline'}}>status: </p>
+                                            <p className={"book-status-color-available"}>{props.status}</p>
+                                        </div>
                             }
                         </div>
                         <div>
@@ -188,7 +191,7 @@ function BookItem(props) {
                                 action === "reserve" ?
                                     <>
                                         <button className="card-btn100__buttons" onClick={() => {
-                                            reserveBookForClient(props.id, props.title);
+                                            reserveBookForClient(props.id);
                                             handlePopUp()
                                         }}>Reserve
                                             book
@@ -202,7 +205,7 @@ function BookItem(props) {
                                     :
                                     <>
                                         <button className="card-btn100__buttons" onClick={() => {
-                                            giveBookToClient(props.id, props.title);
+                                            giveBookToClient(props.id);
                                             handlePopUp()
                                         }}>Give
                                             the

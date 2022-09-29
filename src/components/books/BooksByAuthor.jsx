@@ -7,6 +7,7 @@ import {getBooksByAuthor, searchBooks} from "../../redux/actions/book";
 import NavigationComponent from "../navigation/Navigation";
 import {PulseLoader} from "react-spinners";
 import searchIcon from "../../assets/images/icons/profile/search.svg";
+import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
 
 function BookByAuthorComponent ()  {
     const [loaded, setLoaded] = useState(false)
@@ -27,6 +28,7 @@ function BookByAuthorComponent ()  {
             {loaded?
                 <div>
                     <NavigationComponent/>
+                    <UserLastActionMessageComponent/>
                     <div className="page">
                         <div className="all-books-page-header">
                             <div><h1>Books</h1></div>

@@ -5,6 +5,7 @@ import {fetchCategoryList} from "../../redux/actions/category";
 import {getCategoryList} from "../../redux/selectors/category";
 import CategoriesList from "./CategoriesList";
 import NavigationComponent from "../navigation/Navigation";
+import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
 
 
 const AllCategoriesComponent = () => {
@@ -29,6 +30,7 @@ const AllCategoriesComponent = () => {
                 loaded ?
                     <>
                         <NavigationComponent/>
+                        <UserLastActionMessageComponent/>
                         <CategoriesList categories={categories}/>
                     </>
                     :

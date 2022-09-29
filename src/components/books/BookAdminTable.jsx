@@ -1,36 +1,45 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {getBookData, getBookList} from "../../redux/selectors/allBooks";
-import {
-    deleteBook,
-    fetchBookList,
-    insertBook,
-    insertBookWithExistingCategoryAndAuthor,
-    searchBooks
-} from "../../redux/actions/book";
-import {PulseLoader} from "react-spinners";
 import {Table} from "react-bootstrap";
-import NavigationComponent from "../navigation/Navigation";
-
-import deleteIcon from '../../assets/images/icons/profile/trash.svg';
-import '../../assets/styles/bookadmin.css';
-import NoItemsFoundErrorComponent from "../errors/NoItemsFoundError";
 import Popover from "react-bootstrap/Popover";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+
+import {useDispatch, useSelector} from "react-redux";
+import {getBookData, getBookList, getTotalNumberOfBooks} from "../../redux/selectors/allBooks";
+import {
+    deleteBook,
+    fetchBookList,
+    getNumberOfBooks,
+    insertBookWithExistingCategoryAndAuthor, searchBooks
+} from "../../redux/actions/book";
+import {PulseLoader} from "react-spinners";
+import NavigationComponent from "../navigation/Navigation";
+
 import {fetchCategoryList, insertCategory} from "../../redux/actions/category";
-import {fetchAuthorList, insertAuthor} from "../../redux/actions/author";
+import {fetchAllAuthors, fetchAuthorList, getNumberOfAuthors, insertAuthor} from "../../redux/actions/author";
 import {getCategoryData, getCategoryList} from "../../redux/selectors/category";
 import {getAuthorData, getAuthorList} from "../../redux/selectors/author";
 import searchIcon from "../../assets/images/icons/profile/search.svg";
 import {useNavigate} from "react-router-dom";
-import {searchUsers} from "../../redux/actions/user";
+
+import prevPageIcon from "../../assets/images/icons/arrow-left-circle.svg";
+import nextPageIcon from "../../assets/images/icons/arrow-right-circle.svg";
+import sortIcon from "../../assets/images/icons/sorting-arrows.svg";
+import deleteIcon from '../../assets/images/icons/profile/trash.svg';
+import '../../assets/styles/bookadmin.css';
 
 const ManageBooksComponent = () => {
-    const books = useSelector(getBookList);
     const dispatch = useDispatch();
     const [loaded, setLoaded] = useState(false);
+    const navigate = useNavigate();
+
+    /* Search */
+    const [criteria, setCriteria] = useState('');
+    const url = "/books/search_result/" + criteria;
+
+    /* Create book */
+    const newBookData = useSelector(getBookData);
     const [saved, setSaved] = useState(false);
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('');
@@ -40,22 +49,63 @@ const ManageBooksComponent = () => {
     const [lastName, setLastName] = useState('');
     const [biography, setBiography] = useState('');
     const [categoryTitle, setCategoryTitle] = useState('');
-    const newBookData = useSelector(getBookData);
     const [category, setCategory] = useState('');
     const [author, setAuthor] = useState('');
 
+    /* Sorting */
+    const pageSize = 10;
+    const sortByTypes = ['Time Added', 'Status', 'Title'];
+    const [pageCount, setPageCount] = useState(1);
+    const [maxPages, setMaxPages] = useState(1);
+    const [sortBy, setSortBy] = useState("Time Added");
+    const [sortOrder, setSortOrder] = useState("asc");
+
+    /* Books, Authors and Categories */
+    const books = useSelector(getBookList);
+    const numberOfBooks = useSelector(getTotalNumberOfBooks);
     const categories = useSelector(getCategoryList);
     const authors = useSelector(getAuthorList);
     const newCategory = useSelector(getCategoryData);
     const newAuthor = useSelector(getAuthorData);
 
-    const navigate = useNavigate();
-    const [criteria, setCriteria] = useState('');
-    const url = "/books/search_result/" + criteria;
+
+    const goToTheNextPage = () => {
+        setLoaded(false);
+
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
+        dispatch(fetchBookList(pageCount + 1, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
+            setLoaded(true);
+            setPageCount(pageCount + 1);
+        })
+    }
+
+    const goToThePrevPage = () => {
+        setLoaded(false);
+
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
+        dispatch(fetchBookList(pageCount - 1, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
+            setLoaded(true);
+            setPageCount(pageCount - 1);
+        })
+    }
+
+    const switchSortOrder = () => {
+        if (sortOrder === 'asc') setSortOrder('desc');
+        if (sortOrder === 'desc') setSortOrder('asc');
+    }
 
     const handleSaved = () => {
         setSaved(false)
     };
+
     const addCategory = (e) => {
         e.preventDefault()
 
@@ -67,7 +117,6 @@ const ManageBooksComponent = () => {
             setSaved(true)
         });
     }
-
 
     const addAuthor = (e) => {
         e.preventDefault()
@@ -84,6 +133,7 @@ const ManageBooksComponent = () => {
             setSaved(true)
         });
     }
+
     const insertBookWIthExistingCategoryAndAuthor = (e) => {
         e.preventDefault()
 
@@ -107,18 +157,41 @@ const ManageBooksComponent = () => {
             setLoaded(false)
         });
     }
+
     useEffect(() => {
-        dispatch(fetchBookList()).then(() => {
-            setLoaded(true)
-        })
-    }, [loaded]);
+        setLoaded(false);
+
+        let sortByConverted = sortBy;
+        if (sortBy.toString() === sortByTypes.at(0).toString()) {
+            sortByConverted = "id";
+        }
+
+        dispatch(getNumberOfBooks()).then(() => {
+
+            if (numberOfBooks % pageSize > 0) {
+                setMaxPages(Math.floor(numberOfBooks / pageSize + 1));
+            } else {
+                setMaxPages(Math.floor(numberOfBooks / pageSize));
+            }
+
+            console.log("Max pages: " + maxPages);
+
+            if (numberOfBooks <= pageSize) {
+                setMaxPages(1);
+            }
+
+            dispatch(fetchBookList(pageCount, pageSize, sortByConverted.toLowerCase(), sortOrder)).then(() => {
+                setLoaded(true);
+            })
+        });
+    }, [sortBy, sortOrder, maxPages, numberOfBooks]);
 
     useEffect(() => {
         dispatch(fetchCategoryList());
     }, [newCategory]);
 
     useEffect(() => {
-        dispatch(fetchAuthorList());
+        dispatch(fetchAllAuthors());
     }, [newAuthor]);
 
     return (
@@ -127,6 +200,47 @@ const ManageBooksComponent = () => {
             <div className="book-admin-page">
                 <div className="page__header">
                     <h1>Books</h1>
+                    <div className="pagination-container">
+                        <div className="pagination-container__prev-btn">
+                            {
+                                pageCount === 1 ?
+                                    <></>
+                                    :
+                                    <img onClick={goToThePrevPage} src={prevPageIcon} alt="Prev Icon"/>
+                            }
+                        </div>
+                        <div className="pagination_container__page-number">
+                            <p>{pageCount}</p>
+                        </div>
+                        <div className="pagination-container__next-btn">
+                            {
+                                pageCount === maxPages ?
+                                    <></>
+                                    :
+                                    <img onClick={goToTheNextPage} src={nextPageIcon} alt="Next Icon"/>
+                            }
+                        </div>
+                    </div>
+                    <div className="sorting-container">
+                        <div className="sorting-container__sort-by-selector">
+                            <Form.Group>
+                                <Form.Select name="sort-type"
+                                             onChange={e => setSortBy(e.currentTarget.value)}>
+                                    <option disabled={true}>Sorted by: {sortBy}</option>
+                                    {
+                                        sortByTypes.map(sortType =>
+                                            <option key={sortType} value={sortType}>
+                                                Sort by {sortType}
+                                            </option>
+                                        )
+                                    }
+                                </Form.Select>
+                            </Form.Group>
+                        </div>
+                        <div className="sorting-container__sort-arrows">
+                            <img src={sortIcon} alt="Sort Arrows" onClick={switchSortOrder}/>
+                        </div>
+                    </div>
                     <div className="manage-button">
 
 
@@ -174,13 +288,15 @@ const ManageBooksComponent = () => {
                                             <Form.Group>
                                                 <Form.Select name="authors"
                                                              onChange={e => setAuthor(e.currentTarget.value)}>
-                                                    {Array.isArray(authors)
-                                                        ? authors.map(author =>
-                                                            <option key={author.id} value={author.id}>
-                                                                {author.fullName}
-                                                            </option>
-                                                        )
-                                                        : <> </>}
+                                                    {
+                                                        Array.isArray(authors)
+                                                            ? authors.map(author =>
+                                                                <option key={author.id} value={author.id}>
+                                                                    {author.fullName}
+                                                                </option>
+                                                            )
+                                                            : <> </>
+                                                    }
                                                 </Form.Select>
                                             </Form.Group>
                                             <Form.Label></Form.Label>
@@ -299,17 +415,17 @@ const ManageBooksComponent = () => {
                             </OverlayTrigger>
                         </div>
 
-                            <div className="input-group">
-                                <input type="search" className="form-control rounded" placeholder="Search"
-                                       aria-label="Search"
-                                       aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>
-                                <img src={searchIcon} alt="Search Icon" onClick={() => {
-                                    dispatch(searchBooks(criteria)).then(() => {
-                                        console.log(criteria)
-                                        setLoaded(true)
-                                    })
-                                }}/>
-                            </div>
+                        <div className="input-group">
+                            <input type="search" className="form-control rounded" placeholder="Search"
+                                   aria-label="Search"
+                                   aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>
+                            <img src={searchIcon} alt="Search Icon" onClick={() => {
+                                dispatch(searchBooks(criteria)).then(() => {
+                                    console.log(criteria)
+                                    setLoaded(true)
+                                })
+                            }}/>
+                        </div>
 
                     </div>
                 </div>

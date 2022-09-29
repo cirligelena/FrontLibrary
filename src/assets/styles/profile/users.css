@@ -8,9 +8,9 @@ table tbody tr td img {
 }
 
 .users-page {
-    padding-top: 90px;
-    margin-left: 11%;
-    margin-right: 16.3%;
+    padding-top: 75px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .page__header {
@@ -18,20 +18,20 @@ table tbody tr td img {
 }
 
 .page__header .users-page__header__buttons {
-    margin-left: 25%;
+    margin-left:10%;
     display: inline-flex;
 }
 .users-page__header__buttons{
-    padding-top: 10px;
+    padding-top: 20px;
     padding-left: 2px;
     float: right;
-    width: 243px;
+    width: 300px;
     height: 35px;
 }
 
 
 .page__header .input-group {
-    padding: 10px 2% 5px 5%;
+    padding: 10px 2% 5px 1%;
 }
 
 .page__header .input-group img {
