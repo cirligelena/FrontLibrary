@@ -93,13 +93,11 @@ export const deleteBook  = (id) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.DELETE_BOOK + id;
 
     return HttpService.delete(url).then(response => {
-        console.log("Response = " + response);
         return dispatch({
             type: bookActions.DELETE_BOOK,
             payload: response
         });
     });
-
 };
 export const insertBook  = (bookData) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.INSERT_BOOK ;

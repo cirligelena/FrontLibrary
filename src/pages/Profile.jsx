@@ -34,11 +34,12 @@ const ProfilePage = (props) => {
                 loaded ? 
                 <>
                     <NavigationComponent />
+                    <UserLastActionMessageComponent/>
                     <div className="profile-page">
                         <HeaderProfileComponent userFullName = {userFullName} />
                         <ProfileSideMenuComponent rightSideComponent = {props.renderComponent}/>
                     </div>
-                    <UserLastActionMessageComponent/>
+
                 </>
                 : 
                 <>

@@ -45,9 +45,7 @@ export const allBooks = (state = initialState, action) => {
             };
         case bookActions.DELETE_BOOK:
             return {
-                ...state,
-                bookList: action.payload
-
+                ...state
             };
         case bookActions.INSERT_BOOK:
             return {
@@ -58,8 +56,6 @@ export const allBooks = (state = initialState, action) => {
             return {
                 ...state,
                 bookList: action.payload
-
-
             };
         case bookActions.GIVE_BOOK:
             return {

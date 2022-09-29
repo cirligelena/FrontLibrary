@@ -32,11 +32,9 @@ import '../../assets/styles/bookadmin.css';
 const ManageBooksComponent = () => {
     const dispatch = useDispatch();
     const [loaded, setLoaded] = useState(false);
-    const navigate = useNavigate();
 
     /* Search */
     const [criteria, setCriteria] = useState('');
-    const url = "/books/search_result/" + criteria;
 
     /* Create book */
     const newBookData = useSelector(getBookData);
@@ -112,7 +110,7 @@ const ManageBooksComponent = () => {
         const categoryData = {
             "title": categoryTitle
         }
-        console.log(categoryTitle)
+
         dispatch(insertCategory(categoryData)).then(() => {
             setSaved(true)
         });
@@ -126,7 +124,6 @@ const ManageBooksComponent = () => {
             "lastName": lastName,
             "birthDate": birthDate,
             "biography": biography
-
         }
 
         dispatch(insertAuthor(authorData)).then(() => {
@@ -134,7 +131,7 @@ const ManageBooksComponent = () => {
         });
     }
 
-    const insertBookWIthExistingCategoryAndAuthor = (e) => {
+    const insertBook = (e) => {
         e.preventDefault()
 
         const bookData = {
@@ -143,38 +140,30 @@ const ManageBooksComponent = () => {
             "shelfNumber": shelfNumber
         }
 
-        console.log("category" + category)
-        console.log("author" + author)
-
         dispatch(insertBookWithExistingCategoryAndAuthor(bookData, category, author)).then(() => {
             setSaved(true)
+            window.location.reload();
         })
     }
 
     const deleteBookById = (id) => {
-        console.log(id)
         dispatch(deleteBook(id)).then(() => {
             setLoaded(false)
         });
     }
 
     useEffect(() => {
-        setLoaded(false);
-
         let sortByConverted = sortBy;
         if (sortBy.toString() === sortByTypes.at(0).toString()) {
             sortByConverted = "id";
         }
 
         dispatch(getNumberOfBooks()).then(() => {
-
             if (numberOfBooks % pageSize > 0) {
                 setMaxPages(Math.floor(numberOfBooks / pageSize + 1));
             } else {
                 setMaxPages(Math.floor(numberOfBooks / pageSize));
             }
-
-            console.log("Max pages: " + maxPages);
 
             if (numberOfBooks <= pageSize) {
                 setMaxPages(1);
@@ -184,7 +173,7 @@ const ManageBooksComponent = () => {
                 setLoaded(true);
             })
         });
-    }, [sortBy, sortOrder, maxPages, numberOfBooks]);
+    }, [loaded, sortBy, sortOrder, maxPages, numberOfBooks, newBookData, pageSize]);
 
     useEffect(() => {
         dispatch(fetchCategoryList());
@@ -303,7 +292,7 @@ const ManageBooksComponent = () => {
                                             <Form.Group>
 
                                                 <Button className="card-btn100__buttons" type="submit"
-                                                        onClick={insertBookWIthExistingCategoryAndAuthor}>
+                                                        onClick={insertBook}>
                                                     Save
                                                 </Button>
                                             </Form.Group>
@@ -421,7 +410,6 @@ const ManageBooksComponent = () => {
                                    aria-describedby="search-addon" onChange={e => setCriteria(e.target.value)}/>
                             <img src={searchIcon} alt="Search Icon" onClick={() => {
                                 dispatch(searchBooks(criteria)).then(() => {
-                                    console.log(criteria)
                                     setLoaded(true)
                                 })
                             }}/>

@@ -41,13 +41,11 @@ export const deleteUser = (id) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.DELETE_USER + id;
 
     return HttpService.delete(url).then(response => {
-        console.log("Response = " + response);
         return dispatch({
             type: userActions.DELETE_USER,
             payload: response
         });
     });
-
 };
 export const updateUser = (id, userData) => (dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.UPDATE_USER + id;
