@@ -58,7 +58,7 @@ function App() {
 
                             <Route path="/resetPassword/:userId/:email" element={<ResetPasswordComponent />}/>
 
-                            <Route element={<RequireAuth allowedRoles={['USER']}/>}>
+                            <Route element={<RequireAuth allowedRoles={['USER', 'LIBRARIAN', 'ADMIN']}/>}>
                                 <Route exact path="/welcome" element={<WelcomePage/>}/>
                                 <Route path="/profile" element={<ProfilePage renderComponent={<ProfileInfoComponent/>}/>}/>
                                 <Route path="/logout" element={<LogoutComponent/>}/>

@@ -36,20 +36,22 @@ function BookItem(props) {
         })
         console.log(clientInfo.id);
     }
-    const reserveBookForClient = (bookId) => {
+    const reserveBookForClient = (bookId, bookTitle) => {
         dispatch(reserveTheBook(bookId, clientInfo.id)).then(() => {
             setLoaded(false);
             dispatch(setLastUserAction(
-                "Book with id " + bookId + " was reserved for the client with id " + clientInfo.id
+                "Book: " + bookTitle + " was reserved for " + clientInfo.profile.firstName + " "
+                + clientInfo.profile.lastName
             ));
         })
         console.log(bookId);
     }
-    const giveBookToClient = (bookId) => {
+    const giveBookToClient = (bookId, bookTitle) => {
         dispatch(giveTheBook(bookId, clientInfo.id)).then(() => {
             setLoaded(false);
             dispatch(setLastUserAction(
-                "Book with id " + bookId + " was given to the client with id " + clientInfo.id
+                "Book: " + bookTitle + " was given to " + clientInfo.profile.firstName + " "
+                + clientInfo.profile.lastName
             ));
         })
         console.log(bookId);
@@ -191,7 +193,7 @@ function BookItem(props) {
                                 action === "reserve" ?
                                     <>
                                         <button className="card-btn100__buttons" onClick={() => {
-                                            reserveBookForClient(props.id);
+                                            reserveBookForClient(props.id, props.title);
                                             handlePopUp()
                                         }}>Reserve
                                             book
@@ -205,7 +207,7 @@ function BookItem(props) {
                                     :
                                     <>
                                         <button className="card-btn100__buttons" onClick={() => {
-                                            giveBookToClient(props.id);
+                                            giveBookToClient(props.id, props.title);
                                             handlePopUp()
                                         }}>Give
                                             the
