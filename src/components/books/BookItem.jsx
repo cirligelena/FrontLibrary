@@ -6,7 +6,6 @@ import {useNavigate} from "react-router-dom";
 import {Modal} from "react-bootstrap";
 import {searchClientData} from "../../redux/actions/client";
 import {getClientData} from "../../redux/selectors/client";
-import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
 import {setLastUserAction} from "../../redux/actions/login";
 
 
