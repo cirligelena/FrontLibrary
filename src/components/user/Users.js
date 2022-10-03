@@ -37,7 +37,7 @@ const UsersComponent = () => {
 
     /* Create | Update | Delete */
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [role, setRole] = useState('');
+    const [role, setRole] = useState('USER');
     const [emailTakenError, setEmailTakenError] = useState('');
     const [errors, setErrors] = useState({})
     const [loaded, setLoaded] = useState(false)
@@ -150,11 +150,7 @@ const UsersComponent = () => {
             };
 
             dispatch(createUser(userDetails)).then(() => {
-                dispatch(setLastUserAction("New user " + userDetails.profile.firstName
-                    + " " + userDetails.profile.lastName + " was created! A temporary password was sent to " + userDetails.email))
                 setSaved(true)
-                window.location.reload();
-
             })
         }
     }
@@ -334,6 +330,14 @@ const UsersComponent = () => {
                                                     onClick={() => createNewUser()}>
                                                 Save
                                             </button>
+                                            {saved ? (
+                                                newUserData.email ?
+                                                    <div> New
+                                                        user {newUserData.profile.firstName} {newUserData.profile.lastName} was
+                                                        created! A temporary password was sent to {newUserData.email}</div>
+                                                    : <div>An error occurred while saving new user</div>
+                                            ) : <div></div>
+                                            }
                                         </div>
                                     </Popover.Body>
                                 </Popover>

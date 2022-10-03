@@ -31,8 +31,13 @@ const ChangePasswordNotification = ({children}) => {
     const handleOnChangeValidating = () => {
         setErrors((validatePassword({password, confirmedPassword})));
     }
+    useEffect(() => {
+        handleOnChangeValidating();
+    }, [password, confirmedPassword])
+
     const changeTemporaryPassword = () => {
         const newUserData = {
+            'email' : userInfo.email,
             'password': password
         };
         dispatch(changePassword(userInfo.id, newUserData))

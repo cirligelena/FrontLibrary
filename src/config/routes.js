@@ -38,4 +38,5 @@ export const routes = {
     INSERT_BOOK_WITH_EXISTING_CATEGORY_AND_DATA: "book/addBookWithExistingCategoryAndAuthor",
     INSERT_AUTHOR: "author/create",
     INSERT_CATEGORY: "category/create",
+
 }
