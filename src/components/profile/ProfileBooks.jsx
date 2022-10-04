@@ -24,7 +24,7 @@ const ProfileBooksComponent = () => {
                         authors.map(result => {
                             return (
                                 <div key={result.id}>
-                                    <td>{result.firstName} {result.lastName}</td>
+                                    <div>{result.firstName} {result.lastName}</div>
                                 </div>
                             )
 
@@ -45,7 +45,7 @@ const ProfileBooksComponent = () => {
                         categories.map(result => {
                             return (
                                 <div key={result.id}>
-                                    <td>{result.title}</td>
+                                    <div>{result.title}</div>
                                 </div>
                             )
                         })
@@ -70,7 +70,7 @@ const ProfileBooksComponent = () => {
                     <div className="my-books-page">
                         {
                             Array.isArray(books) && books.length >= 1 ?
-                                <>
+
                                     <Table>
                                         <thead>
                                         <tr>
@@ -96,7 +96,7 @@ const ProfileBooksComponent = () => {
                                             )
                                         })}
                                     </Table>
-                                </>
+
                                 :
                                 <>
                                     <div className="no-books-error-message">
