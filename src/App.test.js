@@ -1,5 +1,5 @@
 import NavigationComponent from "./components/navigation/Navigation";
-import {getByLabelText, render as rtlRender, screen, waitFor} from "@testing-library/react";
+import {render as rtlRender, screen} from "@testing-library/react";
 import {store} from "./store";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
@@ -23,7 +23,7 @@ test('Matches Navigation Snapshot', async () => {
 })
 
 test('Home is in the Nav component', async () => {
-    const {baseElement, getByText} = render(<NavigationComponent/>);
+    render(<NavigationComponent/>);
     expect(screen.getByText(/home/i)).toBeInTheDocument()
 })
 
