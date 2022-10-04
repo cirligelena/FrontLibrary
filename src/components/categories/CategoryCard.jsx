@@ -9,6 +9,7 @@ function CategoryCard(props) {
             <div className="card__name">
                 <h3>{props.title}</h3>
             </div>
+            <div className="card-body"></div>
             <div className="card__card-footer">
                 <div className="card-footer__buttons">
                     <Link to={url}> Go to Books</Link>

@@ -1,8 +1,6 @@
 import BookItem from "./BookItem";
 import React from "react";
 import NoItemsFoundErrorComponent from "../errors/NoItemsFoundError";
-import {Col, Container, Row} from "react-bootstrap";
-
 
 function BookList(props) {
     return (

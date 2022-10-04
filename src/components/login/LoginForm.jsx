@@ -27,7 +27,6 @@ const LoginFormComponent = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-
         setLoaded(true);
         verifyError();
         const userData = {
@@ -83,7 +82,7 @@ const LoginFormComponent = () => {
                             <></>
                     }
                     <div className="login-form__login-btn">
-                        <button type="submit">
+                        <button type="submit" >
                             {
                                 loaded ?
                                     <ClipLoader
