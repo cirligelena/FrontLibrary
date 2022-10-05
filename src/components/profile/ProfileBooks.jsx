@@ -27,7 +27,6 @@ const ProfileBooksComponent = () => {
                                     <div>{result.firstName} {result.lastName}</div>
                                 </div>
                             )
-
                         })
                         :
                         <></>
