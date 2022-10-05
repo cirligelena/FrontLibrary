@@ -25,43 +25,44 @@ const HistoryComponent = () => {
         <div className="history-page">
             {
                 Array.isArray(history) && history.length >= 1 ?
-                    <>
-                        <Table>
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                history.map((action) => {
-                                    return (
-                                        <tr>
-                                            <td>{new Intl.DateTimeFormat('en-US', {
-                                                year: 'numeric',
-                                                month: '2-digit',
-                                                day: '2-digit'
-                                            }).format(action.date)}</td>
-                                            <td>{action.actionName}</td>
-                                        </tr>
-                                    );
-                                })
-                            }
-                            </tbody>
-                        </Table>
-                    </>
+
+                    <Table>
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+
+                        {
+                            history.map((action) => {
+                                return (<tbody key={action}>
+                                    <tr>
+                                        <td>{new Intl.DateTimeFormat('en-US', {
+                                            year: 'numeric',
+                                            month: '2-digit',
+                                            day: '2-digit'
+                                        }).format(action.date)}</td>
+                                        <td>{action.actionName}</td>
+                                    </tr>
+                                    </tbody>
+                                );
+                            })
+                        }
+
+                    </Table>
+
                     :
-                    <>
-                        <div className="no-history-error-message">
-                            <h3>You have no history for now</h3>
-                            <p>Do some activity to take new actions in your history<br/>
-                                <small>If you know you have a activity and it is not visible here, contact the
-                                    librarian
-                                </small>
-                            </p>
-                        </div>
-                    </>
+
+                    <div className="no-history-error-message">
+                        <h3>You have no history for now</h3>
+                        <p>Do some activity to take new actions in your history<br/>
+                            <small>If you know you have a activity and it is not visible here, contact the
+                                librarian
+                            </small>
+                        </p>
+                    </div>
+
             }
         </div>
     );
