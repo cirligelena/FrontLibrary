@@ -11,7 +11,7 @@ const ForgotPasswordComponent = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const userInfo = useSelector(getForgotPasswordUserData);
-    const [loaded, setLoaded] = useState(false);
+
 
     const dispatch = useDispatch();
 
@@ -19,25 +19,24 @@ const ForgotPasswordComponent = () => {
         event.preventDefault();
         verifyError();
 
-        dispatch(forgotPassword(email)).then(() => {
-            setTimeout(() => {
-                verifyError();
-                setLoaded(true);
-            }, 1000);
-        })
+        dispatch(forgotPassword(email))
     }
 
     const verifyError = () => {
-        if (userInfo === 403 || !userInfo) {
+        if (userInfo === 403 ) {
             setMessage("No user with this email!");
-        } else if (userInfo.email) {
+        } else if (userInfo.email === email) {
             setMessage("Email sent to " + email + "!");
+        }
+
+        if(!userInfo){
+            setMessage("");
         }
     }
 
     useEffect(() => {
         verifyError();
-    }, [loaded])
+    }, [userInfo])
 
 
     return (<div className="page">
@@ -58,10 +57,10 @@ const ForgotPasswordComponent = () => {
             <Form.Control type="text" placeholder="email"
                           onChange={event => setEmail(event.target.value)}/>
         </Form.Group>
-        {loaded ? <div className="error-message">
+        <div className="error-message">
                 <p>{message}</p>
-            </div>
-            : <></>}
+        </div>
+
         <div className="login-form__login-btn">
             <button type="button" onClick={handleSubmit}>
                 Send link
