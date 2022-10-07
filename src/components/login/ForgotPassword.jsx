@@ -1,49 +1,42 @@
 import Form from "react-bootstrap/Form";
-
-
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {forgotPassword, loginUser} from "../../redux/actions/login";
 import React from "react";
 import passwordIcon from "../../assets/images/icons/profile/password.svg";
-import {getUserData} from "../../redux/selectors/login";
-import {useNavigate} from "react-router-dom";
-import {searchClientData} from "../../redux/actions/client";
+import {getForgotPasswordUserData} from "../../redux/selectors/login";
 
 const ForgotPasswordComponent = () => {
 
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-    const userInfo = useSelector(getUserData);
-    const [loaded, setLoaded] = useState(false);
+    const userInfo = useSelector(getForgotPasswordUserData);
+
 
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        //console.log(email)
-
         verifyError();
 
-        dispatch(forgotPassword(email)).then(() => {
-            setTimeout(() => {
-                verifyError();
-                setLoaded(true);
-            }, 1000);
-        })
+        dispatch(forgotPassword(email))
     }
 
     const verifyError = () => {
-        if (userInfo === 403) {
+        if (userInfo === 403 ) {
             setMessage("No user with this email!");
-        } else if (userInfo.email) {
+        } else if (userInfo.email === email) {
             setMessage("Email sent to " + email + "!");
+        }
+
+        if(!userInfo){
+            setMessage("");
         }
     }
 
     useEffect(() => {
         verifyError();
-    }, [loaded])
+    }, [userInfo])
 
 
     return (<div className="page">
@@ -64,10 +57,10 @@ const ForgotPasswordComponent = () => {
             <Form.Control type="text" placeholder="email"
                           onChange={event => setEmail(event.target.value)}/>
         </Form.Group>
-        {loaded ? <div className="error-message">
+        <div className="error-message">
                 <p>{message}</p>
-            </div>
-            : <></>}
+        </div>
+
         <div className="login-form__login-btn">
             <button type="button" onClick={handleSubmit}>
                 Send link
