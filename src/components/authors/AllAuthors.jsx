@@ -76,7 +76,7 @@ const AllAuthorsComponent = () => {
     }
 
     useEffect(() => {
-        setLoaded(false);
+       // setLoaded(false);
 
         let sortByConverted = sortBy;
         if (sortBy.toString() === sortByTypes.at(0).toString()) {
@@ -144,7 +144,6 @@ const AllAuthorsComponent = () => {
                                         <Form.Group>
                                             <Form.Select name="sort-type"
                                                          onChange={e => setSortBy(e.currentTarget.value)}>
-                                                <option disabled={true}>Sorted by: {sortBy}</option>
                                                 {
                                                     sortByTypes.map(sortType =>
                                                         <option key={sortType} value={sortType}>

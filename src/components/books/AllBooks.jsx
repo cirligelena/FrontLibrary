@@ -6,17 +6,14 @@ import BookList from "./BookList";
 import {PulseLoader} from "react-spinners";
 import {useNavigate} from "react-router-dom";
 import NavigationComponent from "../navigation/Navigation";
-
 import searchIcon from '../../assets/images/icons/profile/search.svg';
 import sortIcon from '../../assets/images/icons/sorting-arrows.svg';
 import nextPageIcon from '../../assets/images/icons/arrow-right-circle.svg';
 import prevPageIcon from '../../assets/images/icons/arrow-left-circle.svg';
-
 import '../../assets/styles/allbooks.css';
 import '../../assets/styles/pagination-sorting.css';
 import Form from "react-bootstrap/Form";
 import UserLastActionMessageComponent from "../useraction/UserLastActionMessage";
-
 
 const AllBooksComponent = () => {
     const dispatch = useDispatch();
@@ -75,8 +72,6 @@ const AllBooksComponent = () => {
     }
 
     useEffect(() => {
-        setLoaded(false);
-
         let sortByConverted = sortBy;
         if (sortBy.toString() === sortByTypes.at(0).toString()) {
             sortByConverted = "id";
@@ -138,7 +133,6 @@ const AllBooksComponent = () => {
                                         <Form.Group>
                                             <Form.Select name="sort-type"
                                                          onChange={e => setSortBy(e.currentTarget.value)}>
-                                                <option disabled={true}>Sorted by: {sortBy}</option>
                                                 {
                                                     sortByTypes.map(sortType =>
                                                         <option key={sortType} value={sortType}>

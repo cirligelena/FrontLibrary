@@ -3,6 +3,7 @@ import {emailConfirmationActions} from "../actions/emailConfirmation";
 
 
 const initialState = {
+    forgotPasswordUserData :{},
     userData: {},
     tokenValid: true,
     lastUserAction: '',
@@ -57,8 +58,7 @@ export const login = (state = initialState, action) => {
         case loginActions.FORGOT_PASSWORD:
             return {
                 ...state,
-                userData: action.payload,
-
+                forgotPasswordUserData: action.payload,
             };
         case loginActions.SET_LAST_USER_ACTION:
             return {

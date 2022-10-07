@@ -1,28 +1,22 @@
 import Form from "react-bootstrap/Form";
-
-
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {forgotPassword, loginUser} from "../../redux/actions/login";
 import React from "react";
 import passwordIcon from "../../assets/images/icons/profile/password.svg";
-import {getUserData} from "../../redux/selectors/login";
-import {useNavigate} from "react-router-dom";
-import {searchClientData} from "../../redux/actions/client";
+import {getForgotPasswordUserData} from "../../redux/selectors/login";
 
 const ForgotPasswordComponent = () => {
 
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-    const userInfo = useSelector(getUserData);
+    const userInfo = useSelector(getForgotPasswordUserData);
     const [loaded, setLoaded] = useState(false);
 
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        //console.log(email)
-
         verifyError();
 
         dispatch(forgotPassword(email)).then(() => {
@@ -34,7 +28,7 @@ const ForgotPasswordComponent = () => {
     }
 
     const verifyError = () => {
-        if (userInfo === 403) {
+        if (userInfo === 403 || !userInfo) {
             setMessage("No user with this email!");
         } else if (userInfo.email) {
             setMessage("Email sent to " + email + "!");

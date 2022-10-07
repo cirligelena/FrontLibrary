@@ -26,7 +26,6 @@ import BooksByCriteriaComponent from "./components/books/BooksByCriteria";
 import ManageBooksComponent from "./components/books/BookAdminTable";
 import ProfileInfoComponent from "./components/profile/ProfileInfo";
 import WelcomePage from "./pages/Welcome";
-
 import ResetPasswordComponent from "./components/login/ResetPassword";
 import ForgotPasswordComponent from "./components/login/ForgotPassword";
 import EmailConfirmationPage from "./pages/EmailConfirmation";
