@@ -78,7 +78,6 @@ const AllBooksComponent = () => {
         }
 
         dispatch(getNumberOfBooks()).then(() => {
-
             if (numberOfBooks % pageSize > 0) {
                 setMaxPages(Math.floor(numberOfBooks / pageSize + 1));
             } else {

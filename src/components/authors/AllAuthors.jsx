@@ -76,8 +76,6 @@ const AllAuthorsComponent = () => {
     }
 
     useEffect(() => {
-       // setLoaded(false);
-
         let sortByConverted = sortBy;
         if (sortBy.toString() === sortByTypes.at(0).toString()) {
             sortByConverted = "id";
